@@ -75,7 +75,7 @@ body {
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="register.html">Registrarme!</a>
+                    <a class="small" href="register.php">Registrarme!</a>
                   </div>
                 </div>
               </div>

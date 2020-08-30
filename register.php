@@ -101,6 +101,10 @@ body {
 
 		color: grey;
 	}
+  .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #1cc88a;
+    color: #fff;
+  }
 </style>
 <!-- FUNCIONES -->
 <script>

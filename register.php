@@ -229,7 +229,7 @@ body {
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
-      <div class="card w-75 black-text" style="margin-top:6%;">
+      <div class="card w-75 black-text" style="margin-top:6%;padding-bottom: 2%;">
         <div class="card-body" id="body_form" name="body_form">
           <div id="form_estudiante" name="form_estudiante" style="display:none;">
             <a href="javascript:void(0);" class="btn btn-success" style="float:left;" onclick="formAtWelcome();">Volver</a>
@@ -263,6 +263,7 @@ body {
             </form>
           </div>
           <div id="form_bienvenida" class="text-center">
+            <a href="index.php" class="btn btn-warning" style="float:left;">Volver</a><br>
             <h5 class="card-title">Bienvenido al formulario de registro</h5>
             <p class="card-text">Para llevar a cabo tu registro dejanos saber que eres!!</p><br>
             <center><table>

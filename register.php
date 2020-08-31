@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="utf-8">
@@ -8,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
 
   <title>UEB Registro</title>
 
@@ -110,6 +108,7 @@ body {
     color: #fff;
   }
 </style>
+
 <!-- FUNCIONES -->
 <script>
   window.onload=function(){
@@ -296,6 +295,7 @@ body {
   }
 
 </script>
+
 <body>
 
   <div class="container">

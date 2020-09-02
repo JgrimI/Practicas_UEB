@@ -22,43 +22,40 @@
 
 
 <script>
+   window.onload=function(){
+    dropify = $('.dropify').dropify({
+      messages: {
+        'default': 'Arrastra el archivo o haz click aqui',
+        'replace': 'Arrastra o clikea para remplazar',
+        'remove':  'Quitar',
+        'error':   'Ooops, algo a salido mal.'
+    }
+    });
+    getCompanies();
+  };
 
- function regCompany(){
-    if(verifyPassCp()){
-      $.ajax({
+function getCompanies(){
+    $.ajax({
         type: "POST",
-        url: "ws/registerCompany.php",
-        data:new FormData($('#f_emp')[0]),
-        cache: false,
-        contentType: false,
-        processData: false,
+        url: "ws/getCompanies.php",
         success: function (data) {
-            console.log(data);
             data = JSON.parse(data);
             if (data["status"] == 1) {
-              $('.dropify-clear').click();
-              Swal.fire(
-                  'Bien hecho!',
-                  'Se han enviado a tu correo las credenciales, activa tu cuenta y disfruta de la plataforma!!!',
-                  'success'
-                ).then(function(){
-                  window.location='index.php';
-                })
-            }else{
-              if(data['error']=1062){
-                Swal.fire(
-                  'Error!',
-                  'Ya se encuentra registrado en la plataforma!!!',
-                  'error'
-                )
-              }
+                data = data["companies"];
+                let list = '<thead><tr><th>Logo</th><th>NIT</th><th>Razón social</th><th>Correo</th><th>Descripción</th><th>Numero de ingresos</th><th>Estado</th><th>cc_empresa</th><th>Opciones</th></tr></thead><tbody>'
+                        
+                for(let i in data){
+                    list += '<tr><td>'+data[i]["logo"]+'</td><td>'+data[i]["NIT"]+'</td><td>'+data[i]["nombre"]+'</td><td>'+data[i]["correo_empresa"]+'</td><td>'+data[i]["descripcion_empresa"]+'</td><td>'+data[i]["estado"]+'</td><td>'+data[i]["num_ingresos"]+'</td><td>'+data[i]["cc_empresa"]+'</td></tr></tbody>'
+                }
+                $('#company').select2({ width: '100%' });
+                $('#company').html(list);
             }
         },
         error: function (data) {
             console.log(data);
         },
-    });
-    }
+    })
+    return data;
   }
 
 </script>
@@ -259,62 +256,9 @@
                   <p class="grid-header">Empresas</p>
                   <div class="item-wrapper">
                     <div class="table-responsive">
-                      <table class="table info-table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Logo</th>                            
-                            <th>NIT</th>
-                            <th>Razón social</th>
-                            <th>Correo</th>
-                            <th>Descripción</th>
-                            <th>Numero de ingresos</th>
-                            <th>Estado</th>
-                            <th>cc_empresa</th>
-                            <th>Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Messsy</td>
-                            <td>53275532</td>
-                            <td>15 May 2017</td>
-                            <td>
-                              <label class="badge badge-warning">In progress</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>John</td>
-                            <td>53275533</td>
-                            <td>14 May 2017</td>
-                            <td>
-                              <label class="badge badge-info">Fixed</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Peter</td>
-                            <td>53275534</td>
-                            <td>16 May 2017</td>
-                            <td>
-                              <label class="badge badge-success">Completed</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Dave</td>
-                            <td>53275535</td>
-                            <td>20 May 2017</td>
-                            <td>
-                              <label class="badge badge-warning">In progress</label>
-                            </td>
-                          </tr>
-                        </tbody>
+                      <table class="table info-table table-striped" id=company name=company>
+                       
+                        
                       </table>
                     </div>
                   </div>
@@ -350,6 +294,6 @@
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
     <script src="assets/js/template.js"></script>
-    <!-- endbuild -->
+    <!--  -->
   </body>
 </html>

@@ -257,7 +257,29 @@ function getCompanies(){
                   <div class="item-wrapper">
                     <div class="table-responsive">
                       <table class="table info-table table-striped" id=company name=company>
-                       
+                        <thead>
+                          <tr>
+                            <th>Logo</th>                            
+                            <th>NIT</th>
+                            <th>Razón social</th>
+                            <th>Correo</th>
+                            <th>Descripción</th>
+                            <th>Numero de ingresos</th>
+                            <th>Estado</th>
+                            <th>cc_empresa</th>
+                            <th>Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>data</td>
+                            <td>53275531</td>
+                            <td>12 May 2017</td>
+                            <td>
+                              <label class="badge badge-danger">Pending</label>
+                            </td>
+                          </tr>                       
+                        </tbody>
                         
                       </table>
                     </div>

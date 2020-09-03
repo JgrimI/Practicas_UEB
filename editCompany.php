@@ -4,6 +4,9 @@ session_start();
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
+
+$nit = $_GET['NIT'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +46,7 @@ if (!isset($_SESSION['redirect'])) {
 </style>
 <script>
    window.onload=function(){
-    
+    alert("envontro"); 
     getCompanies();
 
   };
@@ -57,29 +60,21 @@ if (!isset($_SESSION['redirect'])) {
         data = JSON.parse(data);    
             if (data["status"] == 1) {
                 data = data["companies"];
-                var html = '';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                  if(data[i]["estado"]=="RECHAZADO"){
-                    var estado = 'badge badge-danger';
-                  }else if(data[i]["estado"]=="APROBADO"){
-                    estado='badge badge-success';
-                  }else{
-                    estado='badge badge-info';
+                var i=0;
+                var nombre;
+                var econtro = false;
+                while(econtro==false && i<=data.length){
+                  if(data[i]["NIT"]==<?php $NIT ?>){
+                  encontro=true; 
+                  alert("envontro");               
                   }
-                html += '<tr>' +
-             '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
-             '<td>' + data[i]["NIT"] + '</td>' +
-             '<td>' + data[i]["nombre"] + '</td>' +
-             '<td>' + data[i]["correo_empresa"] + '</td>' +
-             '<td>' + data[i]["descripcion_empresa"] + '</td>' +
-             '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
-             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-             '<td><a href="editCompany.php">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
-             '</tr>';
+                  i++;
+                }                
+                var html = '';
+                               
+                html ='hola';
 
-           }
+        
           $('#company').html(html);
           
             }
@@ -232,30 +227,37 @@ if (!isset($_SESSION['redirect'])) {
               <div class="col-lg-27">
                 <div class="grid">
                   <p class="grid-header">Editar empresa de Empresas</p>
-                  <div class="item-wrapper">
-                    <div class="table-responsive">
-                      <table class="table info-table table-striped" >
-                        <thead>
-                          <tr>
-                            <th>Logo</th>                            
-                            <th>NIT</th>
-                            <th>Razón social</th>
-                            <th>Correo</th>
-                            <th>Descripción</th>
-                            <th>Numero de ingresos</th>
-                            <th>Estado</th>
-                            <th>cc_empresa</th>
-                            <th>Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="company" >
-                                   
-                        </tbody>
-                        
-                      </table>
-                    </div> 
+                   <div class="grid-body">
+                    <div class="item-wrapper">
+                      <form>
+                        <div class="form-group row showcase_row_area">
+                          <div class="col-md-3 showcase_text_area">
+                            <label for="inputEmail10">Name</label>
+                          </div>
+                          <div class="col-md-9 showcase_content_area">
+                            <input type="text" class="form-control" id="inputEmail10" value ="<?php $NIT=$_GET['NIT']?>">
+                          </div>
+                        </div>
+                        <div class="form-group row showcase_row_area">
+                          <div class="col-md-3 showcase_text_area">
+                            <label for="inputEmail4">Email</label>
+                          </div>
+                          <div class="col-md-9 showcase_content_area">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email">
+                          </div>
+                        </div>
+                        <div class="form-group row showcase_row_area">
+                          <div class="col-md-3 showcase_text_area">
+                            <label for="inputEmail5">Password</label>
+                          </div>
+                          <div class="col-md-9 showcase_content_area">
+                            <input type="password" class="form-control" id="inputEmail5" placeholder="Enter your password">
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary">Sign in</button>
+                      </form>
+                    </div>
                   </div>
-                </div>
               </div>             
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->

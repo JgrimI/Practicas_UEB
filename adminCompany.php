@@ -76,10 +76,10 @@ if (!isset($_SESSION['redirect'])) {
              '<td>' + data[i]["num_ingresos"] + '</td>' +
              '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
              '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-             '<td><a href="editCompany.php">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
+             '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
              '</tr>';
-
            }
+
           $('#company').html(html);
           
             }

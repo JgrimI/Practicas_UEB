@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include_once('config.php');
 if (isset($_SESSION['redirect'])) {
     header('Location: '.$_SESSION['redirect']);
 }
@@ -61,7 +61,59 @@ body {
   background-color: rgba(255,255,255,0.6);
 }
 </style>
-
+<script>
+function checkGmail(value){
+        $.ajax({
+            type: "POST",
+            url: "ws/checkCredentialsGmail.php",
+            data: {
+                'username': value
+            },
+            success: function (data) {
+                console.log(data);
+                data = JSON.parse(data);
+                console.log(data);
+                if (data["status"]) {
+                  Swal.fire(
+                    data['comment'],
+                    '',
+                    'success'
+                  ).then(function(){
+                    window.location = data['redirect'];
+                  });
+                } else {
+                  Swal.fire(
+                    data['comment'],
+                    '',
+                    'error'
+                  ).then(function(){
+                    window.location = data['redirect'];
+                  });               
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        })
+    }
+</script>
+<?php
+$url_google='';
+if(isset($_GET['code'])){
+  $token = $google_client->fetchAccessTokenWithAuthCode($_GET['code']);
+  if(!isset($token['error'])){
+      $google_client->setAccessToken($token['access_token']);
+      $_SESSION['access_token'] = $token['access_token'];
+      $google_service= new Google_Service_Oauth2($google_client);
+      $data= $google_service->userinfo->get();
+      echo '<script>checkGmail("'.$data['email'].'");</script>';
+  }else{
+      echo '<script>console.log("'.$token['error'].'");</script>';
+  }
+}else{
+  $url_google = $google_client->createAuthUrl();
+}
+?>
 <body>
 
   <div class="container">
@@ -93,7 +145,7 @@ body {
                       Iniciar Sesión
                     </button>
                     <hr>
-                    <a href="index.html" class="btn btn-google btn-user btn-block">
+                    <a href="<?php echo $url_google;?>" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Iniciar Sesión con Google
                     </a>
                   </form>

@@ -6,15 +6,27 @@ error_reporting(E_ALL);
 
 date_default_timezone_set("America/Bogota");
 
-$id = $_POST["codigo"];
+$username = $_POST["username"];
+$password = $_POST["password"];
+$fecha = date('Y-m-d');
+$response = [];
 
-$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre, e.cod_HV from ESTUDIANTE e, PROGRAMA p where e.cod_estudiante = $id  and e.cod_programa = p.cod_programa";
+$query = "SELECT cod_estudante, estado from ESTUDIANTE";
+
+$r=$mysqli->query($query);
+$respuesta=0;
+
+if($row=$r-> fetch_assoc()){
+    $respuesta=$row["isLogged"];
+}
+
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$cod_hv);
+$stmt -> bind_result($cod,$nom);
 
+$rta="";
+$programs=array();
 while($stmt -> fetch()) {
-    session_start();
     $aux=1;
     $_SESSION['id']=$id;
     $_SESSION['nombre']=$nombre;
@@ -29,15 +41,26 @@ while($stmt -> fetch()) {
         'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
         'redirect' =>'studentHome.php',
         'status' => true
+    $program=array(
+        "cod_programa"=>$cod,
+        "nom_programa"=>$nom
     );
+    array_push($programs,$program);
 }
-$stmt->close();
-if($aux==0){
+$response=array();
+if(count($programs)>0){
     $response = array(
-        'comment' => 'No se encuentran registradas las credenciales en el sistema',
-        'status' => false
+        'programs' => $programs,
+        'status' => 1
+    );
+}else{
+    $response = array(
+        'html' => "error",
+        'status' => 0
     );
 }
+
+$stmt->close();
 echo json_encode($response);
 
 ?>

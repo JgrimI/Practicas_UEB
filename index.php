@@ -211,7 +211,6 @@ if(isset($_GET['code'])){
     });
   </script>
 
-
 <script>
   function activar(id) {
     $.ajax({
@@ -305,7 +304,6 @@ if(isset($_GET['code'])){
         
     }
   ?>
-
 
 
 </body>

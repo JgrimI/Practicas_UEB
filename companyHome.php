@@ -214,7 +214,7 @@ if (!isset($_SESSION['redirect'])) {
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
-          
+                         
         </ul>
       </div>
       <!-- partial -->

@@ -60,6 +60,13 @@ if (!isset($_SESSION['redirect'])) {
                 var html = '';
                 var i;
                 for (i = 0; i < data.length; i++) {
+                  if(data[i]["estado"]=="RECHAZADO"){
+                    var estado = 'badge badge-danger';
+                  }else if(data[i]["estado"]=="APROBADO"){
+                    estado='badge badge-success';
+                  }else{
+                    estado='badge badge-warning';
+                  }
                 html += '<tr>' +
              '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
              '<td>' + data[i]["NIT"] + '</td>' +
@@ -67,9 +74,9 @@ if (!isset($_SESSION['redirect'])) {
              '<td>' + data[i]["correo_empresa"] + '</td>' +
              '<td>' + data[i]["descripcion_empresa"] + '</td>' +
              '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td>' + data[i]["estado"] + '</td>' +
-             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '">documento</a></td>' +
-             '<td><a href="">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
+             '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
+             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
+             '<td><a href="editCompany.php">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
              '</tr>';
 
            }

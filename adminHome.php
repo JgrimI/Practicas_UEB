@@ -48,9 +48,6 @@ if (!isset($_SESSION['redirect'])) {
 
   };
 
-
- 
-
 </script>
 
   <body class="header-fixed">
@@ -142,7 +139,7 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_7.png" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
@@ -151,20 +148,20 @@ if (!isset($_SESSION['redirect'])) {
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
           <li>
-            <a href="empresa.php">
+            <a href="adminHome.php">
               <span class="link-title">Estadisticas</span>
               <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
           
           <li>
-            <a href="../icons/material-icons.html">
+            <a href="companyHome.php">
               <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="../icons/material-icons.html">
+            <a href="studentHome.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>

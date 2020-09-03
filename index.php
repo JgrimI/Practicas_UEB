@@ -116,20 +116,7 @@ if(isset($_GET['code'])){
 }
 ?>
 <body>
-<script>
 
-    function mensaje() {
-      
-        swal.fire({
-                title: "Felicitaciones!",
-                text: "Su cuenta ha sido activada",
-                icon: "success",
-            }
-        ).then(function() {
-								window.location = "confirmMail.php";
-							});
-    }
-</script>
   <div class="container">
 
     <!-- Outer Row -->
@@ -223,7 +210,14 @@ if(isset($_GET['code'])){
             console.log(data);
             data = JSON.parse(data);
             if (data["status"]) {
-                mensaje();
+              Swal.fire({
+                title: "Felicitaciones!",
+                text: "Su cuenta ha sido activada",
+                icon: "success"
+              }
+              ).then(function() {
+                  window.location = "confirmMail.php";
+              });
             } else {
                 $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +

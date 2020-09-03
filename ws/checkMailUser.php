@@ -6,27 +6,18 @@ error_reporting(E_ALL);
 
 date_default_timezone_set("America/Bogota");
 
-$username = $_POST["username"];
-$password = $_POST["password"];
-$fecha = date('Y-m-d');
-$response = [];
+$id = $_POST["codigo"];
 
-$query = "SELECT cod_estudante, estado from ESTUDIANTE";
-
-$r=$mysqli->query($query);
-$respuesta=0;
-
-if($row=$r-> fetch_assoc()){
-    $respuesta=$row["isLogged"];
-}
-
+$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre,e.estado, e.cod_HV from ESTUDIANTE e, PROGRAMA p where e.cod_estudiante = $id  and e.cod_programa = p.cod_programa";
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($cod,$nom);
+$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$estado,$cod_hv);
 
-$rta="";
-$programs=array();
-while($stmt -> fetch()) {
+$aux=0;
+$response = [];
+
+while ($stmt -> fetch()) {
+    session_start();
     $aux=1;
     $_SESSION['id']=$id;
     $_SESSION['nombre']=$nombre;
@@ -34,30 +25,25 @@ while($stmt -> fetch()) {
     $_SESSION['numero_solicitudes']=$numero_solicitudes;
     $_SESSION['programa']=$programa;
     $_SESSION['semestre']=$semestre;
+    $_SESSION['estado']=$estado;
     $_SESSION['cod_hv']=$cod_hv;
     $_SESSION['redirect']='studentHome.php';
-    $primer_nombre=explode(' ',$nombre);
+
+    $primer_nombre=explode(' ', $nombre);
     $response = array(
-        'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
-        'redirect' =>'studentHome.php',
-        'status' => true
-    );
-    array_push($programs,$program);
-}
-$response=array();
-if(count($programs)>0){
-    $response = array(
-        'programs' => $programs,
-        'status' => 1
-    );
-}else{
-    $response = array(
-        'html' => "error",
-        'status' => 0
+    'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
+    'status' => true
     );
 }
 
 $stmt->close();
+if($aux==0){
+    $response = array(
+        'html' => "error",
+        'comment' => 'No se encuentran registradas las credenciales en el sistema',
+        'status' => false
+    );
+}
 echo json_encode($response);
 
 ?>

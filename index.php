@@ -197,6 +197,66 @@ if(isset($_GET['code'])){
     });
   </script>
 
+<script>
+    function mensaje() {
+
+        swal({
+                title: "Felicitaciones!",
+                text: "Su cuenta ha sido activada",
+                type: "success",
+            }
+        ).then(function() {
+								window.location = "studentHome.php";
+							});
+    }
+</script>
+
+  <?php
+    if (isset($_GET['i'])) {
+        $cod = base64_decode($_GET['i']);
+        $sql = "UPDATE ESTUDIANTE set estado= 'ACTIVADO' where cod_estudiante = ".$cod;
+        if (!$mysqli->query($sql)) {
+            echo "<script>
+                    alert('No se ha podido activar su cuenta')
+                    window.location.replace('index.php');
+                    </script>  ";
+        } else {
+            echo "<script>
+            activar(".$cod.");
+            </script>  ";
+        }
+    }
+   
+  ?>
+
+  <script>
+  function activar(id) {
+    $.ajax({
+        type: "POST",
+        url: "ws/checkMailUser.php",
+        data: { 
+            'codigo': id,
+        },
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"]) {
+                mensaje();
+            } else {
+                $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</div>');
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    })
+  }
+</script>
+
 </body>
 
 </html>

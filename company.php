@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,39 +24,43 @@
 
 <script>
    window.onload=function(){
-    dropify = $('.dropify').dropify({
-      messages: {
-        'default': 'Arrastra el archivo o haz click aqui',
-        'replace': 'Arrastra o clikea para remplazar',
-        'remove':  'Quitar',
-        'error':   'Ooops, algo a salido mal.'
-    }
-    });
+    
     getCompanies();
+
   };
 
-function getCompanies(){
+
+  function getCompanies(){
     $.ajax({
         type: "POST",
         url: "ws/getCompanies.php",
-        success: function (data) {
-            data = JSON.parse(data);
+        success: function (data) {    
+        data = JSON.parse(data);    
             if (data["status"] == 1) {
                 data = data["companies"];
-                let list = '<thead><tr><th>Logo</th><th>NIT</th><th>Razón social</th><th>Correo</th><th>Descripción</th><th>Numero de ingresos</th><th>Estado</th><th>cc_empresa</th><th>Opciones</th></tr></thead><tbody>'
-                        
-                for(let i in data){
-                    list += '<tr><td>'+data[i]["logo"]+'</td><td>'+data[i]["NIT"]+'</td><td>'+data[i]["nombre"]+'</td><td>'+data[i]["correo_empresa"]+'</td><td>'+data[i]["descripcion_empresa"]+'</td><td>'+data[i]["estado"]+'</td><td>'+data[i]["num_ingresos"]+'</td><td>'+data[i]["cc_empresa"]+'</td></tr></tbody>'
-                }
-                $('#company').select2({ width: '100%' });
-                $('#company').html(list);
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                html += '<tr>' +
+             '<td>' + data[i]["logo"] + '</td>' +
+             '<td>' + data[i]["NIT"] + '</td>' +
+             '<td>' + data[i]["nombre"] + '</td>' +
+             '<td>' + data[i]["correo_empresa"] + '</td>' +
+             '<td>' + data[i]["descripcion_empresa"] + '</td>' +
+             '<td>' + data[i]["estado"] + '</td>' +
+             '<td>' + data[i]["num_ingresos"] + '</td>' +
+             '<td>' + data[i]["cc_empresa"] + '</td>' +
+             '</tr>';
+
+           }
+          $('#company').html(html);
+          
             }
         },
         error: function (data) {
             console.log(data);
         },
     })
-    return data;
   }
 
 </script>
@@ -256,7 +261,7 @@ function getCompanies(){
                   <p class="grid-header">Empresas</p>
                   <div class="item-wrapper">
                     <div class="table-responsive">
-                      <table class="table info-table table-striped" id=company name=company>
+                      <table class="table info-table table-striped" >
                         <thead>
                           <tr>
                             <th>Logo</th>                            
@@ -270,19 +275,12 @@ function getCompanies(){
                             <th>Opciones</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>data</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>                       
+                        <tbody id=company >
+                                   
                         </tbody>
                         
                       </table>
-                    </div>
+                    </div> 
                   </div>
                 </div>
               </div>             

@@ -41,9 +41,6 @@ while($stmt -> fetch()) {
         'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
         'redirect' =>'studentHome.php',
         'status' => true
-    $program=array(
-        "cod_programa"=>$cod,
-        "nom_programa"=>$nom
     );
     array_push($programs,$program);
 }

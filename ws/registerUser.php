@@ -85,11 +85,12 @@ if (!$mysqli->query($sql)) {
     if ($row=$r-> fetch_assoc()) {
         $id=$row["cod_estudiante"];
 
-        enviarCorreo($mail, $name,$id);
+        enviarCorreo($mail, $name, $id);
         $response = array(
         'comment' => 'Se agregó satisfactoriamente',
         'status' => true
     );
+    }
 }
 
 $mysqli->close();
@@ -97,4 +98,3 @@ $mysqli->close();
 echo json_encode($response);
 
 ?>
-

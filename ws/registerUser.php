@@ -2,7 +2,6 @@
 include_once('../persistencia/db.php');
  require '../mailer/PHPMailer.php';
  require '../mailer/SMTP.php';
-
  require '../mailer/Exception.php';
 
 function enviarCorreo($mail, $name,$id)
@@ -44,15 +43,8 @@ function enviarCorreo($mail, $name,$id)
             ');
 
     $PHPmail->AddAddress($mail, $name);
-        
-    if(!$PHPmail->Send())
-    {
-    echo "Error sending: " . $PHPmail->ErrorInfo;
-    }
-    else
-    {
-    echo "E-mail sent";
-    }
+    $PHPmail->Send();
+   
 }
 
 $mail=$_POST['mail'];
@@ -66,12 +58,12 @@ if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(
             'error' => 1062,
-            'status' => false
+            'status' => 0
         );
     }else{
         $response = array(
             'error' => "Falló CALL: (" . $mysqli->errno . ") " . $mysqli->error,
-            'status' => false
+            'status' => 0
         );
     }
 }else{
@@ -80,11 +72,12 @@ if (!$mysqli->query($sql)) {
     if ($row=$r-> fetch_assoc()) {
         $id=$row["cod_estudiante"];
 
-        enviarCorreo($mail, $name, $id);
         $response = array(
-        'comment' => 'Se agregó satisfactoriamente',
-        'status' => true
-    );
+        'comment' => "Se agregó satisfactoriamente",
+        'status' => 1
+        );
+        
+        enviarCorreo($mail, $name, $id);
     }
 }
 

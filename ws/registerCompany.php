@@ -54,14 +54,8 @@ function enviarCorreo($mail, $name)
 
    $PHPmail->AddAddress($mail, $name);
        
-   if(!$PHPmail->Send())
-   {
-   echo "Error sending: " . $PHPmail->ErrorInfo;
-   }
-   else
-   {
-   echo "E-mail sent";
-   }
+   $PHPmail->Send();
+   
 }
 
 function removeAccents($input){
@@ -85,7 +79,6 @@ function removeAccents($input){
 }
 
 $response = [];
-
 $razon = $_POST["nameCp"];
 $nit = $_POST["nitCp"];
 $logo = '';
@@ -99,35 +92,32 @@ if($_FILES["logo"]["name"]){
     $img = "../assets/images/logos/" . removeAccents(str_replace(' ', '', $razon)) . ".png";
     file_put_contents($img, file_get_contents($_FILES["logo"]["tmp_name"]));
 }
-
 if($_FILES["cc"]["name"]){
     $cc = removeAccents(str_replace(' ', '', $razon)) . ".pdf";
     $img = "../assets/images/cc/" . removeAccents(str_replace(' ', '', $razon)) . ".pdf";
     file_put_contents($img, file_get_contents($_FILES["cc"]["tmp_name"]));
 }
-
 $response = [];
 $sql = "CALL p_add_company('".$nit."', '".$razon."', '".$pass."', '".$mail."','".$logo."','".$descripcion."','".$cc."')";
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(
             'error' => 1062,
-            'status' => false
+            'status' => 0
         );
     }else{
         $response = array(
             'error' => "Falló CALL: (" . $mysqli->errno . ") " . $mysqli->error,
-            'status' => false
+            'status' => 0
         );
     }
 }else{
-    
+    $response = array(
+        'comment' => "Se agregó satisfactoriamente",
+        'status' => 1
+    );
     enviarCorreo($mail, $razon);
      
-    $response = array(
-        'comment' => 'Se agregó satisfactoriamente',
-        'status' => true
-    );
 }
 
 $mysqli->close();

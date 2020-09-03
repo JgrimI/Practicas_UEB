@@ -4,7 +4,7 @@ include_once('../persistencia/db.php');
  require '../mailer/SMTP.php';
  require '../mailer/Exception.php';
 
-function enviarCorreo($mail, $name)
+function enviarCorreo($mail, $name,$id)
 {
     $PHPmail=new PHPMailer();
     $PHPmail->CharSet = 'UTF-8';
@@ -20,7 +20,7 @@ function enviarCorreo($mail, $name)
     $PHPmail->SetFrom('practicas.uelbosque@gmail.com', "Practicas UEB");
     $PHPmail->Subject    = 'Confirma tu correo electrónico';
     
-    $PHPmail->AddEmbeddedImage("..\assets\images\logos\logoMail.jpg", "logo");
+    $PHPmail->AddEmbeddedImage("..\assets\images\logos\logoMail.png", "logo");
     $PHPmail->MsgHTML('
             <div style="background-color: rgba(222,222,222,0.6); margin-left: 15%; margin-right: 15%;">
             <div style=" margin-left: 5%; margin-right: 5%; padding-top: 5%; padding-bottom: 5%;">
@@ -76,9 +76,9 @@ if (!$mysqli->query($sql)) {
     $query='SELECT cod_estudiante from ESTUDIANTE where correo_estudiante ="'.$_POST['mail'].'"';
     $r=$mysqli->query($query);
     if ($row=$r-> fetch_assoc()) {
-        $respuesta=$row["cod_estudiante"];
+        $id=$row["cod_estudiante"];
 
-        enviarCorreo($mail, $name);
+        enviarCorreo($mail, $name,$id);
         $response = array(
         'comment' => 'Se agregó satisfactoriamente',
         'status' => true

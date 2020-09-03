@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+include_once('persistencia/db.php');
 include_once('config.php');
 if (isset($_SESSION['redirect'])) {
     header('Location: '.$_SESSION['redirect']);
@@ -36,7 +38,6 @@ if (isset($_SESSION['redirect'])) {
   <script src="estilos_tp2/js/sb-admin-2.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   
-
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
@@ -115,7 +116,20 @@ if(isset($_GET['code'])){
 }
 ?>
 <body>
+<script>
 
+    function mensaje() {
+      
+        swal.fire({
+                title: "Felicitaciones!",
+                text: "Su cuenta ha sido activada",
+                icon: "success",
+            }
+        ).then(function() {
+								window.location = "confirmMail.php";
+							});
+    }
+</script>
   <div class="container">
 
     <!-- Outer Row -->
@@ -197,39 +211,8 @@ if(isset($_GET['code'])){
     });
   </script>
 
+
 <script>
-    function mensaje() {
-
-        swal({
-                title: "Felicitaciones!",
-                text: "Su cuenta ha sido activada",
-                type: "success",
-            }
-        ).then(function() {
-								window.location = "studentHome.php";
-							});
-    }
-</script>
-
-  <?php
-    if (isset($_GET['i'])) {
-        $cod = base64_decode($_GET['i']);
-        $sql = "UPDATE ESTUDIANTE set estado= 'ACTIVADO' where cod_estudiante = ".$cod;
-        if (!$mysqli->query($sql)) {
-            echo "<script>
-                    alert('No se ha podido activar su cuenta')
-                    window.location.replace('index.php');
-                    </script>  ";
-        } else {
-            echo "<script>
-            activar(".$cod.");
-            </script>  ";
-        }
-    }
-   
-  ?>
-
-  <script>
   function activar(id) {
     $.ajax({
         type: "POST",
@@ -256,6 +239,74 @@ if(isset($_GET['code'])){
     })
   }
 </script>
+  <?php
+    if (isset($_GET['i'])) {
+        $cod = base64_decode($_GET['i']);
+        $sql = "SELECT estado FROM ESTUDIANTE where cod_estudiante = ".$cod;
+        $stmt = $mysqli->prepare($sql);
+        $result = $mysqli->query($sql);
+    
+        if ($result->num_rows > 0) {
+            if ($stmt -> execute()) {
+                $stmt -> bind_result($estado);
+                while ($stmt -> fetch()) {
+                    if ($estado=='REGISTRADO') {
+                        $stmt->close();
+                        $sql2 = "UPDATE ESTUDIANTE set estado= 'ACTIVADO' where cod_estudiante = ".$cod;
+                        $stmt2 = $mysqli->prepare($sql2);
+              
+                        if (!$stmt2 -> execute()) {
+                            echo '<script> swal.fire({
+                            title: "Error!",
+                            text: "No se ha podido activar su cuenta!",
+                            icon: "error",
+                        }
+                         ).then(function() {
+                            window.location = "index.php";
+                          });</script>';
+                        } else {
+                            $stmt2->close();
+                            echo "<script>
+                          activar(".$cod.");
+                          </script>  ";
+                        break;
+                        }
+                    } else {
+                        echo '<script> swal.fire({
+                        title: "Aviso!",
+                        text: "Su cuenta ya se encuentra activada",
+                        icon: "warning",
+                            }
+                        ).then(function() {
+                                window.location = "index.php";
+                         });</script>';
+                    }
+                }
+            }else {
+              echo '<script> swal.fire({
+              title: "Error!",
+              text: "No se ha podido activar su cuenta!",
+              icon: "error",
+          }
+           ).then(function() {
+              window.location = "index.php";
+            });</script>';
+          }
+            } else {
+                echo '<script> swal.fire({
+                title: "Error!",
+                text: "No se ha podido activar su cuenta!",
+                icon: "error",
+            }
+             ).then(function() {
+                window.location = "index.php";
+              });</script>';
+            }
+        
+    }
+  ?>
+
+
 
 </body>
 

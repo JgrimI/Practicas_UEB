@@ -65,7 +65,7 @@ if (!isset($_SESSION['redirect'])) {
                   }else if(data[i]["estado"]=="APROBADO"){
                     estado='badge badge-success';
                   }else{
-                    estado='badge badge-warning';
+                    estado='badge badge-info';
                   }
                 html += '<tr>' +
              '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +

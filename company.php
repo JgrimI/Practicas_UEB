@@ -42,14 +42,15 @@
                 var i;
                 for (i = 0; i < data.length; i++) {
                 html += '<tr>' +
-             '<td>' + data[i]["logo"] + '</td>' +
+             '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
              '<td>' + data[i]["NIT"] + '</td>' +
              '<td>' + data[i]["nombre"] + '</td>' +
              '<td>' + data[i]["correo_empresa"] + '</td>' +
              '<td>' + data[i]["descripcion_empresa"] + '</td>' +
-             '<td>' + data[i]["estado"] + '</td>' +
              '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td>' + data[i]["cc_empresa"] + '</td>' +
+             '<td>' + data[i]["estado"] + '</td>' +
+             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '">documento</a></td>' +
+             '<td><a href="">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
              '</tr>';
 
            }
@@ -275,7 +276,7 @@
                             <th>Opciones</th>
                           </tr>
                         </thead>
-                        <tbody id=company >
+                        <tbody id="company" >
                                    
                         </tbody>
                         

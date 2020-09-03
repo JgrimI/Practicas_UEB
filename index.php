@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+if (isset($_SESSION['redirect'])) {
+    header('Location: '.$_SESSION['redirect']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +26,23 @@
   <!-- Custom styles for this template-->
   <link href="estilos_tp2/css/sb-admin-2.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
+  <script src="estilos_tp2/vendor/jquery/jquery.min.js"></script>
+  <script src="estilos_tp2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Core plugin JavaScript-->
+  <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="estilos_tp2/js/sb-admin-2.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <!-- Dropify file input -->
+  <script src="assets/dist/js/dropify.min.js"></script>
+  <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
 </head>
 
 <style>
@@ -58,16 +81,17 @@ body {
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Bienvenido a la feria del empleo!</h1>
                   </div>
-                  <form class="user">
+                  <div class="form-group row" id="alert_login"></div>
+                  <form class="user" id="form_login" action="javascript:void(0);" method="post">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingrese el correo electronico...">
+                      <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Ingrese el correo electronico...">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Contraseña">
+                      <input type="password" class="form-control form-control-user" id="pass" name="pass" placeholder="Contraseña">
                     </div>
-                    <a href="index.html" class="btn btn-warning btn-user btn-block">
+                    <button type="submit" class="btn btn-warning btn-user btn-block">
                       Iniciar Sesión
-                    </a>
+                    </button>
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Iniciar Sesión con Google
@@ -88,16 +112,38 @@ body {
     </div>
 
   </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="estilos_tp2/vendor/jquery/jquery.min.js"></script>
-  <script src="estilos_tp2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="estilos_tp2/js/sb-admin-2.min.js"></script>
+  <script>
+    $('#form_login').submit(function () {
+      $.ajax({
+          type: "POST",
+          url: "ws/checkCredentials.php",
+          data: $('#form_login').serialize(),
+          success: function (data) {
+              console.log(data);
+              data = JSON.parse(data);
+              if (data["status"]) {
+                Swal.fire(
+								  data['comment'],
+								  '',
+								  'success'
+								).then(function(){
+                  window.location = data['redirect'];
+                });
+              } else {
+                $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
+                '                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                '                                <span aria-hidden="true">&times;</span>\n' +
+                '                            </button>\n' +
+                '                        </div>');
+              }
+          },
+          error: function (data) {
+              console.log(data);
+          },
+      })
+        
+    });
+  </script>
 
 </body>
 

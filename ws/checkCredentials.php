@@ -54,7 +54,7 @@ if($aux==0){
         $_SESSION['redirect']='companyHome.php';
         $primer_nombre=explode(' ',$nombre);
         $response = array(
-            'comment' => 'Bienvenido '.$primer_nombre[0].'!!'.$nit,
+            'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
             'redirect' =>'companyHome.php',
             'status' => true
         );

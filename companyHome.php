@@ -181,37 +181,41 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/logos/<?php echo $_SESSION['logo'];?>" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_7.png" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
-            <h6 class="display-income">Nit <?php echo $_SESSION['nit']; ?></h6>
           </div>
         </div>
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
           <li>
-            <a href="empresa.php">
-              <span class="link-title">Dashboard</span>
+            <a href="adminHome.php">
+              <span class="link-title">Estadisticas</span>
               <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
           
           <li>
-            <a href="../icons/material-icons.html">
-              <span class="link-title">Vacantes</span>
+            <a href="companyHome.php">
+              <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="../icons/material-icons.html">
-              <span class="link-title">Aplicantes</span>
+            <a href="studentHome.php">
+              <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="studentHome.php">
+              <span class="link-title">Vacantes</span>
+              <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
           
         </ul>
-        
       </div>
       <!-- partial -->
       <div class="page-content-wrapper">
@@ -227,7 +231,7 @@ if (!isset($_SESSION['redirect'])) {
             <div class="row">              
               <div class="col-lg-27">
                 <div class="grid">
-                  <p class="grid-header">Empresas</p>
+                  <p class="grid-header">Lista de Empresas</p>
                   <div class="item-wrapper">
                     <div class="table-responsive">
                       <table class="table info-table table-striped" >
@@ -264,8 +268,7 @@ if (!isset($_SESSION['redirect'])) {
               </ul>
             </div>
             <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              <small class="text-muted d-block">Copyright © 2019 <a href="http://www.uxcandy.co" target="_blank">UXCANDY</a>. All rights reserved</small>
-              <small class="text-gray mt-2">Handcrafted With <i class="mdi mdi-heart text-danger"></i></small>
+              
             </div>
           </div>
         </footer>

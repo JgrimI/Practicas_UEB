@@ -10,7 +10,7 @@ if (!isset($_SESSION['redirect'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
+    <title>Admin Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
@@ -49,46 +49,7 @@ if (!isset($_SESSION['redirect'])) {
   };
 
 
-  function getCompanies(){
-    $.ajax({
-        type: "POST",
-        url: "ws/getCompanies.php",
-        success: function (data) {    
-        data = JSON.parse(data);    
-            if (data["status"] == 1) {
-                data = data["companies"];
-                var html = '';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                  if(data[i]["estado"]=="RECHAZADO"){
-                    var estado = 'badge badge-danger';
-                  }else if(data[i]["estado"]=="APROBADO"){
-                    estado='badge badge-success';
-                  }else{
-                    estado='badge badge-warning';
-                  }
-                html += '<tr>' +
-             '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
-             '<td>' + data[i]["NIT"] + '</td>' +
-             '<td>' + data[i]["nombre"] + '</td>' +
-             '<td>' + data[i]["correo_empresa"] + '</td>' +
-             '<td>' + data[i]["descripcion_empresa"] + '</td>' +
-             '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
-             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-             '<td><a href="editCompany.php">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
-             '</tr>';
-
-           }
-          $('#company').html(html);
-          
-            }
-        },
-        error: function (data) {
-            console.log(data);
-        },
-    })
-  }
+ 
 
 </script>
 
@@ -181,31 +142,30 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/logos/<?php echo $_SESSION['logo'];?>" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_1.png" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
-            <h6 class="display-income">Nit <?php echo $_SESSION['nit']; ?></h6>
           </div>
         </div>
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
           <li>
             <a href="empresa.php">
-              <span class="link-title">Dashboard</span>
+              <span class="link-title">Estadisticas</span>
               <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
           
           <li>
             <a href="../icons/material-icons.html">
-              <span class="link-title">Vacantes</span>
+              <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
             <a href="../icons/material-icons.html">
-              <span class="link-title">Aplicantes</span>
+              <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>

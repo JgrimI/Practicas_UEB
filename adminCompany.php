@@ -209,7 +209,7 @@ if (!isset($_SESSION['redirect'])) {
             </a>
           </li>
           <li>
-            <a href="vacantHome.php">
+            <a href="studentHome.php">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
@@ -223,7 +223,7 @@ if (!isset($_SESSION['redirect'])) {
           <div class="viewport-header">
             <div class="row">
               <div class="col-12 py-5">
-                <h4>Empresa</h4>
+                <h4>Empresas</h4>
               </div>
             </div>       
           </div>
@@ -231,7 +231,7 @@ if (!isset($_SESSION['redirect'])) {
             <div class="row">              
               <div class="col-lg-27">
                 <div class="grid">
-                  <p class="grid-header">Editar empresa de Empresas</p>
+                  <p class="grid-header">Lista de Empresas</p>
                   <div class="item-wrapper">
                     <div class="table-responsive">
                       <table class="table info-table table-striped" >

@@ -155,19 +155,19 @@ if (!isset($_SESSION['redirect'])) {
           </li>
           
           <li>
-            <a href="companyHome.php">
+            <a href="adminCompany.php">
               <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="studentHome.php">
+            <a href="adminStudent.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="studentHome.php">
+            <a href="adminVacant.php">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>

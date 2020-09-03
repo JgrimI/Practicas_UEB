@@ -29,11 +29,14 @@
   <!-- Custom scripts for all pages-->
   <script src="estilos_tp2/js/sb-admin-2.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+  
 
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <!-- Dropify file input -->
   <script src="assets/dist/js/dropify.min.js"></script>
+  <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
 
 </head>
 

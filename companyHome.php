@@ -24,6 +24,17 @@ if (!isset($_SESSION['redirect'])) {
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <script src="estilos_tp2/vendor/jquery/jquery.min.js"></script>
+    <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <!-- Dropify file input -->
+    <script src="assets/dist/js/dropify.min.js"></script>
+    <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
   </head>
 
 
@@ -42,61 +53,13 @@ if (!isset($_SESSION['redirect'])) {
 }
 </style>
 <script>
-   window.onload=function(){
-    
-    getCompanies();
-
-  };
-
-
-  function getCompanies(){
-    $.ajax({
-        type: "POST",
-        url: "ws/getCompanies.php",
-        success: function (data) {    
-        data = JSON.parse(data);    
-            if (data["status"] == 1) {
-                data = data["companies"];
-                var html = '';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                  if(data[i]["estado"]=="RECHAZADO"){
-                    var estado = 'badge badge-danger';
-                  }else if(data[i]["estado"]=="APROBADO"){
-                    estado='badge badge-success';
-                  }else{
-                    estado='badge badge-info';
-                  }
-                html += '<tr>' +
-             '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
-             '<td>' + data[i]["NIT"] + '</td>' +
-             '<td>' + data[i]["nombre"] + '</td>' +
-             '<td>' + data[i]["correo_empresa"] + '</td>' +
-             '<td>' + data[i]["descripcion_empresa"] + '</td>' +
-             '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
-             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-             '<td><a href="editCompany.php">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
-             '</tr>';
-
-           }
-          $('#company').html(html);
-          
-            }
-        },
-        error: function (data) {
-            console.log(data);
-        },
-    })
-  }
-
 </script>
 
   <body class="header-fixed">
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
-        <a href="empresa.php">
+        <a href="?menu=stats">
           <img class="logo" src="assets/images/logo.png" alt="">
           <img class="logo-mini" src="assets/images/logo.png" alt="">
         </a>
@@ -181,110 +144,64 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_7.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/logos/<?php echo $_SESSION['logo'];?>" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
+            <p>NIT <?php echo $_SESSION['nit'];?></p>
           </div>
         </div>
         <ul class="navigation-menu">
-          <li class="nav-category-divider">Menu</li>
           <li>
-            <a href="adminHome.php">
+            <a href="?menu=stats">
               <span class="link-title">Estadisticas</span>
               <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
-          
           <li>
-            <a href="companyHome.php">
-              <span class="link-title">Empresas</span>
-              <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
-            </a>
-          </li>
-          <li>
-            <a href="studentHome.php">
-              <span class="link-title">Estudiantes</span>
-              <i class="mdi mdi mdi-human-greeting link-icon"></i>
-            </a>
-          </li>
-          <li>
-            <a href="studentHome.php">
-              <span class="link-title">Vacantes</span>
+            <a href="?menu=vacants">
+              <span class="link-title">Mis Vacantes</span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
-                         
+          <li>
+            <a href="?menu=aspirants">
+              <span class="link-title">Aspirantes</span>
+              <i class="mdi mdi mdi-human-greeting link-icon"></i>
+            </a>
+          </li>
         </ul>
       </div>
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
-          <div class="viewport-header">
-            <div class="row">
-              <div class="col-12 py-5">
-                <h4>Empresas</h4>
-              </div>
-            </div>       
-          </div>
-          <div class="content-viewport">
-            <div class="row">              
-              <div class="col-lg-27">
-                <div class="grid">
-                  <p class="grid-header">Lista de Empresas</p>
-                  <div class="item-wrapper">
-                    <div class="table-responsive">
-                      <table class="table info-table table-striped" >
-                        <thead>
-                          <tr>
-                            <th>Logo</th>                            
-                            <th>NIT</th>
-                            <th>Razón social</th>
-                            <th>Correo</th>
-                            <th>Descripción</th>
-                            <th>Numero de ingresos</th>
-                            <th>Estado</th>
-                            <th>cc_empresa</th>
-                            <th>Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="company" >
-                                   
-                        </tbody>
-                        
-                      </table>
-                    </div> 
-                  </div>
-                </div>
-              </div>             
+          <?php 
+            require_once('routingCp.php');
+          ?>
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
+          <div class="row" style="display:block;text-align:center;">
+            <div>
               <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                Powered By SoftHub Developments
               </ul>
             </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              
+            <div style="float:right;">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+              </ul>
             </div>
+            
           </div>
         </footer>
         <!-- partial -->
       </div>
       <!-- page content ends -->
     </div>
-    <!--page body ends -->
-    <!-- SCRIPT LOADING START FORM HERE /////////////-->
-    <!-- plugins:js -->
     <script src="assets/vendors/js/core.js"></script>
     <script src="assets/vendors/js/vendor.addons.js"></script>
-    <!-- endinject -->
-    <!-- Vendor Js For This Page Ends-->
-    <!-- Vendor Js For This Page Ends-->
-    <!-- build:js -->
     <script src="assets/js/template.js"></script>
     <!--  -->
   </body>

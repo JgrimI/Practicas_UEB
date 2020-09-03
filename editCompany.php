@@ -5,7 +5,7 @@ if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
 
-$nit = $_GET['NIT'];
+$nit=$_GET["NIT"];
 
 ?>
 <!DOCTYPE html>
@@ -64,7 +64,7 @@ $nit = $_GET['NIT'];
                 var nombre;
                 var econtro = false;
                 while(econtro==false && i<=data.length){
-                  if(data[i]["NIT"]==<?php $NIT ?>){
+                  if(data[i]["NIT"]==<?php $nit ?>){
                   encontro=true; 
                   alert("envontro");               
                   }
@@ -235,7 +235,7 @@ $nit = $_GET['NIT'];
                             <label for="inputEmail10">Name</label>
                           </div>
                           <div class="col-md-9 showcase_content_area">
-                            <input type="text" class="form-control" id="inputEmail10" value ="<?php $NIT=$_GET['NIT']?>">
+                            <input type="text" class="form-control" id="inputEmail10" value ="<?php $nit?>">
                           </div>
                         </div>
                         <div class="form-group row showcase_row_area">

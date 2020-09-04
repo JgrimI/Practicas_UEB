@@ -16,6 +16,10 @@ $nit=$_GET["nit"];
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Home</title>
     <!-- plugins:css -->
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
     <!-- endinject -->
@@ -180,7 +184,9 @@ $nit=$_GET["nit"];
                         '</div>';
 
                       
-          $('#editar').html(html);
+          $('#insertar').html(html);
+          
+    $('#logoEmp').css('display','block');
             }
         },
         error: function (data) {
@@ -323,6 +329,9 @@ $nit=$_GET["nit"];
             <div class="row">
               <div class="col-12 py-5">
                 <h4>Empresa</h4>
+                <div class="form-group">
+                                                           
+
               </div>
             </div>       
           </div>
@@ -333,8 +342,19 @@ $nit=$_GET["nit"];
                   <p class="grid-header">Editar la Empresa <?php echo $nit ?></p>
                    <div class="grid-body">
                     <div class="item-wrapper">
-                      <form id="editar">
-                        
+                       <form id="editar">
+                       <div id="insertar">
+                          
+                          </div>                    
+                          <div class="form-group row showcase_row_area" style="display:none;" id="logoEmp">
+                          <div class="col-md-5 showcase_text_area">
+                          <div class="alert alert-danger mb-0" role="alert" id="alert_photo" style="display:none;"></div>
+                            <label for="photo">Foto personal*</label>
+                            <input type="file" class="form-control-file dropify" name="photo" id="photo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
+                        </div>
+                        </div>
+                        </div>
+                      
                       </form>
                     </div>
                   </div>
@@ -362,16 +382,6 @@ $nit=$_GET["nit"];
       </div>
       <!-- page content ends -->
     </div>
-    <!--page body ends -->
-    <!-- SCRIPT LOADING START FORM HERE /////////////-->
-    <!-- plugins:js -->
-    <script src="assets/vendors/js/core.js"></script>
-    <script src="assets/vendors/js/vendor.addons.js"></script>
-    <!-- endinject -->
-    <!-- Vendor Js For This Page Ends-->
-    <!-- Vendor Js For This Page Ends-->
-    <!-- build:js -->
-    <script src="assets/js/template.js"></script>
     <!--  -->
   </body>
 </html>

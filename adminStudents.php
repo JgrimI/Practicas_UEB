@@ -74,7 +74,7 @@ window.onload=function(){
                 '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
                 '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
                 '<td><center><a href=""><img width="50px" height="50px" src="assets/images/5112.png"/></a></center></td>'+
-                '<td><center><a href="">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit</center>'
+                '<td><center><a href="#ventanaModal">'+'<button  type="button" rel="tooltip" class="btn btn-outline-info btn-rounded" data-toggle="modal">edit</button></a></center></td>'
                 '</tr>'
                 }
               $('#estudiante').html(html);
@@ -188,6 +188,7 @@ window.onload=function(){
           </div>
 
         </div>
+      
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
           <li>
@@ -235,7 +236,8 @@ window.onload=function(){
                   <p class="grid-header">Lista de Estudiantes</p>
                   <div class="item-wrapper">
                     <div class="table-responsive">
-                      <table class="table info-table table-striped" >
+                     <div style="width: 1060px;">
+                      <table class="table info-table table-striped">
                         <thead>
                           <tr>
                             <th style="text-align: center">Nombre Estudiante</th>                            
@@ -253,7 +255,8 @@ window.onload=function(){
 
                         </tbody>
                       </table>
-                      </div> 
+                     </div>
+                    </div> 
                   </div>
                 </div>
               </div>             
@@ -276,6 +279,31 @@ window.onload=function(){
       </div>
       <!-- page content ends -->
     </div>
+ <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+    <div class="modal-header">
+          <h5 id="tituloVentana">Titulo de la ventana modal</h5>
+          <button class="close" data-dismiss="modal" aria-label="cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-success">
+         <h6><strong>tus datos se han guardado exitosamente</strong></h6>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-warning" type="button" data-dismiss="modal">
+        Cerrar
+      </button>
+      <button class="btn btn-success" type="button">
+        Aceptar
+      </button>
+    </div>
+   </div>
+  </div>
+ </div>
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->

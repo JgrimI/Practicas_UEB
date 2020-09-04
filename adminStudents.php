@@ -1,16 +1,9 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['redirect'])) {
-    header('Location: index.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Home</title>
+    <title>Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
@@ -41,16 +34,62 @@ if (!isset($_SESSION['redirect'])) {
   margin-left:8%;
 }
 </style>
+
 <script>
-   window.onload=function(){
+
+window.onload=function(){
     
-    getCompanies();
+    getEstudiantes();
 
   };
 
+ function getEstudiantes(){
+      $.ajax({
+        type: "GET",
+        url: "ws/getEstudiantes.php", 
+        success: function (data) {
+          console.log(data);
+        data = JSON.parse(data);
+            if (data["status"] == 1) {
+                data = data["estudiantes"];
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                  if(data[i]["estado"]=="DESACTIVADO"){
+                    var estado = 'badge badge-danger';
+                  }else if(data[i]["estado"]=="ACTIVADO"){
+                    estado='badge badge-success';
+                  }else{
+                    estado='badge badge-info';
+                  }
+                var aux= (data[i]['semestre']==null) ? '-' : data[i]['semestre'];
+                var aux= (data[i]['numero_solicitudes']==null) ? '-' : data[i]['numero_solicitudes'];
+
+                html += '<tr>' +
+                '<td><center>' + data[i]["nombre_completo"] + '</center></td>' +
+                '<td><center>' + data[i]["correo_estudiante"] + '</center></td>' +
+                '<td><center>' + aux + '</center></td>' +
+                '<td><center>' + data[i]["nom_programa"] + '</center></td>' +
+                '<td><center>' + aux + '</center></td>' +
+                '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
+                '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
+                '<td><center><a href=""><img width="50px" height="50px" src="assets/images/5112.png"/></a></center></td>'+
+                '<td><center><a href="">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit</center>'
+                '</tr>'
+                }
+              $('#estudiante').html(html);
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    })
+
+ }
+
 </script>
 
-  <body class="header-fixed">
+<body class="header-fixed">
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
@@ -64,6 +103,12 @@ if (!isset($_SESSION['redirect'])) {
           <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
             <i class="mdi mdi-menu"></i>
           </button>
+          <form action="#" class="t-header-search-box">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" autocomplete="off">
+              <button class="btn btn-primary" type="submit"><i class="mdi mdi-arrow-right-thick"></i></button>
+            </div>
+          </form>
           <ul class="nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
@@ -141,9 +186,7 @@ if (!isset($_SESSION['redirect'])) {
           <div class="display-avatar animated-avatar">
             <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
           </div>
-          <div class="info-wrapper">
-            <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
-          </div>
+
         </div>
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
@@ -172,12 +215,48 @@ if (!isset($_SESSION['redirect'])) {
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
-          
+                         
         </ul>
-        
       </div>
       <!-- partial -->
-     
+      <div class="page-content-wrapper">
+        <div class="page-content-wrapper-inner">
+          <div class="viewport-header">
+            <div class="row">
+              <div class="col-12 py-5">
+                <h4>Estudiantes</h4>
+              </div>
+            </div>       
+          </div>
+          <div class="content-viewport">
+            <div class="row">              
+              <div class="col-lg-27">
+                <div class="grid">
+                  <p class="grid-header">Lista de Estudiantes</p>
+                  <div class="item-wrapper">
+                    <div class="table-responsive">
+                      <table class="table info-table table-striped" >
+                        <thead>
+                          <tr>
+                            <th style="text-align: center">Nombre Estudiante</th>                            
+                            <th style="text-align: center">Correo Estudiante</th>
+                            <th style="text-align: center">Solicitudes</th>
+                            <th style="text-align: center">Programa</th>
+                            <th style="text-align: center">Semestre</th>
+                            <th style="text-align: center">Estado</th>
+                            <th style="text-align: center">Ingresos</th>
+                            <th style="text-align: center">Hoja De Vida</th>
+                            <th style="text-align: center">Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody id="estudiante" >
+
+                        </tbody>
+                      </table>
+                      </div> 
+                  </div>
+                </div>
+              </div>             
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
@@ -189,7 +268,7 @@ if (!isset($_SESSION['redirect'])) {
               </ul>
             </div>
             <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-            
+              
             </div>
           </div>
         </footer>

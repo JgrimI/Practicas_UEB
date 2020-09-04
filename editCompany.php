@@ -104,6 +104,8 @@ $nit=$_GET["nit"];
                     i++;
                   }                                      
                 }
+                var logo=data[i]["logo"];
+                document.getElementById("logo").value='"src/images/'+logo+'"';
                 var html ='<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="nit">NIT</label>'+
@@ -274,19 +276,19 @@ $nit=$_GET["nit"];
           </li>
           
           <li>
-            <a href="companyHome.php">
+            <a href="adminCompany.php">
               <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="studentHome.php">
+            <a href="adminStudents.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="vacantHome.php">
+            <a href="adminVacant.php">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
@@ -324,7 +326,7 @@ $nit=$_GET["nit"];
                             <label for="descrip">Logo de la empresa:</label>
                           </div>
                           <div class="col-md-5 showcase_content_area">                  
-                            <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
+                            <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>
                           </div>
                          </div>
                           <div class="form-group row showcase_row_area" >

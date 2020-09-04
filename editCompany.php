@@ -60,19 +60,18 @@ $nit=$_GET["nit"];
         success: function (data) {    
         data = JSON.parse(data);    
             if (data["status"] == 1) {
-                data = data["companies"];                
+                data = data["companies"];   
                 var i=0;
-                var nombre;
                 var econtro = false;
-                while(econtro==false && i<=data.length){
+                while(econtro==false){
                   if(data[i]["NIT"]==<?php echo $nit ?>){
-                  encontro=true; 
-                              
-                  }
-                  i++;
-                }                
-                var html = '';                               
-                html ='<div class="form-group row showcase_row_area">'+
+                   econtro=true;    
+
+                  }else{
+                    i++;
+                  }                                      
+                }
+                var html ='<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-3 showcase_text_area">'+
                             '<label for="nit">NIT</label>'+
                           '</div>'+
@@ -82,24 +81,47 @@ $nit=$_GET["nit"];
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="inputEmail4">Email</label>'+
+                            '<label for="razonSocial">Razón Social</label>'+
                           '</div>'+
                           '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email">'+
+                            '<input type="text" class="form-control" id="razonSocial" value ="'+data[i]["nombre"]+'">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="inputEmail5">Password</label>'+
+                            '<label for="email">Correo</label>'+
                           '</div>'+
                           '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="password" class="form-control" id="inputEmail5" placeholder="Enter your password">'+
+                            '<input type="email" class="form-control" id="email" value ="'+data[i]["correo_empresa"]+'">'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-3 showcase_text_area">'+
+                            '<label for="descrip">Descripción</label>'+
+                          '</div>'+
+                          '<div class="col-md-9 showcase_content_area">'+
+                            '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required value ="'+data[i]["descripcion_empresa"]+'" maxlength="1200"></textarea>'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-3 showcase_text_area">'+
+                            '<label for="passCp">Contraseña</label>'+
+                          '</div>'+
+                          '<div class="col-md-9 showcase_content_area">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="passCp" name="passCp" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPassCp();"  minlength="6" maxlength="12">'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-3 showcase_text_area">'+
+                            '<label for="passCp">Verificar contraseña</label>'+
+                          '</div>'+
+                          '<div class="col-md-9 showcase_content_area">'+
+                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
                           '</div>'+
                         '</div>'+
                         '<button type="submit" class="btn btn-sm btn-primary">Sign in</button>'; 
-
+                      
           $('#editar').html(html);
-          alert(html);
             }
         },
         error: function (data) {

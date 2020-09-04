@@ -105,7 +105,7 @@ $nit=$_GET["nit"];
                   }                                      
                 }
                 var logo=data[i]["logo"];
-                document.getElementById("logo").value='"src/images/'+logo+'"';
+                
                 var html ='<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="nit">NIT</label>'+

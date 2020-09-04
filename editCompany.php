@@ -31,7 +31,7 @@ $nit=$_GET["nit"];
     <!-- Dropify file input -->
     <script src="assets/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
-    
+
   </head>
 
 
@@ -80,20 +80,6 @@ $nit=$_GET["nit"];
     return false;
   }
 
-  function verifyPassCp(){
-    var pass=document.getElementById('passCp').value;
-    var verify=document.getElementById('verifyCp').value;
-    if(pass==verify && pass!='' && verify!=''){
-      $('#alert_pwCp').css('display','none');
-      return true;
-    }
-    else if(pass!=verify && pass!='' && verify!=''){
-      $('#alert_pwCp').css('display','block');
-    }else{
-      $('#alert_pwCp').css('display','none');
-    }
-    return false;
-  }
 
 
   function getCompanies(){
@@ -156,15 +142,15 @@ $nit=$_GET["nit"];
                         '</div>'+                                               
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
-                            '<label for="passCp">Contraseña</label>'+
+                            '<label for="pass">Contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="passCp" name="passCp" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPassCp();"  minlength="6" maxlength="12">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass" name="pass" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();"  minlength="6" maxlength="12">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
-                            '<label for="passCp">Verificar contraseña</label>'+
+                            '<label for="verify">Verificar contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
                             ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+

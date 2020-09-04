@@ -204,7 +204,7 @@ window.onload=function(){
             </a>
           </li>
           <li>
-            <a href="adminStudent.php">
+            <a href="adminStudents.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>

@@ -96,7 +96,7 @@ if (!isset($_SESSION['redirect'])) {
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
-        <a href="empresa.php">
+        <a href="adminCompany.php">
           <img class="logo" src="assets/images/logo.png" alt="">
           <img class="logo-mini" src="assets/images/logo.png" alt="">
         </a>
@@ -203,7 +203,7 @@ if (!isset($_SESSION['redirect'])) {
             </a>
           </li>
           <li>
-            <a href="adminStudent.php">
+            <a href="adminStudents.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>

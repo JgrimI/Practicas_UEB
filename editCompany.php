@@ -28,6 +28,9 @@ $nit=$_GET["nit"];
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
+      <!-- Dropify file input -->
+  <script src="assets/dist/js/dropify.min.js"></script>
+  <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
   </head>
 
 
@@ -51,6 +54,35 @@ $nit=$_GET["nit"];
     getCompanies();
 
   };
+  
+  function verifyPass(){
+    var pass=document.getElementById('pass').value;
+    var verify=document.getElementById('verify').value;
+    if(pass==verify && pass!='' && verify!=''){
+      $('#alert_pw').css('display','none');
+      return true;
+    }
+    else if(pass!=verify && pass!='' && verify!=''){
+      $('#alert_pw').css('display','block');
+    }else{
+      $('#alert_pw').css('display','none');
+    }
+    return false;
+  }
+  function verifyPassCp(){
+    var pass=document.getElementById('passCp').value;
+    var verify=document.getElementById('verifyCp').value;
+    if(pass==verify && pass!='' && verify!=''){
+      $('#alert_pwCp').css('display','none');
+      return true;
+    }
+    else if(pass!=verify && pass!='' && verify!=''){
+      $('#alert_pwCp').css('display','block');
+    }else{
+      $('#alert_pwCp').css('display','none');
+    }
+    return false;
+  }
 
 
   function getCompanies(){
@@ -72,50 +104,55 @@ $nit=$_GET["nit"];
                   }                                      
                 }
                 var html ='<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="nit">NIT</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
+                          '<div class="col-md-20 showcase_content_area">'+
                             '<input type="text" class="form-control" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="razonSocial">Razón Social</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
+                          '<div class="col-md-20 showcase_content_area">'+
                             '<input type="text" class="form-control" id="razonSocial" value ="'+data[i]["nombre"]+'">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="email">Correo</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
+                          '<div class="col-md-20 showcase_content_area">'+
                             '<input type="email" class="form-control" id="email" value ="'+data[i]["correo_empresa"]+'">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="descrip">Descripción</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
-                            '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required value ="'+data[i]["descripcion_empresa"]+'" maxlength="1200"></textarea>'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200">'+data[i]["descripcion_empresa"]+'</textarea>'+
                           '</div>'+
                         '</div>'+
+                        '<div class="col-md-20 showcase_content_area">'+
+                        '<div class="form-group">'+
+                  '<label for="photo">Logo de la empresa:</label>'+
+                  '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>'+
+              '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="passCp">Contraseña</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
+                          '<div class="col-md-20 showcase_content_area">'+
                             '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="passCp" name="passCp" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPassCp();"  minlength="6" maxlength="12">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="passCp">Verificar contraseña</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
+                          '<div class="col-md-20 showcase_content_area">'+
                             ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
                           '</div>'+
                         '</div>'+
@@ -269,9 +306,9 @@ $nit=$_GET["nit"];
           </div>
           <div class="content-viewport">
             <div class="row">              
-              <div class="col-lg-27">
+              <div class="col-lg-10 equel-grid">
                 <div class="grid">
-                  <p class="grid-header">Editar empresa de Empresas</p>
+                  <p class="grid-header">Editar la Empresa <?php echo $nit ?></p>
                    <div class="grid-body">
                     <div class="item-wrapper">
                       <form id="editar">

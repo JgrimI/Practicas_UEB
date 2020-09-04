@@ -83,6 +83,45 @@ $nit=$_GET["nit"];
     }
     return false;
   }
+   function modCompany(){
+    if(verifyPassCp()){
+      $.ajax({
+        type: "POST",
+        url: "ws/modCompany.php",
+        data:new FormData($('#mod')[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            alert(data);
+            if (data["status"] == 1) {
+              $('.dropify-clear').click();
+              Swal.fire(
+                  'Bien hecho!',
+                  'Se han enviado a tu correo las credenciales para que accedas a tu cuenta y disfruta de la plataforma!!!',
+                  'success'
+                ).then(function(){
+                  window.location='index.php';
+                })
+            }else{
+              if(data['error'] == 1062){
+                Swal.fire(
+                  'Error!',
+                  'Ya se encuentra registrado en la plataforma!!!',
+                  'error'
+                )
+              }
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    }
+  }
+
 
 
 
@@ -316,14 +355,14 @@ $nit=$_GET["nit"];
                   <p class="grid-header">Editar la Empresa <?php echo $nit ?></p>
                    <div class="grid-body">
                     <div class="item-wrapper">
-                       <form id="editar">
+                       <form id="mod" action="javascript:void(0);" onsubmit="modCompany();">
                        <div id="insertar">
                        </div>     
                        <div >
                                                                
                          <div class="form-group row showcase_row_area" >
                           <div class="col-md-5 showcase_text_area">
-                            <label for="descrip">Logo de la empresa:</label>
+                            <label for="logo">Logo de la empresa:</label>
                           </div>
                           <div class="col-md-5 showcase_content_area">                  
                             <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>

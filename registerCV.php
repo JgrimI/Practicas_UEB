@@ -1,15 +1,17 @@
 <?php
 session_start();
 
+$_SESSION['redirect']="studentHome.php";
+
 include_once('persistencia/db.php');
 
 if (!isset($_SESSION['redirect'])) {
-    //   header('Location: index.php');
+    //  header('Location: index.php');
     $carrera="Ingeníeria de Sistemas";
 } else {
     
-    //$carrera=$_SESSION['programa'];
-    $carrera="Ingeníeria de Sistemas";
+    $carrera=$_SESSION['programa'];
+
 }
 ?>
 
@@ -30,12 +32,14 @@ if (!isset($_SESSION['redirect'])) {
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
-        <link href="assets/css/hvcss.css" rel="stylesheet">
+        <link href="assets/css/hvcss.css" rel="stylesheet"/>
 
         <!-- Custom fonts for this template-->
-        <link href="estilos_tp2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
+        <link href="estilos_tp2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+        <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
+        <script src="estilos_tp2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
         <!-- Custom styles for this template-->
         <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
         <script src="estilos_tp2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -47,7 +51,7 @@ if (!isset($_SESSION['redirect'])) {
 
         
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
         <!-- Dropify file input -->
         <script src="assets/dist/js/dropify.min.js"></script>
@@ -68,7 +72,7 @@ if (!isset($_SESSION['redirect'])) {
             object-fit: cover
         }
         .action-button{
-        background:#eda86a !important;
+            background:#eda86a !important;
         }
     </style>
     <script>
@@ -88,7 +92,7 @@ if (!isset($_SESSION['redirect'])) {
             var opacity;
 
             $(".nextInfPer").click(function() {
-                if (verifyInforPer()) {
+                if (true) {
                     current_fs = $(this).parent();
                     next_fs = $(this).parent().next();
                     //Add Class Active
@@ -116,7 +120,7 @@ if (!isset($_SESSION['redirect'])) {
             });
 
             $(".nextPerfilPro").click(function() {
-                if (verifyPerfilPro()) {
+                if (true) {
                     current_fs = $(this).parent();
                     next_fs = $(this).parent().next();
                     //Add Class Active
@@ -143,7 +147,7 @@ if (!isset($_SESSION['redirect'])) {
                 }
             });
             $(".nextFormAca").click(function() {
-                if (verifyFormAca()) {
+                if (true) {
                     current_fs = $(this).parent();
                     next_fs = $(this).parent().next();
                     //Add Class Active
@@ -170,7 +174,7 @@ if (!isset($_SESSION['redirect'])) {
                 }
             });
             $(".nextFormCom").click(function() {
-                if (verifyFormCom()) {
+                if (true) {
                     current_fs = $(this).parent();
                     next_fs = $(this).parent().next();
                     //Add Class Active
@@ -412,7 +416,7 @@ if (!isset($_SESSION['redirect'])) {
         }
 
         function verifyFormAca() {
-            var semester = document.getElementById('semester').value;
+            var semester = document.getElementById('semester').value();
             var startDate = document.getElementById('startDate').value;
 
             if (semester != '' && startDate != '') {
@@ -463,41 +467,49 @@ if (!isset($_SESSION['redirect'])) {
             }
             return false;
         }
+        $(".sub").click(function() {
+            document.getElementById("msform").submit();
 
+        });
    
 function myFunction() {
+    
+    console.log("entro");
   document.getElementById("msform").submit();
 }
         function regCV(){
             console.log("entro1");
-            if (verifyInforPer() && verifyPerfilPro() && verifyFormAca()&& verifyFormCom()) {
+            if (true) {
             $.ajax({
-                
                 type: "POST",
                 url: "ws/registerCurriculumVitae.php",
-                data:new FormData($('#msform')[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
+                 data:$('#msform').serialize(),
                 success: function (data) {
                     console.log(data);
                     data = JSON.parse(data);
                     if (data["status"] == 1) {
                     $('.dropify-clear').click();
                     Swal.fire(
-                                        'Bien hecho!',
-                                        'Se has creado exitosamente tu hoja de vida!!!',
-                                        'success'
-                                        ).then(function(){
+                            'Bien hecho!',
+                            'Se has creado exitosamente tu hoja de vida!!!',
+                            'success'
+                            ).then(function(){
                         window.location='index.php';
                         })
                     }else{
                     if(data['error'] == 1062){
                         Swal.fire(
-                                        'Error!',
-                                        'Ya se encuentra registrado en la plataforma!!!',
-                                        'error'
-                                        )
+                            'Error!',
+                            'Ya se encuentra registrado en la plataforma!!!',
+                            'error'
+                            )
+                    }else{
+                        Swal.fire(
+                            'Error!',
+                            'Ya se encuentra registrado en la plataforma!!!',
+                            'error'
+                            )
+                        
                     }
                     }
                 },
@@ -606,11 +618,11 @@ referencias
                                                         <input type="text" id="document_id" name="document_id" placeholder="Número de documento" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
                                                             onkeypress="solonumeros(event);">
 
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                             <div class="alert alert-danger mb-0" role="alert" id="alert_photo" style="display:none;"></div>
                                                             <label for="photo">Foto personal*</label>
                                                             <input type="file" class="form-control-file dropify" name="photo" id="photo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
-                                                        </div>
+                                                        </div> -->
 
                                                     </div>
                                                     <input type="button" name="next" class="nextInfPer action-button" value="Siguiente" />
@@ -708,9 +720,10 @@ referencias
                                                         
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                                    <input type="button" name="next" class="action-button" value="Confirmar" onclick="myFunction()" />
+                                                    <input type="button" name="next" class="nextRef action-button" value="Confirmar" />
+                                                   
                                                 </fieldset>
-                                               
+                                              
                                             </form>
                                         </div>
                                     </div>

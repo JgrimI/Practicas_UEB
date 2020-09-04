@@ -216,7 +216,7 @@ if(isset($_GET['code'])){
                 icon: "success"
               }
               ).then(function() {
-                  window.location = "confirmMail.php";
+                  window.location = "registerCV.php";
               });
             } else {
                 $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +

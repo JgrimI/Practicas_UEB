@@ -27,7 +27,6 @@ while ($stmt -> fetch()) {
     $_SESSION['semestre']=$semestre;
     $_SESSION['estado']=$estado;
     $_SESSION['cod_hv']=$cod_hv;
-    $_SESSION['redirect']='studentHome.php';
 
     $primer_nombre=explode(' ', $nombre);
     $response = array(

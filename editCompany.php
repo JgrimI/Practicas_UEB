@@ -1,11 +1,12 @@
 <?php
+
 session_start();
 
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
 
-$nit = $_GET['NIT'];
+$nit=$_GET["nit"];
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +47,7 @@ $nit = $_GET['NIT'];
 </style>
 <script>
    window.onload=function(){
-    alert("envontro"); 
+   
     getCompanies();
 
   };
@@ -59,24 +60,46 @@ $nit = $_GET['NIT'];
         success: function (data) {    
         data = JSON.parse(data);    
             if (data["status"] == 1) {
-                data = data["companies"];
+                data = data["companies"];                
                 var i=0;
                 var nombre;
                 var econtro = false;
                 while(econtro==false && i<=data.length){
-                  if(data[i]["NIT"]==<?php $NIT ?>){
+                  if(data[i]["NIT"]==<?php echo $nit ?>){
                   encontro=true; 
-                  alert("envontro");               
+                              
                   }
                   i++;
                 }                
-                var html = '';
-                               
-                html ='hola';
+                var html = '';                               
+                html ='<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-3 showcase_text_area">'+
+                            '<label for="nit">NIT</label>'+
+                          '</div>'+
+                          '<div class="col-md-9 showcase_content_area">'+
+                            '<input type="text" class="form-control" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-3 showcase_text_area">'+
+                            '<label for="inputEmail4">Email</label>'+
+                          '</div>'+
+                          '<div class="col-md-9 showcase_content_area">'+
+                            '<input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email">'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-3 showcase_text_area">'+
+                            '<label for="inputEmail5">Password</label>'+
+                          '</div>'+
+                          '<div class="col-md-9 showcase_content_area">'+
+                            '<input type="password" class="form-control" id="inputEmail5" placeholder="Enter your password">'+
+                          '</div>'+
+                        '</div>'+
+                        '<button type="submit" class="btn btn-sm btn-primary">Sign in</button>'; 
 
-        
-          $('#company').html(html);
-          
+          $('#editar').html(html);
+          alert(html);
             }
         },
         error: function (data) {
@@ -91,7 +114,7 @@ $nit = $_GET['NIT'];
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
-        <a href="empresa.php">
+        <a href="adminHome.php">
           <img class="logo" src="assets/images/logo.png" alt="">
           <img class="logo-mini" src="assets/images/logo.png" alt="">
         </a>
@@ -176,7 +199,7 @@ $nit = $_GET['NIT'];
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_7.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
@@ -229,32 +252,8 @@ $nit = $_GET['NIT'];
                   <p class="grid-header">Editar empresa de Empresas</p>
                    <div class="grid-body">
                     <div class="item-wrapper">
-                      <form>
-                        <div class="form-group row showcase_row_area">
-                          <div class="col-md-3 showcase_text_area">
-                            <label for="inputEmail10">Name</label>
-                          </div>
-                          <div class="col-md-9 showcase_content_area">
-                            <input type="text" class="form-control" id="inputEmail10" value ="<?php $NIT=$_GET['NIT']?>">
-                          </div>
-                        </div>
-                        <div class="form-group row showcase_row_area">
-                          <div class="col-md-3 showcase_text_area">
-                            <label for="inputEmail4">Email</label>
-                          </div>
-                          <div class="col-md-9 showcase_content_area">
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email">
-                          </div>
-                        </div>
-                        <div class="form-group row showcase_row_area">
-                          <div class="col-md-3 showcase_text_area">
-                            <label for="inputEmail5">Password</label>
-                          </div>
-                          <div class="col-md-9 showcase_content_area">
-                            <input type="password" class="form-control" id="inputEmail5" placeholder="Enter your password">
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-primary">Sign in</button>
+                      <form id="editar">
+                        
                       </form>
                     </div>
                   </div>

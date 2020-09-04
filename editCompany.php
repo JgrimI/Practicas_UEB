@@ -28,9 +28,10 @@ $nit=$_GET["nit"];
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
-      <!-- Dropify file input -->
-  <script src="assets/dist/js/dropify.min.js"></script>
-  <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+    <!-- Dropify file input -->
+    <script src="assets/dist/js/dropify.min.js"></script>
+    <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+    
   </head>
 
 
@@ -48,8 +49,17 @@ $nit=$_GET["nit"];
   margin-left:8%;
 }
 </style>
+
 <script>
    window.onload=function(){
+    dropify = $('.dropify').dropify({
+      messages: {
+        'default': 'Arrastra el archivo o haz click aqui',
+        'replace': 'Arrastra o clikea para remplazar',
+        'remove':  'Quitar',
+        'error':   'Ooops, algo a salido mal.'
+    }
+    });
    
     getCompanies();
 
@@ -69,6 +79,7 @@ $nit=$_GET["nit"];
     }
     return false;
   }
+
   function verifyPassCp(){
     var pass=document.getElementById('passCp').value;
     var verify=document.getElementById('verifyCp').value;
@@ -135,11 +146,14 @@ $nit=$_GET["nit"];
                             '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200">'+data[i]["descripcion_empresa"]+'</textarea>'+
                           '</div>'+
                         '</div>'+
-                        '<div class="col-md-20 showcase_content_area">'+
-                        '<div class="form-group">'+
-                  '<label for="photo">Logo de la empresa:</label>'+
-                  '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>'+
-              '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="logo">Logo de la empresa:</label>'+
+                          '</div>'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>'+
+                          '</div>'+
+                        '</div>'+                                               
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="passCp">Contraseña</label>'+
@@ -156,7 +170,15 @@ $nit=$_GET["nit"];
                             ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
                           '</div>'+
                         '</div>'+
-                        '<button type="submit" class="btn btn-sm btn-primary">Sign in</button>'; 
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<button type="submit" class="btn btn-sm btn-success">Aceptar</button>'+
+                          '</div>'+
+                          '<div class="col-md-5 showcase_content_area">'+                  
+                            '<button type="reset" class="btn btn-sm btn-danger">Cancelar</button>'+
+                          '</div>'+
+                        '</div>';
+
                       
           $('#editar').html(html);
             }
@@ -316,7 +338,11 @@ $nit=$_GET["nit"];
                       </form>
                     </div>
                   </div>
-              </div>             
+                </div>
+              </div>
+            </div>   
+          </div>
+          
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">

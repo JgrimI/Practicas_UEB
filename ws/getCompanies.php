@@ -1,10 +1,10 @@
 <?php
 include_once('../persistencia/db.php');
-$query = "SELECT NIT, nombre, correo_empresa, logo, descripcion_empresa, estado, num_ingresos, cc_empresa from EMPRESA";
+$query = "SELECT NIT, nombre, password_empresa, correo_empresa, logo, descripcion_empresa, estado, num_ingresos, cc_empresa from EMPRESA";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($NIT,$nombre,$correo,$logo,$descripcion,$estado,$num_ingresos,$cc);
+$stmt -> bind_result($NIT,$nombre,$password,$correo,$logo,$descripcion,$estado,$num_ingresos,$cc);
 
 $rta="";
 $companies=array();
@@ -13,6 +13,7 @@ while($stmt -> fetch()) {
     $company=array(
         "NIT"=>$NIT,
         "nombre"=>$nombre,
+        "password_empresa"=>$password,
         "correo_empresa"=>$correo,
         "logo"=>$logo,
         "descripcion_empresa"=>$descripcion,

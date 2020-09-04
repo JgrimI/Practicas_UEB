@@ -16,6 +16,10 @@ $nit=$_GET["nit"];
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Home</title>
     <!-- plugins:css -->
+    
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
     <!-- endinject -->
@@ -28,6 +32,10 @@ $nit=$_GET["nit"];
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <!-- Dropify file input -->
+    <script src="assets/dist/js/dropify.min.js"></script>
+    <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+
   </head>
 
 
@@ -45,12 +53,37 @@ $nit=$_GET["nit"];
   margin-left:8%;
 }
 </style>
+
 <script>
    window.onload=function(){
+    dropify = $('.dropify').dropify({
+      messages: {
+        'default': 'Arrastra el archivo o haz click aqui',
+        'replace': 'Arrastra o clikea para remplazar',
+        'remove':  'Quitar',
+        'error':   'Ooops, algo a salido mal.'
+    }
+    });
    
     getCompanies();
 
   };
+  
+  function verifyPass(){
+    var pass=document.getElementById('pass').value;
+    var verify=document.getElementById('verify').value;
+    if(pass==verify && pass!='' && verify!=''){
+      $('#alert_pw').css('display','none');
+      return true;
+    }
+    else if(pass!=verify && pass!='' && verify!=''){
+      $('#alert_pw').css('display','block');
+    }else{
+      $('#alert_pw').css('display','none');
+    }
+    return false;
+  }
+
 
 
   function getCompanies(){
@@ -60,46 +93,72 @@ $nit=$_GET["nit"];
         success: function (data) {    
         data = JSON.parse(data);    
             if (data["status"] == 1) {
-                data = data["companies"];                
+                data = data["companies"];   
                 var i=0;
-                var nombre;
                 var econtro = false;
-                while(econtro==false && i<=data.length){
+                while(econtro==false){
                   if(data[i]["NIT"]==<?php echo $nit ?>){
-                  encontro=true; 
-                              
-                  }
-                  i++;
-                }                
-                var html = '';                               
-                html ='<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
+                   econtro=true;    
+
+                  }else{
+                    i++;
+                  }                                      
+                }
+                var html ='<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
                             '<label for="nit">NIT</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
+                          '<div class="col-md-20 showcase_content_area">'+
                             '<input type="text" class="form-control" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="inputEmail4">Email</label>'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="razonSocial">Razón Social</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email">'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            '<input type="text" class="form-control" id="razonSocial" value ="'+data[i]["nombre"]+'">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="inputEmail5">Password</label>'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="email">Correo</label>'+
                           '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="password" class="form-control" id="inputEmail5" placeholder="Enter your password">'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            '<input type="email" class="form-control" id="email" value ="'+data[i]["correo_empresa"]+'">'+
                           '</div>'+
                         '</div>'+
-                        '<button type="submit" class="btn btn-sm btn-primary">Sign in</button>'; 
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="descrip">Descripción</label>'+
+                          '</div>'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200">'+data[i]["descripcion_empresa"]+'</textarea>'+
+                          '</div>'+
+                        '</div>'+
+                                                                  
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="pass">Contraseña</label>'+
+                          '</div>'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass" name="pass" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();"  minlength="6" maxlength="12">'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="form-group row showcase_row_area">'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="verify">Verificar contraseña</label>'+
+                          '</div>'+
+                          '<div class="col-md-20 showcase_content_area">'+
+                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
+                          '</div>'+
+                        '</div>';
+                        
 
-          $('#editar').html(html);
-          alert(html);
+                      
+          $('#insertar').html(html);
+          
+    $('#logoEmp').css('display','block');
             }
         },
         error: function (data) {
@@ -242,22 +301,50 @@ $nit=$_GET["nit"];
             <div class="row">
               <div class="col-12 py-5">
                 <h4>Empresa</h4>
+                <div class="form-group">
+                                                           
+
               </div>
             </div>       
           </div>
           <div class="content-viewport">
             <div class="row">              
-              <div class="col-lg-27">
+              <div class="col-lg-10 equel-grid">
                 <div class="grid">
-                  <p class="grid-header">Editar empresa de Empresas</p>
+                  <p class="grid-header">Editar la Empresa <?php echo $nit ?></p>
                    <div class="grid-body">
                     <div class="item-wrapper">
-                      <form id="editar">
-                        
+                       <form id="editar">
+                       <div id="insertar">
+                       </div>     
+                       <div >
+                                                               
+                         <div class="form-group row showcase_row_area" >
+                          <div class="col-md-5 showcase_text_area">
+                            <label for="descrip">Logo de la empresa:</label>
+                          </div>
+                          <div class="col-md-5 showcase_content_area">                  
+                            <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
+                          </div>
+                         </div>
+                          <div class="form-group row showcase_row_area" >
+                          <div class="col-md-5 showcase_text_area">
+                            <button type="submit" class="btn btn-sm btn-success">Aceptar</button>
+                          </div>
+                          <div class="col-md-5 showcase_content_area">                  
+                            <button type="reset" class="btn btn-sm btn-danger">Cancelar</button>
+                          </div>
+                         </div>
+                       </div>
+                      </div> 
                       </form>
                     </div>
                   </div>
-              </div>             
+                </div>
+              </div>
+            </div>   
+          </div>
+         
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
@@ -277,16 +364,6 @@ $nit=$_GET["nit"];
       </div>
       <!-- page content ends -->
     </div>
-    <!--page body ends -->
-    <!-- SCRIPT LOADING START FORM HERE /////////////-->
-    <!-- plugins:js -->
-    <script src="assets/vendors/js/core.js"></script>
-    <script src="assets/vendors/js/vendor.addons.js"></script>
-    <!-- endinject -->
-    <!-- Vendor Js For This Page Ends-->
-    <!-- Vendor Js For This Page Ends-->
-    <!-- build:js -->
-    <script src="assets/js/template.js"></script>
     <!--  -->
   </body>
 </html>

@@ -76,10 +76,10 @@ if (!isset($_SESSION['redirect'])) {
              '<td>' + data[i]["num_ingresos"] + '</td>' +
              '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
              '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-             '<td><a href="editCompany.php">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit'
+             '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
              '</tr>';
-
            }
+
           $('#company').html(html);
           
             }
@@ -181,7 +181,7 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/male/image_7.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
@@ -197,19 +197,19 @@ if (!isset($_SESSION['redirect'])) {
           </li>
           
           <li>
-            <a href="companyHome.php">
+            <a href="adminCompany.php">
               <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="studentHome.php">
+            <a href="adminStudent.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="studentHome.php">
+            <a href="adminVacant.php">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>

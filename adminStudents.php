@@ -1,14 +1,3 @@
-<?php
-
-session_start();
-
-if (!isset($_SESSION['redirect'])) {
-    header('Location: index.php');
-}
-
-$nit=$_GET["nit"];
-
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,76 +34,66 @@ $nit=$_GET["nit"];
   margin-left:8%;
 }
 </style>
+
 <script>
-   window.onload=function(){
-   
-    getCompanies();
+
+window.onload=function(){
+    
+    getEstudiantes();
 
   };
 
-
-  function getCompanies(){
-    $.ajax({
-        type: "POST",
-        url: "ws/getCompanies.php",
-        success: function (data) {    
-        data = JSON.parse(data);    
+ function getEstudiantes(){
+      $.ajax({
+        type: "GET",
+        url: "ws/getEstudiantes.php", 
+        success: function (data) {
+          console.log(data);
+        data = JSON.parse(data);
             if (data["status"] == 1) {
-                data = data["companies"];                
-                var i=0;
-                var nombre;
-                var econtro = false;
-                while(econtro==false && i<=data.length){
-                  if(data[i]["NIT"]==<?php echo $nit ?>){
-                  encontro=true; 
-                              
+                data = data["estudiantes"];
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                  if(data[i]["estado"]=="DESACTIVADO"){
+                    var estado = 'badge badge-danger';
+                  }else if(data[i]["estado"]=="ACTIVADO"){
+                    estado='badge badge-success';
+                  }else{
+                    estado='badge badge-info';
                   }
-                  i++;
-                }                
-                var html = '';                               
-                html ='<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="nit">NIT</label>'+
-                          '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="text" class="form-control" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
-                          '</div>'+
-                        '</div>'+
-                        '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="inputEmail4">Email</label>'+
-                          '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="email" class="form-control" id="inputEmail4" placeholder="Enter your email">'+
-                          '</div>'+
-                        '</div>'+
-                        '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-3 showcase_text_area">'+
-                            '<label for="inputEmail5">Password</label>'+
-                          '</div>'+
-                          '<div class="col-md-9 showcase_content_area">'+
-                            '<input type="password" class="form-control" id="inputEmail5" placeholder="Enter your password">'+
-                          '</div>'+
-                        '</div>'+
-                        '<button type="submit" class="btn btn-sm btn-primary">Sign in</button>'; 
+                var aux= (data[i]['semestre']==null) ? '-' : data[i]['semestre'];
+                var aux= (data[i]['numero_solicitudes']==null) ? '-' : data[i]['numero_solicitudes'];
 
-          $('#editar').html(html);
-          alert(html);
+                html += '<tr>' +
+                '<td><center>' + data[i]["nombre_completo"] + '</center></td>' +
+                '<td><center>' + data[i]["correo_estudiante"] + '</center></td>' +
+                '<td><center>' + aux + '</center></td>' +
+                '<td><center>' + data[i]["nom_programa"] + '</center></td>' +
+                '<td><center>' + aux + '</center></td>' +
+                '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
+                '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
+                '<td><center><a href=""><img width="50px" height="50px" src="assets/images/5112.png"/></a></center></td>'+
+                '<td><center><a href="">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">edit</center>'
+                '</tr>'
+                }
+              $('#estudiante').html(html);
             }
         },
         error: function (data) {
             console.log(data);
         },
     })
-  }
+
+ }
 
 </script>
 
-  <body class="header-fixed">
+<body class="header-fixed">
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
-        <a href="adminHome.php">
+        <a href="empresa.php">
           <img class="logo" src="assets/images/logo.png" alt="">
           <img class="logo-mini" src="assets/images/logo.png" alt="">
         </a>
@@ -124,6 +103,12 @@ $nit=$_GET["nit"];
           <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
             <i class="mdi mdi-menu"></i>
           </button>
+          <form action="#" class="t-header-search-box">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" autocomplete="off">
+              <button class="btn btn-primary" type="submit"><i class="mdi mdi-arrow-right-thick"></i></button>
+            </div>
+          </form>
           <ul class="nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
@@ -201,9 +186,7 @@ $nit=$_GET["nit"];
           <div class="display-avatar animated-avatar">
             <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
           </div>
-          <div class="info-wrapper">
-            <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
-          </div>
+
         </div>
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
@@ -215,19 +198,19 @@ $nit=$_GET["nit"];
           </li>
           
           <li>
-            <a href="companyHome.php">
+            <a href="adminCompany.php">
               <span class="link-title">Empresas</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="studentHome.php">
+            <a href="adminStudents.php">
               <span class="link-title">Estudiantes</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="vacantHome.php">
+            <a href="adminVacant.php">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
@@ -241,7 +224,7 @@ $nit=$_GET["nit"];
           <div class="viewport-header">
             <div class="row">
               <div class="col-12 py-5">
-                <h4>Empresa</h4>
+                <h4>Estudiantes</h4>
               </div>
             </div>       
           </div>
@@ -249,14 +232,30 @@ $nit=$_GET["nit"];
             <div class="row">              
               <div class="col-lg-27">
                 <div class="grid">
-                  <p class="grid-header">Editar empresa de Empresas</p>
-                   <div class="grid-body">
-                    <div class="item-wrapper">
-                      <form id="editar">
-                        
-                      </form>
-                    </div>
+                  <p class="grid-header">Lista de Estudiantes</p>
+                  <div class="item-wrapper">
+                    <div class="table-responsive">
+                      <table class="table info-table table-striped" >
+                        <thead>
+                          <tr>
+                            <th style="text-align: center">Nombre Estudiante</th>                            
+                            <th style="text-align: center">Correo Estudiante</th>
+                            <th style="text-align: center">Solicitudes</th>
+                            <th style="text-align: center">Programa</th>
+                            <th style="text-align: center">Semestre</th>
+                            <th style="text-align: center">Estado</th>
+                            <th style="text-align: center">Ingresos</th>
+                            <th style="text-align: center">Hoja De Vida</th>
+                            <th style="text-align: center">Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody id="estudiante" >
+
+                        </tbody>
+                      </table>
+                      </div> 
                   </div>
+                </div>
               </div>             
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->

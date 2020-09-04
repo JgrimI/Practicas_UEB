@@ -136,14 +136,7 @@ $nit=$_GET["nit"];
                             '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200">'+data[i]["descripcion_empresa"]+'</textarea>'+
                           '</div>'+
                         '</div>'+
-                        '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-5 showcase_text_area">'+
-                            '<label for="logo">Logo de la empresa:</label>'+
-                          '</div>'+
-                          '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>'+
-                          '</div>'+
-                        '</div>'+                                               
+                                                                  
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="pass">Contraseña</label>'+
@@ -159,15 +152,8 @@ $nit=$_GET["nit"];
                           '<div class="col-md-20 showcase_content_area">'+
                             ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
                           '</div>'+
-                        '</div>'+
-                        '<div class="form-group row showcase_row_area">'+
-                          '<div class="col-md-5 showcase_text_area">'+
-                            '<button type="submit" class="btn btn-sm btn-success">Aceptar</button>'+
-                          '</div>'+
-                          '<div class="col-md-5 showcase_content_area">'+                  
-                            '<button type="reset" class="btn btn-sm btn-danger">Cancelar</button>'+
-                          '</div>'+
                         '</div>';
+                        
 
                       
           $('#insertar').html(html);
@@ -330,17 +316,27 @@ $nit=$_GET["nit"];
                     <div class="item-wrapper">
                        <form id="editar">
                        <div id="insertar">
-                          
-                          </div>                    
-                          <div class="form-group row showcase_row_area" style="display:none;" id="logoEmp">
+                       </div>     
+                       <div >
+                                                               
+                         <div class="form-group row showcase_row_area" >
                           <div class="col-md-5 showcase_text_area">
-                          <div class="alert alert-danger mb-0" role="alert" id="alert_photo" style="display:none;"></div>
-                            <label for="photo">Foto personal*</label>
-                            <input type="file" class="form-control-file dropify" name="photo" id="photo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
-                        </div>
-                        </div>
-                        </div>
-                      
+                            <label for="descrip">Logo de la empresa:</label>
+                          </div>
+                          <div class="col-md-5 showcase_content_area">                  
+                            <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
+                          </div>
+                         </div>
+                          <div class="form-group row showcase_row_area" >
+                          <div class="col-md-5 showcase_text_area">
+                            <button type="submit" class="btn btn-sm btn-success">Aceptar</button>
+                          </div>
+                          <div class="col-md-5 showcase_content_area">                  
+                            <button type="reset" class="btn btn-sm btn-danger">Cancelar</button>
+                          </div>
+                         </div>
+                       </div>
+                      </div> 
                       </form>
                     </div>
                   </div>
@@ -348,7 +344,7 @@ $nit=$_GET["nit"];
               </div>
             </div>   
           </div>
-          
+         
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">

@@ -8,54 +8,6 @@ require '../mailer/PHPMailer.php';
 require '../mailer/SMTP.php';
 require '../mailer/Exception.php';
 
-function enviarCorreo($mail, $name)
-{
-   $PHPmail=new PHPMailer();
-   $PHPmail->CharSet = 'UTF-8';
-   $PHPmail->IsSMTP();
-   $PHPmail->Host       = 'smtp.gmail.com';
-   $PHPmail->SMTPSecure = 'tls';
-
-   $PHPmail->Port       = 587;
-   $PHPmail->SMTPDebug  = 0;
-   $PHPmail->SMTPAuth   = true;
-   $PHPmail->Username   = 'practicas.uelbosque@gmail.com';
-   $PHPmail->Password   = 'PracticasUEB123';
-   $PHPmail->SetFrom('practicas.uelbosque@gmail.com', "Practicas UEB");
-   $PHPmail->Subject    = 'Confirma tu correo electrónico';
-   
-   $PHPmail->AddEmbeddedImage("..\assets\images\logos\logoMail.png", "logo");
-
-   $PHPmail->AddEmbeddedImage("..\assets\images\logos\logoMail.jpg", "logo");
-   $PHPmail->AddEmbeddedImage("..\assets\images\logos\footer.png", "footer");
-   $PHPmail->MsgHTML('
-           <div style="background-color: rgba(222,222,222,0.6); margin-left: 15%; margin-right: 15%;">
-            <div style=" margin-left: 5%; margin-right: 5%; padding-top: 5%; padding-bottom: 5%;">
-                <div style="background-color: rgba(255,255,255);">
-                    <div style="text-align: center;">
-                        <img s src=\'cid:logo\' alt="Universidad El Bosque" style=" max-width: 100%; max-height: 100%;
-                        pointer-events: none;
-                        cursor: default;">
-                    </div>
-                    <div style="margin-left: 10%; margin-right: 10%;"><br><br>
-                        <p>Te damos la bienvenida '.$name.' al portal de practicas de la Universidad El Bosque.</p>
-                        <p>Para poder usar todos nuestros servicios por favor haz click en el siguiente boton para terminar tu proceso de registro.</p><br><br><br>
-                        <center><a href="https://practicasuelbosuqe.azurewebsites.net/" style="background-color:#f3984d;border:10px solid #f3984d;text-decoration:none;color:#fff" target="_blank">Activar Cuenta</a></center>
-                        <br><br>
-                    </div>
-                    <br><br><br><br>
-                    <center>
-                        <img src=\'cid:footer\' alt="footer" style=" max-width: 100%; max-height: 100%;  "></center>
-                    </div>
-                </div>
-            </div>
-           ');
-
-   $PHPmail->AddAddress($mail, $name);
-       
-   $PHPmail->Send();
-   
-}
 
 function removeAccents($input){
     $output = "";
@@ -78,15 +30,15 @@ function removeAccents($input){
 }
 
 $response = [];
-$razon = $_POST["nameCp"];
-$nit = $_POST["nitCp"];
+$nit = $_POST["nit"];
+$razon = $_POST["razonSocial"];
 $logo = '';
-$mail = $_POST["mailCp"];
-$descripcion = $_POST["desCp"];
+$email = $_POST["email"];
+$descripcion = $_POST["descrip"];
 $cc='';
-$pass = $_POST["passCp"];
+$pass = $_POST["pass"];
 
-if($_FILES["logo"]["name"]){
+if( $_FILES["logo"]["name"]){
     $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
     $img = "../assets/images/logos/" . removeAccents(str_replace(' ', '', $razon)) . ".png";
     file_put_contents($img, file_get_contents($_FILES["logo"]["tmp_name"]));
@@ -97,7 +49,7 @@ if($_FILES["cc"]["name"]){
     file_put_contents($img, file_get_contents($_FILES["cc"]["tmp_name"]));
 }
 $response = [];
-$sql = "CALL p_add_company('".$nit."', '".$razon."', '".$pass."', '".$mail."','".$logo."','".$descripcion."','".$cc."')";
+$sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' ,  logo='".$logo.", descripcion_empresa='".$descripcion."', password_empresa='".$pass."' WHERE NIT = '".$nit."'";
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(
@@ -112,10 +64,10 @@ if (!$mysqli->query($sql)) {
     }
 }else{
     $response = array(
-        'comment' => "Se agregó satisfactoriamente",
+        'comment' => "Se Actualizo satisfactoriamente",
         'status' => 1
     );
-    enviarCorreo($mail, $razon);
+  
      
 }
 

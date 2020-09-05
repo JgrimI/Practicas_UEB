@@ -17,7 +17,7 @@
   <!-- Custom styles for this template-->
   <link href="estilos_tp2/css/sb-admin-2.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
-  <script src="estilos_tp2/vendor/jquery/jquery.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <script src="estilos_tp2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->

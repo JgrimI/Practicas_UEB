@@ -62,7 +62,7 @@ if (!isset($_SESSION['redirect'])) {
                 for (i = 0; i < data.length; i++) {
                 html += '<tr>' +
              '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
-             '<td>' + data[i]["NIT"] + '</td>' +
+             '<td>' + data[i]["programa"] + '</td>' +
              '<td>' + data[i]["nombre"] + '</td>' +
              '<td>' + data[i]["correo_empresa"] + '</td>' +
              '<td>' + data[i]["descripcion_empresa"] + '</td>' +
@@ -174,11 +174,11 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/logos/<?php echo $_SESSION['logo'];?>" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
-            <h6 class="display-income">Nit <?php echo $_SESSION['nit']; ?></h6>
+            <h6 class="display-income"><?php echo $_SESSION['programa']; ?></h6>
           </div>
         </div>
         <ul class="navigation-menu">

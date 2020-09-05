@@ -29,9 +29,10 @@ while ($stmt -> fetch()) {
     $_SESSION['cod_hv']=$cod_hv;
 
     $primer_nombre=explode(' ', $nombre);
+   
     $response = array(
     'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
-    'status' => true
+    'status' => 1
     );
 }
 
@@ -40,7 +41,7 @@ if($aux==0){
     $response = array(
         'html' => "error",
         'comment' => 'No se encuentran registradas las credenciales en el sistema',
-        'status' => false
+        'status' => 0
     );
 }
 echo json_encode($response);

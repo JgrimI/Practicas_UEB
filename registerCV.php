@@ -1,15 +1,16 @@
 <?php
 session_start();
 
-$_SESSION['redirect']="studentHome.php";
 
-include_once('persistencia/db.php');
-
-if (!isset($_SESSION['redirect'])) {
+if (!isset($_SESSION['programa'])) {
     //  header('Location: index.php');
     $carrera="Ingeníeria de Sistemas";
 } else {
     
+    $_SESSION['redirect']="registerCV.php";
+    $nombre=$_SESSION['nombre'];
+    $id=$_SESSION['id'];
+    $correo=$_SESSION['correo'];
     $carrera=$_SESSION['programa'];
 
 }
@@ -93,194 +94,69 @@ if (!isset($_SESSION['redirect'])) {
 
             $(".nextInfPer").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
+                   siguiente($(this));  
                 }
             });
 
             $(".nextPerfilPro").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
+                    siguiente($(this));  
                 }
             });
             $(".nextFormAca").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
+                    siguiente($(this));  
                 }
             });
             $(".nextFormCom").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
+                    siguiente($(this));  
                 }
             });
             $(".nextExpAca").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
+                    siguiente($(this));  
                 }
             });
             $(".nextExpLab").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
-                }
+                    siguiente($(this));  
+                 }
             });  
             $(".nextRef").click(function() {
                 if (true) {
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({
-                        opacity: 0
-                    }, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            current_fs.css({
-                                'display': 'none',
-                                'position': 'relative'
-                            });
-                            next_fs.css({
-                                'opacity': opacity
-                            });
-                        },
-                        duration: 600
-                    });
+                   siguiente($(this));  
                 }
             });
+
+            function siguiente(val){
+
+                current_fs = val.parent();
+                next_fs = val.parent().next();
+                //Add Class Active
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                //show the next fieldset
+                next_fs.show();
+                //hide the current fieldset with style
+                current_fs.animate({
+                    opacity: 0
+                }, {
+                    step: function(now) {
+                        // for making fielset appear animation
+                        opacity = 1 - now;
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        next_fs.css({
+                            'opacity': opacity
+                        });
+                    },
+                    duration: 600
+                });
+            }
+
+
             $(".skip").click(function() {
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
@@ -467,34 +343,28 @@ if (!isset($_SESSION['redirect'])) {
             }
             return false;
         }
-        $(".sub").click(function() {
-            document.getElementById("msform").submit();
-
-        });
-   
-function myFunction() {
-    
-    console.log("entro");
-  document.getElementById("msform").submit();
-}
+          
         function regCV(){
             console.log("entro1");
             if (true) {
             $.ajax({
                 type: "POST",
                 url: "ws/registerCurriculumVitae.php",
-                 data:$('#msform').serialize(),
+                data:new FormData($('#msform')[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
                 success: function (data) {
                     console.log(data);
                     data = JSON.parse(data);
                     if (data["status"] == 1) {
-                    $('.dropify-clear').click();
-                    Swal.fire(
-                            'Bien hecho!',
-                            'Se has creado exitosamente tu hoja de vida!!!',
-                            'success'
-                            ).then(function(){
-                        window.location='index.php';
+                        $('.dropify-clear').click();
+                        Swal.fire(
+                                'Bien hecho!',
+                                'Se has creado exitosamente tu hoja de vida!!!',
+                                'success'
+                                ).then(function(){
+                                window.location='index.php';
                         })
                     }else{
                     if(data['error'] == 1062){
@@ -590,24 +460,16 @@ referencias
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Información Personal</h2> <br>
 
-                                                        <input type="text" style="background-color: #f4f4f4;" name="uname" value="Jorge Alberto Grimaldos" disabled />
+                                                        <input type="text" style="background-color: #f4f4f4;" value="<?php echo $nombre;?>" disabled />
+                                                       
+                                                        <input type="hidden" id="name" name="name" value="<?php echo $nombre;?>"/>
 
-                                                        <input type="text" style="background-color: #f4f4f4;" name="umail" value="jgrimaldos@unbosque.edu.co" disabled />
-
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_address" style="display:none;"></div>
-                                                        <input type="text" name="address" id="address" placeholder="Dirección*" />
-
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_residence" style="display:none;"></div>
-                                                        <input type="text" name="residence" id="residence" placeholder="Lugar de residencia*" />
-
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_telephone" style="display:none;"></div>
-                                                        <input type="text" id="telephone" name="telephone" placeholder="Número Telefónico" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
-                                                            onkeypress="solonumeros(event);">
+                                                        <input type="hidden" id="cod_estu" name="cod_estu" value="<?php echo $id;?>">
 
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_document" style="display:none;"></div>
                                                         <label for="document">Tipo de documento*</label>
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <select name="document" class="form-control" id="document" required>
+                                                            <select name="document" class="form-control" id="document" required  >
                                                                 <option value="">Seleccione el tipo de documento</option>
                                                                 <option value="cc">(CC) Cédula de Ciudadania</option>
                                                                 <option value="ce">(CE) Cédula de Extranjeria</option>
@@ -618,11 +480,26 @@ referencias
                                                         <input type="text" id="document_id" name="document_id" placeholder="Número de documento" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
                                                             onkeypress="solonumeros(event);">
 
-                                                        <!-- <div class="form-group">
+
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_telephone" style="display:none;"></div>
+                                                        <input type="text" id="telephone" name="telephone" placeholder="Número Telefónico" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
+                                                            onkeypress="solonumeros(event);">
+
+                                                            
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_residence" style="display:none;"></div>
+                                                        <input type="text" name="residence" id="residence" placeholder="Lugar de residencia*" />
+
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_address" style="display:none;"></div>
+                                                        <input type="text" name="address" id="address" placeholder="Dirección*" />                                                    
+                                                       
+                                                        <input type="text" style="background-color: #f4f4f4;" name="umail" value="<?php echo $correo;?>" disabled />
+
+                                                         <div class="form-group">
                                                             <div class="alert alert-danger mb-0" role="alert" id="alert_photo" style="display:none;"></div>
-                                                            <label for="photo">Foto personal*</label>
-                                                            <input type="file" class="form-control-file dropify" name="photo" id="photo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
-                                                        </div> -->
+                                                            <label for="photo">Foto personal(Opcional)</label>
+                                                            <input type="file" class="form-control-file dropify" name="photo" id="photo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg">
+                                                        </div> 
+                                                        
 
                                                     </div>
                                                     <input type="button" name="next" class="nextInfPer action-button" value="Siguiente" />
@@ -647,7 +524,7 @@ referencias
                                                 <fieldset>
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Formación Academica</h2>
-                                                        <input type="text" style="background-color: #f4f4f4;" name="lname" value="<?php echo $carrera?>" disabled/>
+                                                        <input type="text" style="background-color: #f4f4f4;" name="lname" value="<?php echo $carrera;?>" disabled/>
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_semester" style="display:none;"></div>
                                                         <input type="text" id="semester" name="semester" placeholder="Semestre" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" required min="1" max="20" class="form-control" onkeypress="solonumeros(event);">
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_startDate" style="display:none;"></div>
@@ -705,7 +582,7 @@ referencias
                                                    
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                               
+
                                                     <input type="button" name="next" class="nextExpLab action-button" value="Siguiente" />
                                                     <input type="button" name="skip" style="    margin-left: 80%; background: #008375!important;" class="skip action-button" value="Saltar" />
                                                
@@ -716,14 +593,12 @@ referencias
                                                         <h2 class="fs-title">Referencias</h2> 
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
                                                         <input type="text" name="references" id="references" placeholder="Referencias*" />
-                                                        
-                                                        
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                                    <input type="button" name="next" class="nextRef action-button" value="Confirmar" />
                                                    
                                                 </fieldset>
-                                              
+                                                <button type="submit" name="next" class="action-button">Confirmar</button>
+                                                  
                                             </form>
                                         </div>
                                     </div>

@@ -209,7 +209,7 @@ if(isset($_GET['code'])){
         success: function (data) {
             console.log(data);
             data = JSON.parse(data);
-            if (data["status"]) {
+            if (data["status"]==1) {
               Swal.fire({
                 title: "Felicitaciones!",
                 text: "Su cuenta ha sido activada",
@@ -218,7 +218,40 @@ if(isset($_GET['code'])){
               ).then(function() {
                   window.location = "registerCV.php";
               });
-            } else {
+            }else {
+                $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</div>');
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    })
+  }
+  function alreadyActive(id) {
+    $.ajax({
+        type: "POST",
+        url: "ws/checkMailUser.php",
+        data: { 
+            'codigo': id,
+        },
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"]==1) {
+              Swal.fire({
+                title: "Advertencia!",
+                text: "Su cuenta ya se encuentra activada, pero todavia se encuentra en proceso de inscripción",
+                icon: "warning"
+              }
+              ).then(function() {
+                  window.location = "registerCV.php";
+              });
+
+            }else {
                 $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                     '<span aria-hidden="true">&times;</span>\n' +
@@ -264,7 +297,14 @@ if(isset($_GET['code'])){
                           </script>  ";
                         break;
                         }
-                    } else {
+                    }
+                    elseif ($estado=='ACTIVADO') {
+                      $stmt->close();
+                      
+                            echo "<script>alreadyActive(".$cod.");</script>";
+                        break;
+                       
+                    }else {
                         echo '<script> swal.fire({
                         title: "Aviso!",
                         text: "Su cuenta ya se encuentra activada",

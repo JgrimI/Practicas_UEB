@@ -2,7 +2,9 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 session_start();
+
 include_once('../persistencia/db.php');
 
 function removeAccents($input){
@@ -26,28 +28,69 @@ function removeAccents($input){
 }
 
 $response = [];
+
+//info per
 $nombre = $_POST["name"];
 $id = $_POST["cod_estu"];
-$residence = $_POST["residence"];
-$ppro = $_POST["ppro"];
 $document = $_POST["document"];
 $dId = $_POST["document_id"];
-$semester = $_POST["semester"];
-$courses = $_POST["courses"];
-$expAca = $_POST["expAca"];
-$expLab = $_POST["cargo"];
-$ref = $_POST["references"];
+$telephone = $_POST["telephone"];
+$residence = $_POST["residence"];
+$address = $_POST["address"];
 $foto = '';
 
-// $image= ($FILES['photo']['name']==null) ? imageDefecto.png :  $FILES['photo']['name'];
+//perfil profe
+$ppro = $_POST["ppro"];
+
+//formacion academica
+$semester = $_POST["semester"];
+$startDate = $_POST["startDateAca"];
+
+//formacion compelmentaria
+$languages = $_POST["languages"];
+$courses = $_POST["courses"];
+
+//experiencia academica
+$tituloP = $_POST["tituloP"];
+$materia = $_POST["materia"];
+$periodo = $_POST["periodo"]; // REGEX [0-9]{4}(-|)[0]{1}[1-2]{1}
+
+$expAca = $_POST["expAca"];
+
+$expAcademica = $tituloP."<br>".$materia."<br>".$periodo."<br>".$expAca;
+
+//experiencia laboral
+$cargo = $_POST["cargo"];
+$company = $_POST["company"];
+$startDate = $_POST["startDate"];
+$endDate = $_POST["endDate"];
+
+$expLaboral = $cargo."<br>".$company."<br>".$startDate."<br>".$endDate;
+
+//referencias
+$nomR1 = $_POST["nombreRef1"];
+$carR1 = $_POST["cargoRef1"];
+$numR1 = $_POST["numeroRef1"];
+
+$nomR2 = $_POST["nombreRef2"];
+$carR2 = $_POST["cargoRef2"];
+$numR2 = $_POST["numeroRef2"];
+
+$Referencias = $nomR1."<br>".$carR1."<br>".$numR1."<br>".$nomR2."<br>".$carR2."<br>".$numR1;
+
+
+
+//$image= ($FILES['photo']['name']==null) ? "default-user-image.png" :  $FILES['photo']['name'];
 if($_FILES["photo"]["name"]){
     $foto = removeAccents(str_replace(' ', '', $nombre)) . ".png";
-    $img = "../assets/images/profile/" . removeAccents(str_replace(' ', '', $nombre)) . ".png";
+    $img = "../assets/images/profile/users/" . removeAccents(str_replace(' ', '', $nombre)) . ".png";
     file_put_contents($img, file_get_contents($_FILES["photo"]["tmp_name"]));
 }
 
-$sql = "INSERT INTO HOJA_VIDA (lugar_de_residencia, perfil_profesional, tipo_documento, numero_documento, educacion, informacion_complementaria, experiencia_laboral, experiencia_academica, referencias ) 
-VALUES ('".$residence."', '".$ppro."', '".$document."', '".$dId."','".$semester."','".$courses."','".$expLab."','".$expAca."','".$ref."');";
+$_SESSION['foto']=($foto==null) ? 'default-user-image.png': $foto;
+   
+$sql = "INSERT INTO HOJA_VIDA (lugar_de_residencia, perfil_profesional,numero_telefono, tipo_documento, numero_documento, educacion, informacion_complementaria, experiencia_laboral, experiencia_academica, referencias ) 
+VALUES ('".$residence."', '".$ppro."', '".$telephone."', '".$document."', '".$dId."','".$semester."','".$courses."','".$expLaboral."','".$expAcademica."','".$Referencias."');";
 
 $sql2="UPDATE ESTUDIANTE SET cod_hv=LAST_INSERT_ID(), semestre='".$semester."' ,estado='INSCRITO', foto='".$foto."' WHERE cod_estudiante=75;";
 

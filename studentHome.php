@@ -14,6 +14,10 @@ if (!isset($_SESSION['redirect'])) {
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -89,7 +93,7 @@ if (!isset($_SESSION['redirect'])) {
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
       <div class="t-header-brand-wrapper">
-        <a href="empresa.php">
+        <a href="?menu=stats">
           <img class="logo" src="assets/images/logo.png" alt="">
           <img class="logo-mini" src="assets/images/logo.png" alt="">
         </a>
@@ -174,7 +178,7 @@ if (!isset($_SESSION['redirect'])) {
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/users/<?php echo $_SESSION['foto'];?>" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
@@ -184,21 +188,26 @@ if (!isset($_SESSION['redirect'])) {
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
           <li>
-            <a href="empresa.php">
+            <a href="?menu=stats">
               <span class="link-title">Dashboard</span>
               <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
-          
           <li>
-            <a href="../icons/material-icons.html">
+            <a href="#">
+              <span class="link-title">Hoja vida</span>
+              <i class="mdi mdi-account-card-details link-icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="?menu=vacants">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
           <li>
-            <a href="../icons/material-icons.html">
-              <span class="link-title">Aplicantes</span>
+            <a href="#">
+              <span class="link-title">Mis vacantes?</span>
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
@@ -209,57 +218,25 @@ if (!isset($_SESSION['redirect'])) {
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
-          <div class="viewport-header">
-            <div class="row">
-              <div class="col-12 py-5">
-                <h4>Empresas</h4>
-              </div>
-            </div>       
-          </div>
-          <div class="content-viewport">
-            <div class="row">              
-              <div class="col-lg-27">
-                <div class="grid">
-                  <p class="grid-header">Empresas</p>
-                  <div class="item-wrapper">
-                    <div class="table-responsive">
-                      <table class="table info-table table-striped" >
-                        <thead>
-                          <tr>
-                            <th>Logo</th>                            
-                            <th>NIT</th>
-                            <th>Razón social</th>
-                            <th>Correo</th>
-                            <th>Descripción</th>
-                            <th>Numero de ingresos</th>
-                            <th>Estado</th>
-                            <th>cc_empresa</th>
-                            <th>Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="company" >
-                                   
-                        </tbody>
-                        
-                      </table>
-                    </div> 
-                  </div>
-                </div>
-              </div>             
+          <?php 
+            require_once('routingSt.php');
+          ?>
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
+          <div class="row" style="display:block;text-align:center;">
+            <div>
               <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                Powered By SoftHub Developments
               </ul>
             </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              <small class="text-muted d-block">Copyright © 2019 <a href="http://www.uxcandy.co" target="_blank">UXCANDY</a>. All rights reserved</small>
-              <small class="text-gray mt-2">Handcrafted With <i class="mdi mdi-heart text-danger"></i></small>
+            <div style="float:right;">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+              </ul>
             </div>
+            
           </div>
         </footer>
         <!-- partial -->
@@ -276,6 +253,8 @@ if (!isset($_SESSION['redirect'])) {
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
     <script src="assets/js/template.js"></script>
+    <script src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
     <!--  -->
   </body>
 </html>

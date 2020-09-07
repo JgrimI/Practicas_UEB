@@ -11,10 +11,10 @@ $fecha = date('Y-m-d');
 $aux= 0;
 $response = [];
 
-$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre, e.cod_HV from ESTUDIANTE e, PROGRAMA p where e.correo_estudiante ='".$username."' and e.cod_programa=p.cod_programa";
+$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre, e.cod_HV, e.foto from ESTUDIANTE e, PROGRAMA p where e.correo_estudiante ='".$username."' and e.cod_programa=p.cod_programa";
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$cod_hv);
+$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$cod_hv,$foto);
 
 while($stmt -> fetch()) {
     session_start();
@@ -26,6 +26,7 @@ while($stmt -> fetch()) {
     $_SESSION['programa']=$programa;
     $_SESSION['semestre']=$semestre;
     $_SESSION['cod_hv']=$cod_hv;
+    $_SESSION['foto']=($foto==null) ? 'default-user-image.png': $foto;
     $_SESSION['redirect']='studentHome.php';
     $primer_nombre=explode(' ',$nombre);
     $response = array(

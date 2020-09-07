@@ -1,14 +1,53 @@
 <script>
     window.onload=getData();
     function getData(){
+        console.log('entra1?');
         $.ajax({
             type: "POST",
-            url: "ws/getVacants.php",
+            url: "ws/getVacantsOfCompany.php",
             success: function (data) {
                 console.log(data);
                 data = JSON.parse(data);
+                var aux=0;
+
                 if (data["status"] == 1) {
-                    $('#contentPage').html(data['html']);
+                    
+                    console.log(data['vacants']);
+                    var html="<div class='row' style='float:right; margin-bottom:5%; margin-right:5%'>\n"+
+                        "<a class='btn btn-warning' href='javascript:void(0)' onclick='openModal();'>Publicar</a>\n"+
+                    "</div>\n"+
+                    "<div class='row' style='margin-top:6%;'>";
+                    data=data["vacants"];
+                    for (let x in data ){
+                        aux=aux+1;
+                        margin=(aux==1) ? '' : 'margin-left:5%;';
+                        aux=(aux==3) ? 0 : aux;
+                        html+='<div class="card" style="width: 30%; '+margin+' margin-top:2%; background-image: linear-gradient(120deg,#00e795 0,#0095e2 100%);">\n'+
+                                '<div class="card-body" style="color:#fff">\n'+
+                                    '<h4 class="text-center">'+data[x]['nombre_cargo']+'</h4><br>\n'+
+                                    '<h6 class="card-subtitle mb-2 text-center" >Cantidad Vacantes: '+data[x]["cantidad_vacantes"]+'</h6>\n'+
+                                    '<center><label class="badge badge-dark">'+data[x]["estado"]+'</label></center>\n'+
+                                    '<p class="card-text">\n'+
+                                       '<strong>Rango salarial:</strong> '+data[x]["rango_salarial"]+'<br>\n'+
+                                        '<strong>Horario:</strong> '+data[x]["horario_disponibilidad"]+'<br>\n'+
+                                        '<strong>Fecha:</strong> '+data[x]["fecha_vacante"]+'<br>\n'+
+                                        '<strong>Descripción:</strong> '+data[x]["descripcion_vacante"]+'<br>\n'+
+                                        '<strong>Educación base:</strong> '+data[x]["educacion_base"]+'<br>\n'+
+                                    '</p>\n'+
+                                '</div>\n'+
+                            '</div>';   
+                    }
+                    html+='</div>';
+                    $('#contentPage').html(html);
+                }else{
+                    console.log('entra?');
+                    var h="<div style='margin-top:3%;margin-left:15%;'>\n"+
+                        "<h1>Aun no has publicado ninguna vacante </h1><br>\n"+
+                        "<img src='assets/images/comencemos.png' width='600px' height='500px'>\n"+
+                        "<a class='btn btn-warning btn-lg' style='color:white;' href='javascript:void(0)' onclick='openModal();'>Comencemos!!</a>\n"+
+                   "</div>";
+                   $('#contentPage').html(h);
+
                 }
             },
             error: function (data) {

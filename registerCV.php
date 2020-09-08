@@ -120,14 +120,12 @@ if (!isset($_SESSION['programa'])) {
             });
             $(".nextExpLab").click(function() {
                 if (true) {
-                    siguiente($(this));  
+                    siguiente($(this)); 
+                    $('#confirm').css('display', 'block');
+                
                  }
             });  
-            $(".nextRef").click(function() {
-                if (true) {
-                   siguiente($(this));  
-                }
-            });
+           
 
             function siguiente(val){
 
@@ -158,6 +156,8 @@ if (!isset($_SESSION['programa'])) {
 
 
             $(".skip").click(function() {
+                $('#confirm').css('display', 'block');
+               
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
                 //Add Class Active
@@ -184,7 +184,8 @@ if (!isset($_SESSION['programa'])) {
             
             });
             $(".previous").click(function() {
-
+                $('#confirm').css('display', 'none');
+               
                 current_fs = $(this).parent();
                 previous_fs = $(this).parent().prev();
 
@@ -292,7 +293,7 @@ if (!isset($_SESSION['programa'])) {
         }
 
         function verifyFormAca() {
-            var semester = document.getElementById('semester').value();
+            var semester = document.getElementById('semester').value;
             var startDate = document.getElementById('startDate').value;
 
             if (semester != '' && startDate != '') {
@@ -443,6 +444,7 @@ referencias
                                     <div class="row">
                                         <div class="col-md-12 mx-0" enctype="multipart/form-data">
                                             <form id="msform" action="javascript:void(0);"  onsubmit="regCV();">
+                                               
                                                 <!-- progressbar -->
                                                 <ul id="progressbar">
                                                     <li style="width:14.2%;" class="active" id="account"><strong>Información Personal</strong></li>
@@ -480,11 +482,9 @@ referencias
                                                         <input type="text" id="document_id" name="document_id" placeholder="Número de documento" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
                                                             onkeypress="solonumeros(event);">
 
-
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_telephone" style="display:none;"></div>
                                                         <input type="text" id="telephone" name="telephone" placeholder="Número Telefónico" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
                                                             onkeypress="solonumeros(event);">
-
                                                             
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_residence" style="display:none;"></div>
                                                         <input type="text" name="residence" id="residence" placeholder="Lugar de residencia*" />
@@ -524,12 +524,15 @@ referencias
                                                 <fieldset>
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Formación Academica</h2>
-                                                        <input type="text" style="background-color: #f4f4f4;" name="lname" value="<?php echo $carrera;?>" disabled/>
+                                                        <input type="text" style="background-color: #f4f4f4;" name="carrera" id="carrera" value="<?php echo $carrera;?>" disabled/>
+                                                       
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_semester" style="display:none;"></div>
                                                         <input type="text" id="semester" name="semester" placeholder="Semestre" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" required min="1" max="20" class="form-control" onkeypress="solonumeros(event);">
+                                                       
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_startDate" style="display:none;"></div>
                                                         <label for="startDate">Fecha de inicio*</label>
-                                                        <input type="date" id="startDate" name="startDate" placeholder="Fehca de inicio" />
+                                                        <input type="date" id="startDateAca" name="startDateAca" placeholder="Fehca de inicio" />
+                                                   
                                                     </div> <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
                                                     <input type="button" name="next" class="nextFormAca action-button" value="Siguiente" />
                                                 </fieldset>
@@ -553,29 +556,44 @@ referencias
                                                 <fieldset>
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Experiencia Academica</h2>
+                                                       
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_titulo" style="display:none;"></div>
+                                                        <input type="text" name="tituloP" id="tituloP" placeholder="Titulo del proyecto*" />
+                                                       
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_materia" style="display:none;"></div>
+                                                        <input type="text" name="materia" id="materia" placeholder="Marco de materia*" />
+                                                   
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_perido" style="display:none;"></div>
+                                                        <input type="text" name="periodo" id="periodo" placeholder="Periodo Academico*" />
+                                                       
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_expAca" style="display:none;"></div>
                                                         <textarea id="expAca" name="expAca" rows="10" cols="12" placeholder="Escriba aqui su experiencia academica"></textarea>
+                                                       
                                                         <p>Nota: Los trabajos o proyectos realizados durante las diferentes materias son la experiencia academica.</p>
+                                                   
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
                                                
                                                     <input type="button" name="next" class="nextExpAca action-button" value="Siguiente" />
                                              
                                                  </fieldset>
+                                              
                                                 <!-- fieldset 6 -->
                                                 <fieldset>
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Experiencia Laboral</h2> 
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
+                                                       
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
                                                         <input type="text" name="cargo" id="cargo" placeholder="Cargo*" />
                                                        
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_company" style="display:none;"></div>
                                                         <input type="text" name="company" id="company" placeholder="Empresa*" />
                                                        
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_startDate" style="display:none;"></div>
                                                         <label for="startDate">Fecha de inicio*</label>
                                                         <input type="date" id="startDate" name="startDate" />
                                                        
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_startDate" style="display:none;"></div>
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_endDate" style="display:none;"></div>
                                                         <label for="endtDate">Fecha de finalización*</label>
                                                         <input type="date" id="endDate" name="endDate"  />
                                                         <p>Nota: Si no cuenta con experiencia laboral puede omitir este paso.</p>
@@ -584,21 +602,40 @@ referencias
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
 
                                                     <input type="button" name="next" class="nextExpLab action-button" value="Siguiente" />
-                                                    <input type="button" name="skip" style="    margin-left: 80%; background: #008375!important;" class="skip action-button" value="Saltar" />
+                                                    <input type="button" name="skip" style="margin-left: 80%; background: #008375!important;" class="skip action-button" value="Saltar" />
                                                
                                                 </fieldset>
+                                                
                                                 <!-- fieldset 7 -->
                                                 <fieldset>
-                                                    <div class="form-card">
+                                                    <div class="form-card" style="text-align: center;">
                                                         <h2 class="fs-title">Referencias</h2> 
+                                                        <label for="startDate">Referencia 1</label>
+                                                      
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                        <input type="text" name="nombreRef1" id="nombreRef1" placeholder="Nombre*" />
+                                                      
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                        <input type="text" name="cargoRef1" id="cargoRef1" placeholder="Cargo*" />
+                                                      
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
-                                                        <input type="text" name="references" id="references" placeholder="Referencias*" />
+                                                        <input type="text" name="numeroRef1" id="numeroRef1" placeholder="Numero*" />
+                                                        <label for="startDate">Referencia 2</label>
+                                                      
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                        <input type="text" name="nombreRef2" id="nombreRef2" placeholder="Nombre*" />
+                                                        
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                        <input type="text" name="cargoRef2" id="cargoRef2" placeholder="Cargo*" />
+                                                        
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
+                                                        <input type="text" name="numeroRef2" id="numeroRef2" placeholder="Numero*" />
+                                               
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
                                                    
                                                 </fieldset>
-                                                <button type="submit" name="next" class="action-button">Confirmar</button>
-                                                  
+                                                <button type="submit" style="display: none; margin: 5px 85%;" id="confirm" name="confirm" class="action-button">Confirmar</button>
                                             </form>
                                         </div>
                                     </div>

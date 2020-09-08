@@ -39,7 +39,7 @@ while($stmt -> fetch()) {
                     '.$rango_salarial.'
                 </td>
                 <td>
-                <div class="btn btn-success has-icon">
+                <div class="btn btn-success has-icon" onclick="openModal('.$cod_vacante.');">
                     <i class="mdi mdi-information"></i>Ver mas
                 </div>                    
                 </td>              

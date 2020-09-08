@@ -18,6 +18,8 @@ if (!isset($_SESSION['redirect'])) {
     <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -221,6 +223,7 @@ if (!isset($_SESSION['redirect'])) {
           <?php 
             require_once('routingSt.php');
           ?>
+          
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">

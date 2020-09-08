@@ -76,7 +76,7 @@
                 }else{
                     Swal.fire(
                         'Bien hecho!',
-                        'Se ha publicado tu vacante con exito!',
+                        data['error'],
                         'error'
                     );
                 }

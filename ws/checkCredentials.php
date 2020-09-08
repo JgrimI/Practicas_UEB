@@ -51,7 +51,7 @@ if($aux==0){
         $_SESSION['correo']=$correo;
         $_SESSION['nit']=$nit;
         $_SESSION['logo']=$logo;
-        $_SESSION['estadi']=$estado;
+        $_SESSION['estado']=$estado;
         $_SESSION['redirect']='companyHome.php';
         $primer_nombre=explode(' ',$nombre);
         $response = array(

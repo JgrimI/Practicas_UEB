@@ -7,7 +7,6 @@
             type: "POST",
             url: "ws/getVacantsForStudent.php",
             success: function (data) {
-                console.log(data);
                 data = JSON.parse(data);
                 if (data["status"] == 1) {
                     $("#contentPage").html(data['vacants']);
@@ -44,6 +43,69 @@
             },
         })
     }
+    function openModal(id){
+        $.ajax({
+            type: "POST",
+            url: "ws/getDetailsOfVacant.php",
+            data:{
+                'cod':id
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                if (data["status"] == 1) {
+                    $("#modalBody").html(data['html']);
+                }
+                $("#seeVacant").modal('show');
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
+    }
+    function applyAtVacant(id){
+        Swal.fire({
+                title: '¿Estas seguro?',
+                text: "No vas a poder revertir esta acción y se enviara tu hoja de vida a la empresa",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor:'#fc3e25',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si, estoy seguro!',
+            }).then(function (result) {
+                if(result.value){
+                    $.ajax({
+                        type: "POST",
+                        url: "ws/applyAtVacant.php",
+                        data:{
+                            'cod':id
+                        },
+                        success: function (data) {
+                            data = JSON.parse(data);
+                            if (data["status"] == 1) {
+                                Swal.fire(
+                                    'Bien hecho!',
+                                    'Se ha enviado tu hoja de vida con exito!',
+                                    'success'
+                                );
+                            }else{
+                                Swal.fire(
+                                    'Bien hecho!',
+                                    data['error'],
+                                    'error'
+                                );
+                            }
+                            $("#seeVacant").modal('hide');
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        },
+                    });
+                }
+                $("#seeVacant").modal('hide');
+            });
+       
+        
+    }
     
 </script>
 <style>
@@ -66,4 +128,10 @@
         
             <!-- Aqui va todo el contenido de la pagina -->
         </div>
-        
+        <div class="modal fade" id="seeVacant" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" id="modalBody" name="modalBody">
+                    <!-- Aqui va todo el contenido de ver vacante-->
+                </div>
+            </div>
+        </div>

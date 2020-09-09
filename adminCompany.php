@@ -61,11 +61,11 @@ if (!isset($_SESSION['redirect'])) {
                 var i;
                 for (i = 0; i < data.length; i++) {
                   if(data[i]["estado"]=="RECHAZADO"){
-                    var estado = 'badge badge-danger';
+                    var estado = 'btn btn-outline-danger';
                   }else if(data[i]["estado"]=="APROBADO"){
-                    estado='badge badge-success';
+                    estado='btn btn-outline-success';
                   }else{
-                    estado='badge badge-info';
+                    estado='btn btn-outline-info';
                   }
                 html += '<tr>' +
              '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
@@ -74,7 +74,7 @@ if (!isset($_SESSION['redirect'])) {
              '<td>' + data[i]["correo_empresa"] + '</td>' +
              '<td>' + data[i]["descripcion_empresa"] + '</td>' +
              '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
+             '<td><button type="button" rel=tooltip" class="'+estado+'" data-toggle="modal" data-target="#cambiarEstado">'+ data[i]["estado"] + '</td>' +
              '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
              '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
              '</tr>';
@@ -88,6 +88,43 @@ if (!isset($_SESSION['redirect'])) {
             console.log(data);
         },
     })
+  }
+
+    function valCompany(){
+      $.ajax({
+        type: "POST",
+        url: "ws/valCompany.php",
+        data:new FormData($('#f_emp')[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"] == 1) {
+              $('.dropify-clear').click();
+              Swal.fire(
+                  'Bien hecho!',
+                  'Se han enviado a tu correo las credenciales para que accedas a tu cuenta y disfruta de la plataforma!!!',
+                  'success'
+                ).then(function(){
+                  window.location='index.php';
+                })
+            }else{
+              if(data['error'] == 1062){
+                Swal.fire(
+                  'Error!',
+                  'Ya se encuentra registrado en la plataforma!!!',
+                  'error'
+                )
+              }
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    }
   }
 
 </script>
@@ -277,6 +314,39 @@ if (!isset($_SESSION['redirect'])) {
       <!-- page content ends -->
     </div>
     <!--page body ends -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="cambiarEstado" tabindex="-1" role="dialog" aria-labelledby="CambiarEstado"  aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Cambiar Estado</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="f_emp" action="javascript:void(0);" onsubmit="valCompany();">
+            <div class="form-group row showcase_row_area">
+                <div class="col-md-5 showcase_text_area">
+                    <label for="email">Cambiar Estado</label>
+                </div>
+                <div class="col-md-20 showcase_content_area">
+                    <select name="VEstado" class="form-control" id="VEstado" required>
+                      <option value="REGISTRADO">Registrado</option>
+                      <option value="RECHAZADO">Rechazar</option>
+                      <option value="APROBADO">Aceptar</option>
+                    </select> 
+                </div>          
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
     <script src="assets/vendors/js/core.js"></script>

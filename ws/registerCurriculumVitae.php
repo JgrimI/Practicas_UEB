@@ -37,6 +37,7 @@ $dId = $_POST["document_id"];
 $telephone = $_POST["telephone"];
 $residence = $_POST["residence"];
 $address = $_POST["address"];
+$residence = $residence.'<br>'.$address;
 $foto = '';
 
 //perfil profe
@@ -44,11 +45,12 @@ $ppro = $_POST["ppro"];
 
 //formacion academica
 $semester = $_POST["semester"];
-$startDate = $_POST["startDateAca"];
+$startDateAca = $_POST["startDateAca"];
 
 //formacion compelmentaria
 $languages = $_POST["languages"];
 $courses = $_POST["courses"];
+$courses = $courses.'<br>'.$languages;
 
 //experiencia academica
 $tituloP = $_POST["tituloP"];
@@ -64,8 +66,9 @@ $cargo = $_POST["cargo"];
 $company = $_POST["company"];
 $startDate = $_POST["startDate"];
 $endDate = $_POST["endDate"];
+$functions = $_POST["functions"];
 
-$expLaboral = $cargo."<br>".$company."<br>".$startDate."<br>".$endDate;
+$expLaboral = $cargo."<br>".$company."<br>".$startDate."<br>".$endDate."<br>".$functions;
 
 //referencias
 $nomR1 = $_POST["nombreRef1"];
@@ -90,9 +93,9 @@ if($_FILES["photo"]["name"]){
 $_SESSION['foto']=($foto==null) ? 'default-user-image.png': $foto;
    
 $sql = "INSERT INTO HOJA_VIDA (lugar_de_residencia, perfil_profesional,numero_telefono, tipo_documento, numero_documento, educacion, informacion_complementaria, experiencia_laboral, experiencia_academica, referencias ) 
-VALUES ('".$residence."', '".$ppro."', '".$telephone."', '".$document."', '".$dId."','".$semester."','".$courses."','".$expLaboral."','".$expAcademica."','".$Referencias."');";
+VALUES ('".$residence."', '".$ppro."', '".$telephone."', '".$document."', '".$dId."','".$startDateAca."','".$courses."','".$expLaboral."','".$expAcademica."','".$Referencias."');";
 
-$sql2="UPDATE ESTUDIANTE SET cod_hv=LAST_INSERT_ID(), semestre='".$semester."' ,estado='INSCRITO', foto='".$foto."' WHERE cod_estudiante=75;";
+$sql2="UPDATE ESTUDIANTE SET cod_hv=LAST_INSERT_ID(), semestre='".$semester."' ,estado='INSCRITO', foto='".$foto."' WHERE cod_estudiante=".$_SESSION['id'].";";
 
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){

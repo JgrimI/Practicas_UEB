@@ -413,7 +413,7 @@ referencias
   areas disciplinarias que quiere ejercer.
 
   - formacion academica: asume carrera seleccionada, campo semestre y fecha de inicio
-  bachiller tecnico o tecnologo
+  bachiller tecnico
   bachiller academico o bachiller tecnico, titulo bachiller, fecha grado
   tecnico- titulo obtenido, institucion, año grado
 
@@ -596,6 +596,10 @@ referencias
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_endDate" style="display:none;"></div>
                                                         <label for="endtDate">Fecha de finalización*</label>
                                                         <input type="date" id="endDate" name="endDate"  />
+                                                       
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_functions" style="display:none;"></div>
+                                                        <textarea id="functions" name="functions" rows="10" cols="12" placeholder="Describa aqui sus funciones segun su cargo"></textarea>
+                                                       
                                                         <p>Nota: Si no cuenta con experiencia laboral puede omitir este paso.</p>
                                                    
                                                     </div>

@@ -196,10 +196,15 @@ if (!isset($_SESSION['redirect'])) {
             </a>
           </li>
           <li>
-            <a href="#">
+            
+          <form method="post" target="_blank" action="pdf.php" id="formCV">
+            <a href="" onclick="this.closest('form').submit();return false;">
               <span class="link-title">Hoja vida</span>
               <i class="mdi mdi-account-card-details link-icon"></i>
             </a>
+            <input type="hidden" id="id" name="id" value="<?php echo $_SESSION["id"];?>"/>
+
+          </form>
           </li>
           <li>
             <a href="?menu=vacants">

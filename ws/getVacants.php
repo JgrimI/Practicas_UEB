@@ -1,17 +1,22 @@
 <?php
 include_once('../persistencia/db.php');
-$query = "SELECT nombre_cargo, descripcion_vacante, educacion_base, horario_disponibilidad, rango_salarial, estado, fecha_vacante, cod_empresa from VACANTE";
+$query = "SELECT cod_vacante, nombre_cargo, descripcion_vacante, educacion_base, 
+horario_disponibilidad, rango_salarial, VACANTE.estado, fecha_vacante, 
+nombre from VACANTE, EMPRESA
+WHERE VACANTE.cod_empresa=EMPRESA.cod_empresa
+GROUP BY cod_vacante;";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($nombre_cargo,$descripcion_vacante,$educacion_base,$horario_disponibilidad,$rango_salarial,$estado,
-    $fecha_vacante,$cod_empresa);
+$stmt -> bind_result($cod_vacante, $nombre_cargo,$descripcion_vacante,$educacion_base,$horario_disponibilidad,$rango_salarial,
+    $estado, $fecha_vacante, $nom_empresa);
 
 $rta="";
 $vacants=array();
 while($stmt -> fetch()) {
     $aux=1;
     $vacant=array(
+        "cod_vacante"=>$cod_vacante,
         "nombre_cargo"=>$nombre_cargo,
         "descripcion_vacante"=>$descripcion_vacante,
         "educacion_base"=>$educacion_base,
@@ -19,7 +24,7 @@ while($stmt -> fetch()) {
         "rango_salarial"=>$rango_salarial,
         "estado"=>$estado,
         "fecha_vacante"=>$fecha_vacante,
-        "cod_empresa"=>$cod_empresa
+        "nom_empresa"=>$nom_empresa
     );
     array_push($vacants,$vacant);
 }

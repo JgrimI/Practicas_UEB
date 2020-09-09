@@ -75,7 +75,7 @@ if (!isset($_SESSION['redirect'])) {
              '<td>' + data[i]["rango_salarial"] + '</td>' +
              '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
              '<td>' + data[i]["fecha_vacante"] + '</td>' +
-             '<td>' + data[i]["cod_empresa"] + '</td>';
+             '<td>' + data[i]["nom_empresa"] + '</td>';
            }
 
           $('#vacant').html(html);

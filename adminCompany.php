@@ -67,20 +67,33 @@ if (!isset($_SESSION['redirect'])) {
                   }else{
                     estado='btn btn-outline-info';
                   }
+                  
                 html += '<tr>' +
-             '<td><img width="50px" height="50px" src="assets/images/logos/' + data[i]["logo"] + '"></td>' +
-             '<td>' + data[i]["NIT"] + '</td>' +
-             '<td>' + data[i]["nombre"] + '</td>' +
-             '<td>' + data[i]["correo_empresa"] + '</td>' +
-             '<td>' + data[i]["descripcion_empresa"] + '</td>' +
-             '<td>' + data[i]["num_ingresos"] + '</td>' +
-             '<td><button type="button" rel=tooltip" class="'+estado+'" data-toggle="modal" data-target="#cambiarEstado">'+ data[i]["estado"] + '</td>' +
-             '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-             '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
-             '</tr>';
-           }
+                        '<td>'+
+                        '<div class="row text-center">'+
+                                   '<div class="col-12">'+
+                                       '<img width="50px" height="50px" class="thumb-sm rounded-circle mr-2" src="assets/images/logos/' + data[i]["logo"] + '">'+
+                                   '</div>'+
+                                   '<div class="col-12">'+
+                                       '<p>' + data[i]["nombre"] +'</p>'+
+                                   '</div>'+
+                               '</div>'+    
+                        '</td>' +
+                        '<td>' + data[i]["NIT"] + '</td>' +
+                        '<td>' + data[i]["correo_empresa"] + '</td>' +
+                        '<td>' + data[i]["descripcion_empresa"] + '</td>' +
+                        '<td>' + data[i]["num_ingresos"] + '</td>' +
+                        '<td><button type="button" rel=tooltip" class="'+estado+'" data-toggle="modal" data-target="#cambiarEstado">'+ data[i]["estado"] + '</td>' +
+                        '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
+                        '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
+                        '</tr>'
 
+             ;
+             var nit = data[i]["NIT"];
+           }
+          
           $('#company').html(html);
+          $('#nitVal').val(nit);
           
             }
         },
@@ -94,7 +107,7 @@ if (!isset($_SESSION['redirect'])) {
       $.ajax({
         type: "POST",
         url: "ws/valCompany.php",
-        data:new FormData($('#f_emp')[0]),
+        data:new FormData($('#valEmpresa')[0]),
         cache: false,
         contentType: false,
         processData: false,
@@ -102,21 +115,11 @@ if (!isset($_SESSION['redirect'])) {
             console.log(data);
             data = JSON.parse(data);
             if (data["status"] == 1) {
-              $('.dropify-clear').click();
-              Swal.fire(
-                  'Bien hecho!',
-                  'Se han enviado a tu correo las credenciales para que accedas a tu cuenta y disfruta de la plataforma!!!',
-                  'success'
-                ).then(function(){
-                  window.location='index.php';
-                })
+              $('#cambiarEstado').modal('toggle');
+
             }else{
               if(data['error'] == 1062){
-                Swal.fire(
-                  'Error!',
-                  'Ya se encuentra registrado en la plataforma!!!',
-                  'error'
-                )
+                $('#cambiarEstado').modal('toggle');
               }
             }
         },
@@ -124,8 +127,8 @@ if (!isset($_SESSION['redirect'])) {
             console.log(data);
         },
     });
-    }
   }
+  
 
 </script>
 
@@ -276,7 +279,6 @@ if (!isset($_SESSION['redirect'])) {
                           <tr>
                             <th>Logo</th>                            
                             <th>NIT</th>
-                            <th>Razón social</th>
                             <th>Correo</th>
                             <th>Descripción</th>
                             <th>Numero de ingresos</th>
@@ -326,11 +328,12 @@ if (!isset($_SESSION['redirect'])) {
             </button>
           </div>
           <div class="modal-body">
-            <form id="f_emp" action="javascript:void(0);" onsubmit="valCompany();">
+            <form id="valEmpresa" action="javascript:void(0);" onsubmit="valCompany();">
             <div class="form-group row showcase_row_area">
                 <div class="col-md-5 showcase_text_area">
-                    <label for="email">Cambiar Estado</label>
+                    <label for="VEstado">Cambiar Estado</label>
                 </div>
+                <input type="hidden" id="nitVal" name="nitVal" required value ="" maxlength="50">
                 <div class="col-md-20 showcase_content_area">
                     <select name="VEstado" class="form-control" id="VEstado" required>
                       <option value="REGISTRADO">Registrado</option>
@@ -341,12 +344,12 @@ if (!isset($_SESSION['redirect'])) {
             </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
           </div>
           </form>
         </div>
       </div>
-    </div>
+    </div> 
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
     <script src="assets/vendors/js/core.js"></script>

@@ -122,9 +122,6 @@ $nit=$_GET["nit"];
     }
   }
 
-
-
-
   function getCompanies(){
     $.ajax({
         type: "POST",
@@ -143,14 +140,13 @@ $nit=$_GET["nit"];
                     i++;
                   }                                      
                 }
-               
-                
+
                 var html ='<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="nit">NIT</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" name="nit" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
+                            '<input type="text" class="form-control" name="nit" id="nit" value ="'+data[i]["NIT"]+'" readonly>'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -194,7 +190,7 @@ $nit=$_GET["nit"];
                             ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
                           '</div>'+
                         '</div>'+
-                         '<div>'
+                         '<div>';
                           /*                                     
                          '<div class="form-group row showcase_row_area" >'+
                           '<div class="col-md-5 showcase_text_area">'+
@@ -214,6 +210,7 @@ $nit=$_GET["nit"];
                          '</div>'+
                        '</div>'
                         */
+                        $('#logo').attr('data-default-file','assets/images/logos/'+data[i]['logo']);
 
                       
           $('#insertar').html(html);
@@ -385,7 +382,7 @@ $nit=$_GET["nit"];
                                 <label for="logo">Logo de la empresa:</label>
                               </div>
                               <div class="col-md-5 showcase_content_area">                  
-                                <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>
+                                <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
                               </div>
                             </div>
                               <div class="form-group row showcase_row_area" >

@@ -14,6 +14,7 @@ if (!isset($_SESSION['redirect'])) {
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -48,6 +49,25 @@ if (!isset($_SESSION['redirect'])) {
 
   };
 
+    function openModal(id){
+        $.ajax({
+            type: "POST",
+            url: "ws/getDetailsOfVacant.php",
+            data:{
+                'cod':id
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                if (data["status"] == 1) {
+                    $("#modalBody").html(data['html']);
+                }
+                $("#seeVacant").modal('show');
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
+    }
 
   function getVacants(){
     $.ajax({
@@ -68,19 +88,44 @@ if (!isset($_SESSION['redirect'])) {
                     estado='badge badge-info';
                   }
                 html += '<tr>' +
+             '<td>' + data[i]["nom_empresa"] + '</td>'+
              '<td>' + data[i]["nombre_cargo"] + '</td>' +
-             '<td>' + data[i]["descripcion_vacante"] + '</td>' +
-             '<td>' + data[i]["educacion_base"] + '</td>' +
              '<td>' + data[i]["horario_disponibilidad"] + '</td>' +
              '<td>' + data[i]["rango_salarial"] + '</td>' +
              '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
-             '<td>' + data[i]["fecha_vacante"] + '</td>' +
-             '<td>' + data[i]["nom_empresa"] + '</td>';
+             '<td><div class="btn btn-success has-icon" onclick="openModal('+i+');"> <i class="mdi mdi-information"></i>Ver mas</div></td></tr>';
            }
 
-          $('#vacant').html(html);
+          $('#vacant tbody').html(html);
           
             }
+            $("#contentPage").html(data);
+                    $('#vacant').DataTable({
+                        "language": {
+                            "sProcessing":    "Procesando...",
+                            "sLengthMenu":    "Mostrar _MENU_ registros",
+                            "sZeroRecords":   "No se encontraron resultados",
+                            "sEmptyTable":    "Ningún dato disponible en esta tabla",
+                            "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":   "",
+                            "sSearch":        "Buscar:",
+                            "sUrl":           "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":    "Último",
+                                "sNext":    "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        }
+                    });
         },
         error: function (data) {
             console.log(data);
@@ -233,22 +278,14 @@ if (!isset($_SESSION['redirect'])) {
                   <div class="item-wrapper">
                     <div class="table-responsive">
                       <div style="width: 1060px;">
-                      <table class="table info-table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Nombre del cargo</th>
-                            <th>Descripción</th>
-                            <th>Educacion base</th>
-                            <th>Horario</th>
-                            <th>Salario</th>
-                            <th>Estado</th>
-                            <th>Fecha</th>
-                            <th>Empresa</th>
-                          </tr>
-                        </thead>
-                        <tbody id="vacant" >
-                                   
-                        </tbody>
+                      <table id="vacant" name="vacant" class="display nowrap dataTable dtr-inline collapsed no-footer" role="grid" aria-describedby="vacant_info">
+                      <thead>
+                      <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Empresa: Activar para ordenar la columna de manera descendente" style="width: 59px;">Empresa</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Puesto: Activar para ordenar la columna de manera ascendente" style="width: 103px;">Puesto</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Horario: Activar para ordenar la columna de manera ascendente" style="width: 143px;">Horario</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Rango salarial: Activar para ordenar la columna de manera ascendente" style="width: 99px;">Rango salarial</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Estado: Activar para ordenar la columna de manera ascendente" style="width: 93px;">Estado</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Opciones: Activar para ordenar la columna de manera ascendente" style="width: 93px;">Opciones</th></tr></thead>
+                      <tbody id="vacant" name="vacant"><tr role="row" class="odd"></tr>
+                      </tbody>
+
+     
+
                         
                       </table>
                       <div style="width: 1060px;">

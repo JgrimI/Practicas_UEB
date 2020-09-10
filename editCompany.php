@@ -84,7 +84,7 @@ $nit=$_GET["nit"];
     return false;
   }
    function modCompany(){
-    if(verifyPassCp()){
+    if(verifyPass()){
       $.ajax({
         type: "POST",
         url: "ws/modCompany.php",

@@ -14,6 +14,8 @@ if (!isset($_SESSION['redirect'])) {
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -92,10 +94,37 @@ if (!isset($_SESSION['redirect'])) {
              var nit = data[i]["NIT"];
            }
           
-          $('#company').html(html);
+          $('#company tbody').html(html);
           $('#nitVal').val(nit);
           
             }
+            $("#contentPage").html(data);
+                    $('#company').DataTable({
+                        "language": {
+                            "sProcessing":    "Procesando...",
+                            "sLengthMenu":    "Mostrar _MENU_ registros",
+                            "sZeroRecords":   "No se encontraron resultados",
+                            "sEmptyTable":    "Ningún dato disponible en esta tabla",
+                            "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":   "",
+                            "sSearch":        "Buscar:",
+                            "sUrl":           "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":    "Último",
+                                "sNext":    "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        }
+                    });
         },
         error: function (data) {
             console.log(data);
@@ -274,22 +303,22 @@ if (!isset($_SESSION['redirect'])) {
                   <p class="grid-header">Lista de Empresas</p>
                   <div class="item-wrapper">
                     <div class="table-responsive">
-                      <table class="table info-table table-striped" >
-                        <thead>
-                          <tr>
-                            <th>Logo</th>                            
-                            <th>NIT</th>
-                            <th>Correo</th>
-                            <th>Descripción</th>
-                            <th>Numero de ingresos</th>
-                            <th>Estado</th>
-                            <th>cc_empresa</th>
-                            <th>Opciones</th>
-                          </tr>
-                        </thead>
-                        <tbody id="company" >
-                                   
-                        </tbody>
+                      <div style="width: 1060px;">
+                      <table id="company" name="company" class="display nowrap dataTable dtr-inline collapsed no-footer" role="grid" aria-describedby="company_info">
+                      <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Logo: Activar para ordenar la columna de manera descendente" style="width: 59px;">Logo</th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="NIT: Activar para ordenar la columna de manera ascendente" style="width: 1px;">NIT</th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="Correo: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Correo</th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="Descripcion : Activar para ordenar la columna de manera ascendente" style="width: 1px;">descripcion </th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="Numero de ingresos: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Ingresos</th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="Estado: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Estado</th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="Camara de Comercio: Activar para ordenar la columna de manera ascendente" style="width: 1px;">C.C</th>
+                        <th class="sorting" tabindex="0" aria-controls="company" rowspan="1" colspan="1" aria-label="Opciones: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Opciones</th>
+                      </tr>
+                    </thead>
+                      <tbody id="company" name="company"><tr role="row" class="odd"></tr>
+                      </tbody>
                         
                       </table>
                     </div> 

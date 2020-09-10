@@ -1,16 +1,17 @@
 <?php
 include_once('../persistencia/db.php');
-$query = "SELECT nombre_completo, correo_estudiante, numero_solicitudes, nom_programa, semestre, estado, num_ingresos, cod_HV from ESTUDIANTE,PROGRAMA WHERE ESTUDIANTE.cod_programa = PROGRAMA.cod_programa";
+$query = "SELECT cod_estudiante, nombre_completo, correo_estudiante, numero_solicitudes, nom_programa, semestre, estado, num_ingresos, cod_HV from ESTUDIANTE,PROGRAMA WHERE ESTUDIANTE.cod_programa = PROGRAMA.cod_programa";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($nombre,$correo,$num_solicitudes,$programa,$semestre,$estado,$num_ingresos,$HV);
+$stmt -> bind_result($id,$nombre,$correo,$num_solicitudes,$programa,$semestre,$estado,$num_ingresos,$HV);
 
 $rta="";
 $estudiantes=array();
 while($stmt -> fetch()) {
     $aux=1;
     $estudiante=array(
+        "cod_estudiante" => $id,
         "nombre_completo"=>$nombre,
         "correo_estudiante"=>$correo,
         "numero_solicitudes"=>$num_solicitudes,

@@ -38,10 +38,34 @@
 <script>
 
 window.onload=function(){
-    
     getEstudiantes();
 
+
   };
+
+ function getPrograma(nom_programa){
+   $.ajax({
+     type: "POST",
+     url: "ws/getPrograms.php",
+     success: function (data) {
+      data = JSON.parse(data);
+            if (data["status"] == 1) {
+                data = data["programs"];
+                let options = '<option value="">Seleccione el programa al cual pertenece</option>';
+                for(let i in data){
+                    if (nom_programa == data[i]["nom_programa"]){
+                         options += '<option value="'+data[i]["cod_programa"]+'" selected>'+data[i]["nom_programa"]+'</option>'
+                    }
+                    else
+                        options += '<option value="'+data[i]["cod_programa"]+'">'+data[i]["nom_programa"]+'</option>'
+                }
+                $('#program').select2({ width: '100%' });
+                $('#program').html(options);
+                $('#ventanaModal').modal('show');
+            }
+     }
+   })
+ };
 
  function getEstudiantes(){
       $.ajax({
@@ -74,7 +98,7 @@ window.onload=function(){
                 '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
                 '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
                 '<td><center><a href=""><img width="50px" height="50px" src="assets/images/5112.png"/></a></center></td>'+
-                '<td><center><a href="#ventanaModal">'+'<button  type="button" rel="tooltip" class="btn btn-outline-info btn-rounded" data-toggle="modal">edit</button></a></center></td>'
+                '<td>'+'<button  type="button" rel="tooltip" class="btn btn-outline-info btn-rounded" data-toggle="modal" onclick="getVentanaModal('+ data[i]["cod_estudiante"] +')">edit</button></td>'
                 '</tr>'
                 }
               $('#estudiante').html(html);
@@ -85,7 +109,43 @@ window.onload=function(){
         },
     })
 
- }
+ };
+
+ function getVentanaModal(cod_estudiante){
+
+   $.ajax({
+        type: "GET",
+        url: "ws/getEstudiantes.php",
+        success: function (data) {
+          console.log(data);
+        data = JSON.parse(data);
+            if (data["status"] == 1) {
+                data = data["estudiantes"];
+                var html = '';
+                var i;
+                var nom_programa;
+              for (i = 0; i < data.length; i++) {
+                if(cod_estudiante == data[i]["cod_estudiante"]){
+                 html += '<div class="form-group"> <label for="name">Nombre Estudiante</label><input type="text" name="nombre" placeholder= "Ingresar Nombre" required class="form-control" value='+data[i]["nombre_completo"]+'/> </div>'+
+                 '<div class="form-group"><label for="name">Correo Estudiante</label><input type="text" name="Correo" placeholder="Ingresar Email" required class="form-control" value='+data[i]["correo_estudiante"]+' /></div>'+
+                 '<div class="form-group"><label for="name">Solicitudes</label><input type="text" name="solicitudes" placeholder="Ingresar Solicitudes" required class="form-control" value='+data[i]["numero_solicitudes"]+' /></div>'+
+                 '<div class="form-group"><label for="name">Programa</label><div class="input-group input-group-sm mb-3"><select name="program" class="form-control" id="program" required></select></div></div>'+
+                 '<div class="form-group"><label for="name">Semestre</label><input type="text" name="semestre" placeholder="Ingresar Semestre" required class="form-control"  value='+data[i]["semestre"]+' /></div>'+
+                 '<div class="form-group"><label for="name">Estado</label><input type="text" name="semestre" placeholder="Ingresar Estado" required class="form-control" value='+data[i]["estado"]+' /></div>'+
+                 '<div class="form-group"><label for="name">Ingresos</label><input type="text" name="semestre" placeholder="Ingresar Ingresos" required class="form-control" value='+data[i]["num_ingresos"]+' /></div>'+
+                 '<div class="form-group"><label for="name">Hoja De vida</label><input type="text" name="semestre" placeholder="Ingresar Hoja de vida" required class="form-control" /></div>'+
+                 '<div class="alert alert-success"><h6><strong>tus datos se han guardado exitosamente</strong></h6></div>';
+                 nom_programa = data[i]["nom_programa"];
+                i = data.lenght;
+                }         
+         }
+        }
+        $('#modal').html(html);
+        getPrograma(nom_programa);
+      },
+  });
+ };
+
 
 </script>
 
@@ -280,18 +340,15 @@ window.onload=function(){
       <!-- page content ends -->
     </div>
  <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog ui-corner-all" role="document">
    <div class="modal-content">
     <div class="modal-header">
-          <h5 id="tituloVentana">Titulo de la ventana modal</h5>
+          <h5 id="tituloVentana">Editar Estudiante</h5>
           <button class="close" data-dismiss="modal" aria-label="cerrar">
             <span aria-hidden="true">&times;</span>
           </button>
     </div>
-    <div class="modal-body">
-      <div class="alert alert-success">
-         <h6><strong>tus datos se han guardado exitosamente</strong></h6>
-      </div>
+    <div class="modal-body" id="modal">
     </div>
     <div class="modal-footer">
       <button class="btn btn-warning" type="button" data-dismiss="modal">

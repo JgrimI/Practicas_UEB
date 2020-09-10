@@ -93,7 +93,7 @@ if (!isset($_SESSION['redirect'])) {
              '<td>' + data[i]["horario_disponibilidad"] + '</td>' +
              '<td>' + data[i]["rango_salarial"] + '</td>' +
              '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
-             '<td><div class="btn btn-success has-icon" onclick="openModal('+i+');"> <i class="mdi mdi-information"></i>Ver mas</div></td></tr>';
+             '<td><div class="btn btn-info has-icon" onclick="openModal('+i+');"> <i class="mdi mdi-information"></i>Ver mas</div></td></tr>';
            }
 
           $('#vacant tbody').html(html);
@@ -275,22 +275,17 @@ if (!isset($_SESSION['redirect'])) {
               <div class="col-lg-27">
                 <div class="grid">
                   <p class="grid-header">Lista de Vacantes</p>
-                  <div class="item-wrapper">
-                    <div class="table-responsive">
+                  <div class="item-wrapper text-center">
                       <div style="width: 1060px;">
                       <table id="vacant" name="vacant" class="display nowrap dataTable dtr-inline collapsed no-footer" role="grid" aria-describedby="vacant_info">
                       <thead>
                       <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Empresa: Activar para ordenar la columna de manera descendente" style="width: 59px;">Empresa</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Puesto: Activar para ordenar la columna de manera ascendente" style="width: 103px;">Puesto</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Horario: Activar para ordenar la columna de manera ascendente" style="width: 143px;">Horario</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Rango salarial: Activar para ordenar la columna de manera ascendente" style="width: 99px;">Rango salarial</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Estado: Activar para ordenar la columna de manera ascendente" style="width: 93px;">Estado</th><th class="sorting" tabindex="0" aria-controls="vacant" rowspan="1" colspan="1" aria-label="Opciones: Activar para ordenar la columna de manera ascendente" style="width: 93px;">Opciones</th></tr></thead>
                       <tbody id="vacant" name="vacant"><tr role="row" class="odd"></tr>
                       </tbody>
-
-     
-
                         
                       </table>
                       <div style="width: 1060px;">
-                    </div> 
-                  </div>
+                   </div>
                 </div>
               </div>             
         <!-- content viewport ends -->

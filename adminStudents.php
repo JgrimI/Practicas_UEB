@@ -163,12 +163,6 @@ window.onload=function(){
           <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
             <i class="mdi mdi-menu"></i>
           </button>
-          <form action="#" class="t-header-search-box">
-            <div class="input-group">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" autocomplete="off">
-              <button class="btn btn-primary" type="submit"><i class="mdi mdi-arrow-right-thick"></i></button>
-            </div>
-          </form>
           <ul class="nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
@@ -294,10 +288,9 @@ window.onload=function(){
               <div class="col-lg-27">
                 <div class="grid">
                   <p class="grid-header">Lista de Estudiantes</p>
-                  <div class="item-wrapper">
-                    <div class="table-responsive">
+                  <div class="item-wrapper text-center">
                      <div style="width: 1060px;">
-                      <table class="table info-table table-striped">
+                      <table class="table info-table wraped table-striped">
                         <thead>
                           <tr>
                             <th style="text-align: center">Nombre Estudiante</th>                            
@@ -315,7 +308,6 @@ window.onload=function(){
 
                         </tbody>
                       </table>
-                     </div>
                     </div> 
                   </div>
                 </div>

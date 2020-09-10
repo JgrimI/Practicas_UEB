@@ -88,7 +88,7 @@ $nit=$_GET["nit"];
       $.ajax({
         type: "POST",
         url: "ws/modCompany.php",
-        data:new FormData($('#mod')[0]),
+        data: new FormData($('#mod')[0]),
         cache: false,
         contentType: false,
         processData: false,
@@ -150,7 +150,7 @@ $nit=$_GET["nit"];
                             '<label for="nit">NIT</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
+                            '<input type="text" class="form-control" name="nit" id="nit" value ="'+data[i]["NIT"]+'" disabled>'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -158,7 +158,7 @@ $nit=$_GET["nit"];
                             '<label for="razonSocial">Razón Social</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" id="razonSocial" value ="'+data[i]["nombre"]+'">'+
+                            '<input type="text" class="form-control" id="razonSocial" name="razonSocial" value ="'+data[i]["nombre"]+'">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -166,7 +166,7 @@ $nit=$_GET["nit"];
                             '<label for="email">Correo</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="email" class="form-control" id="email" value ="'+data[i]["correo_empresa"]+'">'+
+                            '<input type="email" class="form-control" id="email" name="email" value ="'+data[i]["correo_empresa"]+'">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -374,29 +374,30 @@ $nit=$_GET["nit"];
                   <p class="grid-header">Editar la Empresa <?php echo $nit ?></p>
                    <div class="grid-body">
                     <div class="item-wrapper">
-                       <form id="mod" action="javascript:void(0);" onsubmit="modCompany();">
-                       <div id="insertar">
-                       </div>     
-                       <div >
-                                                               
-                         <div class="form-group row showcase_row_area" >
-                          <div class="col-md-5 showcase_text_area">
-                            <label for="logo">Logo de la empresa:</label>
+                      <form id="mod" action="javascript:void(0);" onsubmit="modCompany();">
+                          <div id="insertar">
+
+                          </div>     
+                          <div >
+                                                                  
+                            <div class="form-group row showcase_row_area" >
+                              <div class="col-md-5 showcase_text_area">
+                                <label for="logo">Logo de la empresa:</label>
+                              </div>
+                              <div class="col-md-5 showcase_content_area">                  
+                                <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>
+                              </div>
+                            </div>
+                              <div class="form-group row showcase_row_area" >
+                                <div class="col-md-5 showcase_text_area">
+                                  <button type="submit" class="btn btn-sm btn-success">Aceptar</button>
+                                </div>
+                                <div class="col-md-5 showcase_content_area">                  
+                                  <button type="reset" class="btn btn-sm btn-danger">Cancelar</button>
+                                </div>
+                              </div>
                           </div>
-                          <div class="col-md-5 showcase_content_area">                  
-                            <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>
                           </div>
-                         </div>
-                          <div class="form-group row showcase_row_area" >
-                          <div class="col-md-5 showcase_text_area">
-                            <button type="submit" class="btn btn-sm btn-success">Aceptar</button>
-                          </div>
-                          <div class="col-md-5 showcase_content_area">                  
-                            <button type="reset" class="btn btn-sm btn-danger">Cancelar</button>
-                          </div>
-                         </div>
-                       </div>
-                      </div> 
                       </form>
                     </div>
                   </div>

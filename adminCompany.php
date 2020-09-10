@@ -4,6 +4,7 @@ session_start();
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +53,9 @@ if (!isset($_SESSION['redirect'])) {
 
 
   function getCompanies(){
+    if ($.fn.DataTable.isDataTable( '#company' ) ) {
+        $('#company').DataTable().destroy();
+    }
     $.ajax({
         type: "POST",
         url: "ws/getCompanies.php",
@@ -85,17 +89,15 @@ if (!isset($_SESSION['redirect'])) {
                         '<td>' + data[i]["correo_empresa"] + '</td>' +
                         '<td>' + data[i]["descripcion_empresa"] + '</td>' +
                         '<td>' + data[i]["num_ingresos"] + '</td>' +
-                        '<td><button type="button" rel=tooltip" class="'+estado+'" data-toggle="modal" data-target="#cambiarEstado">'+ data[i]["estado"] + '</td>' +
+                        '<td><a href="javascript:void(0);" onclick="openModal('+data[i]["NIT"]+',\''+data[i]["estado"]+'\');" class="'+estado+'">'+ data[i]["estado"] + '</a></td>' +
                         '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
                         '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
                         '</tr>'
 
              ;
-             var nit = data[i]["NIT"];
            }
           
           $('#company tbody').html(html);
-          $('#nitVal').val(nit);
           
             }
             $("#contentPage").html(data);
@@ -132,6 +134,16 @@ if (!isset($_SESSION['redirect'])) {
     })
   }
 
+function openModal(id, estado){
+
+  $("#cambiarEstado").modal("show");  
+  console.log(estado);
+  $("#VEstado  option[value='"+estado+"']").attr("selected", true);
+  $('#nitVal').val(id);
+         
+}
+
+
     function valCompany(){
       $.ajax({
         type: "POST",
@@ -145,7 +157,7 @@ if (!isset($_SESSION['redirect'])) {
             data = JSON.parse(data);
             if (data["status"] == 1) {
               $('#cambiarEstado').modal('toggle');
-
+              getCompanies();
             }else{
               if(data['error'] == 1062){
                 $('#cambiarEstado').modal('toggle');
@@ -301,8 +313,7 @@ if (!isset($_SESSION['redirect'])) {
               <div class="col-lg-27">
                 <div class="grid">
                   <p class="grid-header">Lista de Empresas</p>
-                  <div class="item-wrapper">
-                    <div class="table-responsive">
+                  <div class="item-wrapper text-center">
                       <div style="width: 1060px;">
                       <table id="company" name="company" class="display nowrap dataTable dtr-inline collapsed no-footer" role="grid" aria-describedby="company_info">
                       <thead>
@@ -322,7 +333,6 @@ if (!isset($_SESSION['redirect'])) {
                         
                       </table>
                     </div> 
-                  </div>
                 </div>
               </div>             
         <!-- content viewport ends -->

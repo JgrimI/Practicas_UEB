@@ -35,21 +35,15 @@ $razon = $_POST["razonSocial"];
 $logo = '';
 $email = $_POST["email"];
 $descripcion = $_POST["descrip"];
-$cc='';
 $pass = $_POST["pass"];
 
 if( $_FILES["logo"]["name"]){
     $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
     $img = "../assets/images/logos/" . removeAccents(str_replace(' ', '', $razon)) . ".png";
-    file_put_contents($img, file_get_contents($_FILES["logo"]["tmp_name"]));
-}
-if($_FILES["cc"]["name"]){
-    $cc = removeAccents(str_replace(' ', '', $razon)) . ".pdf";
-    $img = "../assets/images/cc/" . removeAccents(str_replace(' ', '', $razon)) . ".pdf";
-    file_put_contents($img, file_get_contents($_FILES["cc"]["tmp_name"]));
+    file_put_contents($img, file_get_contents($_FILES["logo"]["name"]));
 }
 $response = [];
-$sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' ,  logo='".$logo.", descripcion_empresa='".$descripcion."', password_empresa='".$pass."' WHERE NIT = '".$nit."'";
+$sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' ,  logo='".$logo."', descripcion_empresa='".$descripcion."', password_empresa='".$pass."' WHERE NIT = '".$nit."' ;";
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(

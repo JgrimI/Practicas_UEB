@@ -143,7 +143,7 @@ $nit=$_GET["nit"];
                     i++;
                   }                                      
                 }
-                var logo=data[i]["logo"];
+               
                 
                 var html ='<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
@@ -193,13 +193,32 @@ $nit=$_GET["nit"];
                           '<div class="col-md-20 showcase_content_area">'+
                             ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
                           '</div>'+
-                        '</div>';
-                        
+                        '</div>'+
+                         '<div>'
+                          /*                                     
+                         '<div class="form-group row showcase_row_area" >'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<label for="logo">Logo de la empresa:</label>'+
+                          '</div>'+
+                          '<div class="col-md-5 showcase_content_area">'+                  
+                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>'+
+                          '</div>'+
+                         '</div>'+
+                          '<div class="form-group row showcase_row_area" >'+
+                          '<div class="col-md-5 showcase_text_area">'+
+                            '<button type="submit" class="btn btn-sm btn-success">Aceptar</button>'+
+                          '</div>'+
+                          '<div class="col-md-5 showcase_content_area">                  '+
+                            '<button type="reset" class="btn btn-sm btn-danger">Cancelar</button>'+
+                          '</div>'+
+                         '</div>'+
+                       '</div>'
+                        */
 
                       
           $('#insertar').html(html);
           
-    $('#logoEmp').css('display','block');
+   
             }
         },
         error: function (data) {

@@ -97,7 +97,12 @@ window.onload=function(){
                 '<td><center>' + aux + '</center></td>' +
                 '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
                 '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
-                '<td><center><a href=""><img width="50px" height="50px" src="assets/images/5112.png"/></a></center></td>'+
+               
+
+                '<td><center>  <form method="post" target="_blank" action="pdf.php" id="formCV"> '+
+                              '<input type="hidden" id="id" name="id" value="'+ data[i]["cod_estudiante"] +'"/>'+
+                              '<button type="submit" style="background: url(assets/images/5112.png); width:50px; height:50px; background-size: 50px 50px; border: none;">'+
+                              '</form>  </center></td>'+
                 '<td>'+'<button  type="button" rel="tooltip" class="btn btn-outline-info btn-rounded" data-toggle="modal" onclick="getVentanaModal('+ data[i]["cod_estudiante"] +')">edit</button></td>'
                 '</tr>'
                 }

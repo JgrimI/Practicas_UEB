@@ -114,10 +114,10 @@
     color: #000;
 }
 </style>
-<div class="viewport-header">
+<div class="viewport-header"style="margin-left: -2%;">
     <div class="row">
         <div>
-        <h4>Vacantes</h4>
+        <h4 style="margin-left: 15%; width: 100%;" >Vacantes</h4>
         </div>
     </div>
     <hr>       

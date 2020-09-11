@@ -16,6 +16,6 @@
 
         }
     }else{
-        include_once('ModuleStudent/listStats.php');
+        include_once('ModuleStudent/listMyVacants.php');
     }
 ?>

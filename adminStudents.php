@@ -7,6 +7,7 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -108,13 +109,40 @@ window.onload=function(){
                 }
               $('#estudiante').html(html);
             }
+              $("#contentPage").html(data);
+                    $('#estudiantes').DataTable({
+                          "scrollX": true,
+                          "language": {
+                            "sProcessing":    "Procesando...",
+                            "sLengthMenu":    "Mostrar _MENU_ registros",
+                            "sZeroRecords":   "No se encontraron resultados",
+                            "sEmptyTable":    "Ningún dato disponible en esta tabla",
+                            "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":   "",
+                            "sSearch":        "Buscar:",
+                            "sUrl":           "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":    "Último",
+                                "sNext":    "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        }
+                    }); 
         },
         error: function (data) {
             console.log(data);
         },
     })
-
- };
+   }
 
  function getVentanaModal(cod_estudiante){
 
@@ -294,26 +322,26 @@ window.onload=function(){
                 <div class="grid">
                   <p class="grid-header">Lista de Estudiantes</p>
                   <div class="item-wrapper text-center">
-                     <div style="width: 1060px;">
-                      <table class="table info-table wraped table-striped">
+                   <div style="width: 1100px;">
+                    <table id="estudiantes" name="estudiante" class="display nowrap dataTable dtr-inline collapsed no-footer" role="grid" aria-describedby="estudiante_info">
                         <thead>
-                          <tr>
-                            <th style="text-align: center">Nombre Estudiante</th>                            
-                            <th style="text-align: center">Correo Estudiante</th>
-                            <th style="text-align: center">Solicitudes</th>
-                            <th style="text-align: center">Programa</th>
-                            <th style="text-align: center">Semestre</th>
-                            <th style="text-align: center">Estado</th>
-                            <th style="text-align: center">Ingresos</th>
-                            <th style="text-align: center">Hoja De Vida</th>
-                            <th style="text-align: center">Opciones</th>
+                          <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre Estudiante: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Nombre Estudiante</th>                            
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Correo Estudiante: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Correo Estudiante</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Solicitudes: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Solicitudes</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Programa: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Programa</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Semestre: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Semestre</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Estado: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Estado</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Ingresos: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Ingresos</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Hoja De Vida: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Hoja De Vida</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Opciones: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Opciones</th>
                           </tr>
                         </thead>
-                        <tbody id="estudiante" >
+                        <tbody id="estudiante" name="estudiante" ><tr role="row" class="odd"></tr>
 
                         </tbody>
                       </table>
-                    </div> 
+                     </div>
                   </div>
                 </div>
               </div>             

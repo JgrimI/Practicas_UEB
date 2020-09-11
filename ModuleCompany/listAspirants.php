@@ -65,7 +65,7 @@
                     $('#contentPage').html(html);
                 }else{
                     var h="<div style='margin-top:3%;margin-left:15%;'>\n"+
-                        "<h1 style='margin-left:5%;'>Aun no han aplicado para esta vacante </h1><br>\n"+
+                        "<h1 style='margin-left:5%;'>Aun nadie ha aplicado para esta vacante </h1><br>\n"+
                         "<img src='assets/images/vac.png' width='400px' height='400px' style='margin-left:15%;'>\n"+
                    "</div>";
                    $('#contentPage').html(h);
@@ -107,10 +107,10 @@
         })
     }
 </script>
-<div class="viewport-header">
+<div class="viewport-header" style="margin-left: -2%;">
     <div class="row">
         <div>
-        <h4>Aspirantes</h4>
+        <h4 style="margin-left: 15%; width: 100%;">Aspirantes</h4>
         </div>
     </div>
     <hr>       
@@ -118,8 +118,11 @@
     <div class="content-viewport">
     <div class="row"> 
         <div style="width:100%;">
+            <h3 style='margin-left:0%;'>Selecciona una vacante</h3><br>
             <select name="program" class="form-control" id="vacants" onchange="change(this);"></select>
             <div id="contentPage">
+                <br>
+                <img src='assets/images/sel2.png' width='600px' height='562px' style='margin-left:15%;'>
             </div>
         </div>             
         

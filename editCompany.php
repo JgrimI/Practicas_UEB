@@ -1,6 +1,8 @@
 <?php
-
 session_start();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
@@ -18,6 +20,7 @@ $nit=$_GET["nit"];
     <!-- plugins:css -->
     
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
@@ -32,9 +35,12 @@ $nit=$_GET["nit"];
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <!-- Dropify file input -->
     <script src="assets/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+
 
   </head>
 
@@ -52,6 +58,7 @@ $nit=$_GET["nit"];
   width:40%;
   margin-left:8%;
 }
+
 </style>
 
 <script>
@@ -95,21 +102,20 @@ $nit=$_GET["nit"];
         success: function (data) {
             console.log(data);
             data = JSON.parse(data);
-            alert(data);
             if (data["status"] == 1) {
               $('.dropify-clear').click();
               Swal.fire(
                   'Bien hecho!',
-                  'Se han enviado a tu correo las credenciales para que accedas a tu cuenta y disfruta de la plataforma!!!',
+                  'Se ha modificado la empresa de forma exitosa!!!',
                   'success'
                 ).then(function(){
-                  window.location='index.php';
+                  window.location='adminCompany.php';
                 })
             }else{
               if(data['error'] == 1062){
                 Swal.fire(
                   'Error!',
-                  'Ya se encuentra registrado en la plataforma!!!',
+                  data['error'],
                   'error'
                 )
               }
@@ -146,7 +152,7 @@ $nit=$_GET["nit"];
                             '<label for="nit">NIT</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" name="nit" id="nit" value ="'+data[i]["NIT"]+'" readonly>'+
+                            '<input type="text" class="form-control" name="nit" id="nit" value ="'+data[i]["NIT"]+'" readonly style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -154,7 +160,7 @@ $nit=$_GET["nit"];
                             '<label for="razonSocial">Razón Social</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" id="razonSocial" name="razonSocial" value ="'+data[i]["nombre"]+'">'+
+                            '<input type="text" class="form-control" id="razonSocial" name="razonSocial" value ="'+data[i]["nombre"]+'" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -162,7 +168,7 @@ $nit=$_GET["nit"];
                             '<label for="email">Correo</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="email" class="form-control" id="email" name="email" value ="'+data[i]["correo_empresa"]+'">'+
+                            '<input type="email" class="form-control" id="email" name="email" value ="'+data[i]["correo_empresa"]+'" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -170,7 +176,7 @@ $nit=$_GET["nit"];
                             '<label for="descrip">Descripción</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200">'+data[i]["descripcion_empresa"]+'</textarea>'+
+                            '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200" style="width:190%;">'+data[i]["descripcion_empresa"]+'</textarea>'+
                           '</div>'+
                         '</div>'+
                                                                   
@@ -179,7 +185,7 @@ $nit=$_GET["nit"];
                             '<label for="pass">Contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass" name="pass" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();"  minlength="6" maxlength="12">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass" name="pass" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();"  minlength="6" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -187,35 +193,32 @@ $nit=$_GET["nit"];
                             '<label for="verify">Verificar contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12">'+
+                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
-                         '<div>';
-                          /*                                     
+                         '<div>'+
                          '<div class="form-group row showcase_row_area" >'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="logo">Logo de la empresa:</label>'+
                           '</div>'+
                           '<div class="col-md-5 showcase_content_area">'+                  
-                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="src/images/test-image-1.jpg" required>'+
+                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="assets/images/logos/'+data[i]["logo"]+'" required>'+
                           '</div>'+
                          '</div>'+
-                          '<div class="form-group row showcase_row_area" >'+
-                          '<div class="col-md-5 showcase_text_area">'+
-                            '<button type="submit" class="btn btn-sm btn-success">Aceptar</button>'+
-                          '</div>'+
-                          '<div class="col-md-5 showcase_content_area">                  '+
-                            '<button type="reset" class="btn btn-sm btn-danger">Cancelar</button>'+
-                          '</div>'+
-                         '</div>'+
-                       '</div>'
-                        */
-                        $('#logo').attr('data-default-file','assets/images/logos/'+data[i]['logo']);
+                       '</div>';
+                      
 
                       
           $('#insertar').html(html);
           
-   
+          dropify = $('#logo').dropify({
+                          messages: {
+                            'default': 'Arrastra el archivo o haz click aqui',
+                            'replace': 'Arrastra o clikea para remplazar',
+                            'remove':  'Quitar',
+                            'error':   'Ooops, algo a salido mal.'
+                        }
+                        });
             }
         },
         error: function (data) {
@@ -368,7 +371,7 @@ $nit=$_GET["nit"];
             <div class="row">              
               <div class="col-lg-10 equel-grid">
                 <div class="grid">
-                  <p class="grid-header">Editar la Empresa <?php echo $nit ?></p>
+                  <p class="grid-header">Editar empresa</p>
                    <div class="grid-body">
                     <div class="item-wrapper">
                       <form id="mod" action="javascript:void(0);" onsubmit="modCompany();">
@@ -376,22 +379,15 @@ $nit=$_GET["nit"];
 
                           </div>     
                           <div >
-                                                                  
-                            <div class="form-group row showcase_row_area" >
-                              <div class="col-md-5 showcase_text_area">
-                                <label for="logo">Logo de la empresa:</label>
-                              </div>
-                              <div class="col-md-5 showcase_content_area">                  
-                                <input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" required>
-                              </div>
-                            </div>
-                              <div class="form-group row showcase_row_area" >
-                                <div class="col-md-5 showcase_text_area">
-                                  <button type="submit" class="btn btn-sm btn-success">Aceptar</button>
+                            <br>
+                              <div class="form-group row showcase_row_area" style="float:right;" >
+                                <div>                  
+                                  <a href="adminCompany" class="btn btn-warning" style="margin-right:15px;">Cancelar</a>
                                 </div>
-                                <div class="col-md-5 showcase_content_area">                  
-                                  <button type="reset" class="btn btn-sm btn-danger">Cancelar</button>
+                                <div>
+                                  <button type="submit" class="btn btn-success">Aceptar</button>
                                 </div>
+                                
                               </div>
                           </div>
                           </div>

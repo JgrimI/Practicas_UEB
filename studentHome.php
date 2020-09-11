@@ -10,7 +10,9 @@ if (!isset($_SESSION['redirect'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
+    <meta http-equiv="expires" content="Sun, 01 Jan 2014 00:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Student Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
@@ -30,7 +32,10 @@ if (!isset($_SESSION['redirect'])) {
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
-  </head>
+
+    <link href="assets/css/hvcss.css" rel="stylesheet"/>
+ <!-- Custom styles for this template-->
+   </head>
 
 
 <style>
@@ -107,49 +112,6 @@ if (!isset($_SESSION['redirect'])) {
           </button>
           <ul class="nav ml-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-bell-outline mdi-1x"></i>
-              </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
-                <div class="dropdown-header">
-                  <h6 class="dropdown-title">Notifications</h6>
-                  <p class="dropdown-title-text">You have 4 unread notification</p>
-                </div>
-                <div class="dropdown-body">
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-primary text-primary">
-                      <i class="mdi mdi-alert"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Storage Full</small>
-                      <small class="content-text">Server storage almost full</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-success text-success">
-                      <i class="mdi mdi-cloud-upload"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Upload Completed</small>
-                      <small class="content-text">3 Files uploded successfully</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                      <i class="mdi mdi-security"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Authentication Required</small>
-                      <small class="content-text">Please verify your password to continue using cloud services</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="dropdown-footer">
-                  <a href="#">View All</a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="appsDropdown" data-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-apps mdi-1x"></i>
               </a>
@@ -196,17 +158,28 @@ if (!isset($_SESSION['redirect'])) {
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
-         
+       
+       
           <li>
-          <form method="post" target="_blank" action="pdf.php" id="formCV">
-            <a href="" onclick="this.closest('form').submit();return false;">
-              <span class="link-title">Hoja vida</span>
+            <a href="#hv-pages" data-toggle="collapse" aria-expanded="false">
+              <span class="link-title">Hoja de Vida</span>
               <i class="mdi mdi-account-card-details link-icon"></i>
             </a>
-            <input type="hidden" id="id" name="id" value="<?php echo $_SESSION["id"];?>"/>
-          </form>
+            <ul class="collapse navigation-submenu" id="hv-pages">
+              <li>
+                <a href="?menu=EditCV"><strong>Editar</strong></a>
+              </li>
+              <li>
+                <form method="post" target="_blank" action="pdf.php" id="formPDF">
+                  <a href="" onclick="this.closest('form').submit();return false;">
+                    <span class="link-title"><strong>Ver en PDF</strong> </span>
+                  </a>
+                  <input type="hidden" id="id" name="id" value="<?php echo $_SESSION["id"];?>"/>
+                </form>
+              </li>
+            </ul>
           </li>
-          
+
           <li>
             <a href="?menu=vacants">
               <span class="link-title">Vacantes</span>
@@ -258,6 +231,11 @@ if (!isset($_SESSION['redirect'])) {
     <script src="assets/js/template.js"></script>
     <script src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
+    <!-- Dropify file input -->
+    <script src="assets/dist/js/dropify.min.js"></script>
+    <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+
+   
     <!--  -->
   </body>
 </html>

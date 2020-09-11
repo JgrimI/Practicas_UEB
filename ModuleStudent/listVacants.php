@@ -94,6 +94,7 @@
                                     'error'
                                 );
                             }
+                            getData();
                             $("#seeVacant").modal('hide');
                         },
                         error: function (data) {
@@ -101,7 +102,6 @@
                         },
                     });
                 }
-                $("#seeVacant").modal('hide');
             });
        
         

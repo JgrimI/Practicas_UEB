@@ -25,7 +25,7 @@
                         html+='<div class="card" style="width: 30%; '+margin+' margin-top:2%; background-image: linear-gradient(120deg,#00e795 0,#0095e2 100%);">\n'+
                                 '<div class="card-body" style="color:#fff">\n'+
                                     '<h4 class="text-center">'+data[x]['nombre_cargo']+'</h4><br>\n'+
-                                    '<h6 class="card-subtitle mb-2 text-center" >Cantidad Vacantes: '+data[x]["cantidad_vacantes"]+'</h6>\n'+
+                                    '<h6 class="card-subtitle mb-2 text-center" >Vacantes disponibles: '+data[x]["cantidad_vacantes"]+'</h6>\n'+
                                     '<center><label class="badge badge-dark">'+data[x]["estado"]+'</label></center>\n'+
                                     '<p class="card-text">\n'+
                                        '<strong>Rango salarial:</strong> '+data[x]["rango_salarial"]+'<br>\n'+
@@ -106,10 +106,10 @@
     color: #000;
 }
 </style>
-<div class="viewport-header">
+<div class="viewport-header" style="margin-left: -2%;">
     <div class="row">
         <div>
-        <h4>Mis vacantes</h4>
+        <h4 style="margin-left: 15%; width: 100%;">Mis vacantes</h4>
         </div>
     </div>
     <hr>       

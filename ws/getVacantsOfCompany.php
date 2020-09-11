@@ -10,7 +10,7 @@ $stmt -> bind_result($cod_vacante,$nombre_cargo,$descripcion_vacante,$educacion_
 $rta="";
 $vacants=array();
 while($stmt -> fetch()) {
-    $queryAux = "SELECT COUNT(cod_vacante) as aspirantes FROM DETALLE WHERE estado='APROBADO' and cod_vacante=".$cod_vacante;
+    $queryAux = "SELECT COUNT(cod_vacante) as aspirantes FROM DETALLE WHERE estado='APROBADA' and cod_vacante=".$cod_vacante;
 
     $stmt2 = $mysqli2->prepare($queryAux);
     $stmt2 -> execute();

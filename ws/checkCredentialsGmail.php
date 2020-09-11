@@ -34,6 +34,11 @@ while($stmt -> fetch()) {
         'redirect' =>'studentHome.php',
         'status' => true
     );
+
+    $sql="CALL p_update_login(".$id.",1)";
+    $mysqli2->query($sql);
+    $mysqli2->close();
+
 }
 $stmt->close();
 
@@ -61,7 +66,9 @@ if($aux==0){
     }
     $stmt->close();
 
-
+    $sql="CALL p_update_login(".$id.",2)";
+    $mysqli2->query($sql);
+    $mysqli2->close();
 }
 if($aux==0){
     $query = "SELECT a.id, a.nombre from ADMINISTRADOR a where a.username ='".$username."'";

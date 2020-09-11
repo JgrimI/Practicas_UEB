@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="expires" content="Sun, 01 Jan 2014 00:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache" />
     <title>Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
@@ -103,7 +105,7 @@ window.onload=function(){
                               '<input type="hidden" id="id" name="id" value="'+ data[i]["cod_estudiante"] +'"/>'+
                               '<button type="submit" style="background: url(assets/images/5112.png); width:50px; height:50px; background-size: 50px 50px; border: none;">'+
                               '</form>  </center></td>'+
-                '<td>'+'<button  type="button" rel="tooltip" class="btn btn-outline-info btn-rounded" data-toggle="modal" onclick="getVentanaModal('+ data[i]["cod_estudiante"] +')">edit</button></td>'
+                '<td>'+'<button  type="button" rel="tooltip" class="btn btn-info btn-rounded" data-toggle="modal" onclick="getVentanaModal('+ data[i]["cod_estudiante"] +')">edit</button></td>'
                 '</tr>'
                 }
               $('#estudiante').html(html);

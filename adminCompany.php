@@ -14,12 +14,14 @@ if (!isset($_SESSION['redirect'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="expires" content="Sun, 01 Jan 2014 00:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache" />
     <title>Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
-
+    
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -75,11 +77,11 @@ if (!isset($_SESSION['redirect'])) {
                 var i;
                 for (i = 0; i < data.length; i++) {
                   if(data[i]["estado"]=="RECHAZADO"){
-                    var estado = 'btn btn-outline-danger';
+                    var estado = 'btn btn-danger';
                   }else if(data[i]["estado"]=="APROBADO"){
-                    estado='btn btn-outline-success';
+                    estado='btn btn-success';
                   }else{
-                    estado='btn btn-outline-info';
+                    estado='btn btn-info';
                   }
                   
                 html += '<tr>' +
@@ -98,8 +100,8 @@ if (!isset($_SESSION['redirect'])) {
                         '<td>' + data[i]["descripcion_empresa"] + '</td>' +
                         '<td>' + data[i]["num_ingresos"] + '</td>' +
                         '<td><a href="javascript:void(0);" onclick="openModal('+data[i]["NIT"]+',\''+data[i]["estado"]+'\');" class="'+estado+'">'+ data[i]["estado"] + '</a></td>' +
-                        '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-                        '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
+                        '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '" target="blank"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
+                        '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-info btn-rounded">editar'
                         '</tr>'
 
              ;

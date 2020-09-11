@@ -189,33 +189,28 @@ if (!isset($_SESSION['redirect'])) {
         </div>
         <ul class="navigation-menu">
           <li class="nav-category-divider">Menu</li>
+         
           <li>
-            <a href="?menu=stats">
-              <span class="link-title">Dashboard</span>
-              <i class="mdi mdi-gauge link-icon"></i>
+            <a href="?menu=MyVacants">
+              <span class="link-title">Mis Vacantes</span>
+              <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
+         
           <li>
-            
           <form method="post" target="_blank" action="pdf.php" id="formCV">
             <a href="" onclick="this.closest('form').submit();return false;">
               <span class="link-title">Hoja vida</span>
               <i class="mdi mdi-account-card-details link-icon"></i>
             </a>
             <input type="hidden" id="id" name="id" value="<?php echo $_SESSION["id"];?>"/>
-
           </form>
           </li>
+          
           <li>
             <a href="?menu=vacants">
               <span class="link-title">Vacantes</span>
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="link-title">Mis vacantes?</span>
-              <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
           

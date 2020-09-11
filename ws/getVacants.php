@@ -2,14 +2,14 @@
 include_once('../persistencia/db.php');
 $query = "SELECT cod_vacante, nombre_cargo, descripcion_vacante, educacion_base, 
 horario_disponibilidad, rango_salarial, VACANTE.estado, fecha_vacante, 
-nombre from VACANTE, EMPRESA
+nombre, logo from VACANTE, EMPRESA
 WHERE VACANTE.cod_empresa=EMPRESA.cod_empresa
 GROUP BY cod_vacante;";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
 $stmt -> bind_result($cod_vacante, $nombre_cargo,$descripcion_vacante,$educacion_base,$horario_disponibilidad,$rango_salarial,
-    $estado, $fecha_vacante, $nom_empresa);
+    $estado, $fecha_vacante, $nom_empresa, $logo);
 
 $rta="";
 $vacants=array();
@@ -24,7 +24,8 @@ while($stmt -> fetch()) {
         "rango_salarial"=>$rango_salarial,
         "estado"=>$estado,
         "fecha_vacante"=>$fecha_vacante,
-        "nom_empresa"=>$nom_empresa
+        "nom_empresa"=>$nom_empresa,
+        "logo"=>$logo
     );
     array_push($vacants,$vacant);
 }

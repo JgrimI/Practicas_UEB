@@ -1,10 +1,10 @@
 <?php
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 session_start();
-header ("Pragma-directive: no-cache");
-header ("Cache-directive: no-cache");
-header ("Cache-control: no-cache");
-header ("Pragma: no-cache");
-header ("Expires: 0");
 
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
@@ -33,7 +33,6 @@ if (!isset($_SESSION['redirect'])) {
     <!-- Layout style -->
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 

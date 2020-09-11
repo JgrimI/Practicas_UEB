@@ -8,17 +8,39 @@
 function graf() {
   'use strict';
   if ($("#alejo").length) {
-    
+    var estu=0;
+    var empre=0;
     $.ajax({
         type: "POST",
         url: "ws/getGraph.php",
-        success: function (data) {    
+        success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data)
+        console.log(data);
             if (data["status"] == 1) {
                 data = data["usuarios"];
-                
+                estu = data[0]["num_estudiantes"];
+                empre = data[0]["num_empresas"];
+                console.log(data[0]["num_empresas"]);
+                var BarData = {
+                   labels: ["estudiantes", "empresas"],
+                   datasets: [{
+                     label: 'Numero de usuarios',
+                     data: [estu, empre],
+                     backgroundColor: chartColors,
+                     borderColor: chartColors,
+                     borderWidth: 0
+                   }]
+                 };
+                 var barChartCanvas = $("#alejo").get(0).getContext("2d");
+                 var barChart = new Chart(barChartCanvas, {
+                   type: 'bar',
+                   data: BarData,
+                   options: {
+                     legend: false
+                   }
+                 });
               }
+              
         },
         error: function (data) {
             console.log(data);
@@ -26,24 +48,8 @@ function graf() {
         
   })
     
-    var BarData = {
-      labels: ["estudiantes", "empresas"],
-      datasets: [{
-        label: 'numero de usuarios',
-        data: [10, 19],
-        backgroundColor: chartColors,
-        borderColor: chartColors,
-        borderWidth: 0
-      }]
-    };
-    var barChartCanvas = $("#alejo").get(0).getContext("2d");
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: BarData,
-      options: {
-        legend: false
-      }
-    });
+    
+    
   
   }
 

@@ -1,15 +1,11 @@
 <?php
-
-$query = "SELECT count(cod_estudiante) as num_estudiantes FROM ESTUDIANTE;";
-$query2 = "SELECT count(cod_empresa) as num_empresas FROM EMPRESA;";
+include_once('../persistencia/db.php');
+$query = "SELECT ((SELECT count(cod_estudiante) FROM ESTUDIANTE)) AS num_estudiantes, ((SELECT count(cod_empresa) FROM EMPRESA )) as num_empresas;";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($num_estudiantes);
+$stmt -> bind_result($num_estudiantes, $num_empresas);
 
-$stmt2 = $mysqli->prepare($query2);
-$stmt2 -> execute();
-$stmt2 -> bind_result($num_empresas);
 
 $rta="";
 $usuarios=array();
@@ -17,17 +13,12 @@ while($stmt -> fetch()) {
     $aux=1;
     $usuario=array(
         "num_estudiantes"=>$num_estudiantes,
-        
+        "num_empresas"=>$num_empresas
+
     );
-    array_push($usuarios,$program);
+    array_push($usuarios,$usuario);
 }
-while($stmt2 -> fetch()) {
-    $aux2=1;
-    $program=array(
-        "num_empresas"=>$num_empresas,        
-    );
-    array_push($usuarios,$program);
-}
+
 $response=array();
 if(count($usuarios)>0){
     $response = array(
@@ -40,6 +31,7 @@ if(count($usuarios)>0){
         'status' => 0
     );
 }
+
 $stmt->close();
 echo json_encode($response);
 

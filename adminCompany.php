@@ -58,6 +58,7 @@ if (!isset($_SESSION['redirect'])) {
    window.onload=function(){
     
     getCompanies();
+    
 
   };
 

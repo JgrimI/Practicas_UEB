@@ -1,5 +1,51 @@
-$(function () {
+<?php
+
+?>
+<script>
+
+
+
+function graf() {
   'use strict';
+  if ($("#alejo").length) {
+    
+    $.ajax({
+        type: "POST",
+        url: "ws/getGraph.php",
+        success: function (data) {    
+        data = JSON.parse(data);   
+        console.log(data)
+            if (data["status"] == 1) {
+                data = data["usuarios"];
+                
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+        
+  })
+    
+    var BarData = {
+      labels: ["estudiantes", "empresas"],
+      datasets: [{
+        label: 'numero de usuarios',
+        data: [10, 19],
+        backgroundColor: chartColors,
+        borderColor: chartColors,
+        borderWidth: 0
+      }]
+    };
+    var barChartCanvas = $("#alejo").get(0).getContext("2d");
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: BarData,
+      options: {
+        legend: false
+      }
+    });
+  
+  }
 
   if ($("#chartjs-staked-area-chart").length) {
     var options = {
@@ -19,13 +65,6 @@ $(function () {
             borderColor: chartColors[1],
             borderWidth: 1,
             backgroundColor: chartColors[1]
-          },
-          {
-            label: '# of Points',
-            data: [12, 11, 15, 18, 13, 17],
-            borderColor: chartColors[2],
-            borderWidth: 1,
-            backgroundColor: chartColors[2]
           }
         ]
       },
@@ -243,4 +282,5 @@ $(function () {
       options: PieOptions
     });
   }
-});
+};
+</script>

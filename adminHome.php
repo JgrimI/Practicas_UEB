@@ -1,9 +1,9 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
+include('graficas.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,10 +43,10 @@ if (!isset($_SESSION['redirect'])) {
 </style>
 <script>
    window.onload=function(){
-    
-    getCompanies();
-
+    graf();
+   
   };
+
 
 </script>
 
@@ -193,6 +193,7 @@ if (!isset($_SESSION['redirect'])) {
               </div>
             </div>
             <div class="row">
+
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
@@ -275,17 +276,17 @@ if (!isset($_SESSION['redirect'])) {
                 </div>
               </div>
 
-
-              <div class="col-lg-4 col-md-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body">
-                    <p class="card-title">Campaign</p>
-                    <div id="radial-chart">100%</div>
-                    <h4 class="text-center">$23,350.00</h4>
-                    <p class="text-center text-muted">Used balance this billing cycle</p>
+              <div class="col-md-6">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Numero de Usuarios</h2>
+                  <div class="item-wrapper">
+                    <canvas id="alejo" width="600" height="400"></canvas>
                   </div>
                 </div>
               </div>
+            </div>
+
               
               
              
@@ -318,13 +319,10 @@ if (!isset($_SESSION['redirect'])) {
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
     <script src="assets/vendors/js/core.js"></script>
-    <script src="assets/vendors/js/vendor.addons.js"></script>
-    <!-- endinject -->
-    <script src="assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <!--  <script src="assets/vendors/js/vendor.addons.js"></script>-->
+     <script src="assets/js/charts/chartjs.js"></script>
     <script src="assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="assets/js/charts/chartjs.addon.js"></script>
     <script src="assets/js/dashboard.js"></script>
-
     <!-- build:js -->
     <script src="assets/js/template.js"></script>
     <!--  -->

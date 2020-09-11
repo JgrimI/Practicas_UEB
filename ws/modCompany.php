@@ -39,8 +39,8 @@ $pass = $_POST["pass"];
 
 if( $_FILES["logo"]["name"]){
     $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
-    $img = "../assets/images/logos/" . removeAccents(str_replace(' ', '', $razon)) . ".png";
-    file_put_contents($img, file_get_contents($_FILES["logo"]["name"]));
+    $img = "../assets/images/logos/".removeAccents(str_replace(' ', '', $razon)).".png";
+    file_put_contents($img, file_get_contents($_FILES["logo"]["tmp_name"]));
 }
 $response = [];
 $sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' ,  logo='".$logo."', descripcion_empresa='".$descripcion."', password_empresa='".$pass."' WHERE NIT = '".$nit."' ;";

@@ -262,7 +262,18 @@ include('graficas.php');
                 <div class="grid-body">
                   <h2 class="grid-title">Numero de Usuarios</h2>
                   <div class="item-wrapper">
-                    <canvas id="alejo" width="600" height="400"></canvas>
+                    <canvas id="num-usuarios" width="600" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Actividad de las vacantes</h2>
+                  <div class="item-wrapper">
+                    <canvas id="actividad-line-graph" width="600" height="400"></canvas>
                   </div>
                 </div>
               </div>

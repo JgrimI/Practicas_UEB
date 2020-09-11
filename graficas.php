@@ -7,7 +7,7 @@
 
 function graf() {
   'use strict';
-  if ($("#alejo").length) {
+  if ($("#num-usuarios").length) {
     var estu=0;
     var empre=0;
     $.ajax({
@@ -31,7 +31,7 @@ function graf() {
                      borderWidth: 0
                    }]
                  };
-                 var barChartCanvas = $("#alejo").get(0).getContext("2d");
+                 var barChartCanvas = $("#num-usuarios").get(0).getContext("2d");
                  var barChart = new Chart(barChartCanvas, {
                    type: 'bar',
                    data: BarData,
@@ -45,12 +45,63 @@ function graf() {
         error: function (data) {
             console.log(data);
         },
-        
-  })
+      })      
+  }
+
+  if ($("#actividad-line-graph").length) {
+    var fecha;
+    var num_registros;
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getActividadDiaria.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                           
+                
+                
+                var options = {
+                     type: 'line',
+                     data: {
+                       labels: ["11/09/20","12/09/20","13/09/20","14/09/20","15/09/20","16/09/20"],
+                       datasets: [{
+                           label: 'Numero de vacantes',
+                           data: [10,3,6,40,20,10],
+                           borderWidth: 2,
+                           fill: false,
+                           backgroundColor: chartColors[0],
+                           borderColor: chartColors[0],
+                           borderWidth: 0
+                         },
+                         
+                       ]
+                     },
+                     options: {
+                       scales: {
+                         yAxes: [{
+                           ticks: {
+                             reverse: false
+                           }
+                         }]
+                       },
+                       fill: false,
+                       legend: false
+                     }
+                   }
+               
+                   var ctx = document.getElementById('actividad-line-graph').getContext('2d');
+                   new Chart(ctx, options);
+              }
+              
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })      
     
-    
-    
-  
   }
 
   if ($("#chartjs-staked-area-chart").length) {

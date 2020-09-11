@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -44,6 +45,11 @@ window.onload=function(){
 
   };
 
+  $('#ventanaModal').on('shown', function () {
+    
+  $('#modal').trigger('focus')
+  })
+
  function getPrograma(nom_programa){
    $.ajax({
      type: "POST",
@@ -64,7 +70,7 @@ window.onload=function(){
                 $('#program').html(options);
                 $('#ventanaModal').modal('show');
             }
-     }
+          }
    })
  };
 
@@ -80,9 +86,9 @@ window.onload=function(){
                 var html = '';
                 var i;
                 for (i = 0; i < data.length; i++) {
-                  if(data[i]["estado"]=="DESACTIVADO"){
+                  if(data[i]["estado"]=="NO APROBADO"){
                     var estado = 'badge badge-danger';
-                  }else if(data[i]["estado"]=="ACTIVADO"){
+                  }else if(data[i]["estado"]=="INSCRITO"){
                     estado='badge badge-success';
                   }else{
                     estado='badge badge-info';
@@ -157,23 +163,24 @@ window.onload=function(){
                 var html = '';
                 var i;
                 var nom_programa;
+                var estado;
               for (i = 0; i < data.length; i++) {
                 if(cod_estudiante == data[i]["cod_estudiante"]){
-                 html += '<div class="form-group"> <label for="name">Nombre Estudiante</label><input type="text" name="nombre" placeholder= "Ingresar Nombre" required class="form-control" value='+data[i]["nombre_completo"]+'/> </div>'+
+                 html += 
+                 '<div class="form-group"> <label for="name">Nombre Estudiante</label><input type="text" name="nombre" placeholder= "Ingresar Nombre" required class="form-control" value="'+data[i]["nombre_completo"]+'" /></div>'+
                  '<div class="form-group"><label for="name">Correo Estudiante</label><input type="text" name="Correo" placeholder="Ingresar Email" required class="form-control" value='+data[i]["correo_estudiante"]+' /></div>'+
-                 '<div class="form-group"><label for="name">Solicitudes</label><input type="text" name="solicitudes" placeholder="Ingresar Solicitudes" required class="form-control" value='+data[i]["numero_solicitudes"]+' /></div>'+
                  '<div class="form-group"><label for="name">Programa</label><div class="input-group input-group-sm mb-3"><select name="program" class="form-control" id="program" required></select></div></div>'+
                  '<div class="form-group"><label for="name">Semestre</label><input type="text" name="semestre" placeholder="Ingresar Semestre" required class="form-control"  value='+data[i]["semestre"]+' /></div>'+
-                 '<div class="form-group"><label for="name">Estado</label><input type="text" name="semestre" placeholder="Ingresar Estado" required class="form-control" value='+data[i]["estado"]+' /></div>'+
-                 '<div class="form-group"><label for="name">Ingresos</label><input type="text" name="semestre" placeholder="Ingresar Ingresos" required class="form-control" value='+data[i]["num_ingresos"]+' /></div>'+
-                 '<div class="form-group"><label for="name">Hoja De vida</label><input type="text" name="semestre" placeholder="Ingresar Hoja de vida" required class="form-control" /></div>'+
-                 '<div class="alert alert-success"><h6><strong>tus datos se han guardado exitosamente</strong></h6></div>';
+                 '<div class="form-group"><label for="name">Estado</label><div class="input-group input-group-sm mb-3"><select name="estado" class="form-control" id="estado" required><option value="">Seleccione el Estado al cual pertenece</option><option value="INSCRITO">Inscrito</option><option value="PREINSCRITO">Preinscrito</option><option value="NO APROBADO">No aprobado</option></select></div></div>'
                  nom_programa = data[i]["nom_programa"];
+                 estado = data[i]["estado"];
                 i = data.lenght;
                 }         
          }
         }
         $('#modal').html(html);
+        $("#estado  option[value='"+estado+"']").attr("selected", true);
+        $('#estado').select2({ width: '100%' });
         getPrograma(nom_programa);
       },
   });
@@ -364,7 +371,7 @@ window.onload=function(){
       </div>
       <!-- page content ends -->
     </div>
- <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
+ <div class="modal hide fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
   <div class="modal-dialog ui-corner-all" role="document">
    <div class="modal-content">
     <div class="modal-header">
@@ -376,10 +383,10 @@ window.onload=function(){
     <div class="modal-body" id="modal">
     </div>
     <div class="modal-footer">
-      <button class="btn btn-warning" type="button" data-dismiss="modal">
+      <button class="btn btn-secondary" type="button" data-dismiss="modal">
         Cerrar
       </button>
-      <button class="btn btn-success" type="button">
+      <button class="btn btn-primary" type="button">
         Aceptar
       </button>
     </div>

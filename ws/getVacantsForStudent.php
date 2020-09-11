@@ -1,5 +1,6 @@
 <?php
 include_once('../persistencia/db.php');
+session_start();
 $query = "SELECT VACANTE.cod_vacante,VACANTE.nombre_cargo, VACANTE.horario_disponibilidad, VACANTE.rango_salarial, EMPRESA.nombre, EMPRESA.logo FROM VACANTE, EMPRESA WHERE VACANTE.cod_empresa = EMPRESA.cod_empresa AND VACANTE.estado='PUBLICADO'";
 
 $stmt = $mysqli->prepare($query);
@@ -17,6 +18,40 @@ $html='<table id="myTable" name="myTable"  class="display nowrap dataTable dtr-i
         <tbody id="bodyTable" name="bodyTable">';
 $entro=false;
 while($stmt -> fetch()) {
+    $query2 = "SELECT estado FROM DETALLE WHERE cod_vacante=".$cod_vacante." and cod_estudiante=".$_SESSION['id'];
+    $stmt2 = $mysqli2->prepare($query2);
+    $stmt2 -> execute();
+    $stmt2 -> bind_result($estado);
+    $est='';
+
+    while($stmt2 -> fetch()) {
+        $est=$estado;
+    }
+    $stmt2->close();
+    $btn='';
+    switch($est){
+        case 'ENVIADA':
+            $btn='<button type="button" class="btn btn-secondary" style="width: 85%;">Enviada</button>';
+        break;
+        case 'REVISADA':
+            $btn='<button type="button" class="btn btn-primary" style="width: 85%;">Revisada</button>';
+        break;
+        case 'RECHAZADA':
+            $btn='<button type="button" class="btn btn-danger" style="width: 85%;">Rechazado</button>';
+        break;
+        case 'APROBADA':
+            $btn='<button type="button" class="btn btn-dark" style="width: 85%;">Aprobado</button>';
+        break;
+        case 'EN PROCESO':
+            $btn='<button type="button" class="btn btn-warning" style="width: 85%;">En proceso</button>';
+        break;
+        default:
+        $btn='<div class="btn btn-success has-icon" onclick="openModal('.$cod_vacante.');">
+                <i class="mdi mdi-information"></i>Ver mas
+            </div>   ';
+        break;
+
+    }
     $entro=true;
     $html.='<tr>
                 <td>
@@ -39,9 +74,7 @@ while($stmt -> fetch()) {
                     '.$rango_salarial.'
                 </td>
                 <td>
-                <div class="btn btn-success has-icon" onclick="openModal('.$cod_vacante.');">
-                    <i class="mdi mdi-information"></i>Ver mas
-                </div>                    
+                    '.$btn.'          
                 </td>              
             </tr>';
 }

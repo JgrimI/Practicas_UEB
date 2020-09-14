@@ -27,13 +27,31 @@ if (!$mysqli->query($sql)) {
         );
     }
 }else{
-    $response = array(
-    'comment' => "Se agregó satisfactoriamente",
-    'status' => 1
-    );
+    if(isset($_POST['motivos'])){
+        $aDoor = $_POST['motivos'];
+        if(!empty($aDoor)){
+            $N = count($aDoor);
+            for($i=0; $i < $N; $i++){
+                $otros=($aDoor[$i]==5) ? $_POST['otrosTxt'] : '';
+                $add="INSERT INTO DETALLE_RECHAZO VALUES (".$c.",".$e.",".$aDoor[$i].",'".$otros."');";
+                $mysqli2->query($add);
+
+            }
+            $response = array(
+                'comment' => "Se agregó satisfactoriamente",
+                'status' => 1
+                );
+        }
+    }else{
+        $response = array(
+        'comment' => "Se agregó satisfactoriamente x",
+        'status' => 1
+        );
+    }
 }
 
 $mysqli->close();
+$mysqli2->close();
 
 echo json_encode($response);
 

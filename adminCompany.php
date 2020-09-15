@@ -1,8 +1,10 @@
 <?php
-session_start();
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+session_start();
 
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
@@ -14,12 +16,14 @@ if (!isset($_SESSION['redirect'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="expires" content="Sun, 01 Jan 2014 00:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache" />
     <title>Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
-
+    
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
@@ -29,7 +33,6 @@ if (!isset($_SESSION['redirect'])) {
     <!-- Layout style -->
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 
@@ -56,6 +59,7 @@ if (!isset($_SESSION['redirect'])) {
    window.onload=function(){
     
     getCompanies();
+    
 
   };
 
@@ -75,11 +79,11 @@ if (!isset($_SESSION['redirect'])) {
                 var i;
                 for (i = 0; i < data.length; i++) {
                   if(data[i]["estado"]=="RECHAZADO"){
-                    var estado = 'btn btn-outline-danger';
+                    var estado = 'btn btn-danger';
                   }else if(data[i]["estado"]=="APROBADO"){
-                    estado='btn btn-outline-success';
+                    estado='btn btn-success';
                   }else{
-                    estado='btn btn-outline-info';
+                    estado='btn btn-info';
                   }
                   
                 html += '<tr>' +
@@ -98,8 +102,8 @@ if (!isset($_SESSION['redirect'])) {
                         '<td>' + data[i]["descripcion_empresa"] + '</td>' +
                         '<td>' + data[i]["num_ingresos"] + '</td>' +
                         '<td><a href="javascript:void(0);" onclick="openModal('+data[i]["NIT"]+',\''+data[i]["estado"]+'\');" class="'+estado+'">'+ data[i]["estado"] + '</a></td>' +
-                        '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
-                        '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
+                        '<td><a href="assets/images/cc/' + data[i]["cc_empresa"] + '" target="blank"><img width="50px" height="50px"src="assets/images/pdf.png"></a></td>' +
+                        '<td><a href="editCompany.php?nit=' + data[i]["NIT"] +'">'+'<button type="button" rel=tooltip" class="btn btn-info btn-rounded">editar'
                         '</tr>'
 
              ;
@@ -377,10 +381,10 @@ function openModal(id, estado){
           <div class="modal-body">
             <form id="valEmpresa" action="javascript:void(0);" onsubmit="valCompany();">
             <div class="form-group row showcase_row_area">
-                <div class="col-md-5 showcase_text_area">
+                <div class="col-md-5 showcase_text_area" id="nitVal" name="nitVal">
                     <label for="VEstado">Cambiar Estado</label>
                 </div>
-                <input type="hidden" id="nitVal" name="nitVal" required value ="" maxlength="50">
+                <input type="hidden" id="nitVal2" name="nitVal2" required value ="" maxlength="50">
                 <div class="col-md-20 showcase_content_area">
                     <select name="VEstado" class="form-control" id="VEstado" required>
                       <option value="REGISTRADO">Registrado</option>

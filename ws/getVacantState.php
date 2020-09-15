@@ -1,10 +1,10 @@
 <?php
 include_once('../persistencia/db.php');
-$query = "SELECT ((SELECT count(cod_estudiante) FROM ESTUDIANTE)) AS num_estudiantes, ((SELECT count(cod_empresa) FROM EMPRESA )) as num_empresas, ((SELECT count(cod_vacante) FROM VACANTE)) AS num_vacantes ;";
+$query = "SELECT estado, COUNT(cod_vacante) as num_registros FROM DETALLE GROUP BY estado ;";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($num_estudiantes, $num_empresas, $num_vacantes);
+$stmt -> bind_result($num_estudiantes, $num_empresas);
 
 
 $rta="";
@@ -13,8 +13,7 @@ while($stmt -> fetch()) {
     $aux=1;
     $usuario=array(
         "num_estudiantes"=>$num_estudiantes,
-        "num_empresas"=>$num_empresas,
-        "num_vacantes"=>$num_vacantes       
+        "num_empresas"=>$num_empresas
 
     );
     array_push($usuarios,$usuario);

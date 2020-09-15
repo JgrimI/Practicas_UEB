@@ -181,25 +181,32 @@ referencias
 			</div>
 			<div class="clear"></div>
 		</section>
-		
-		<section>
+		<?php
+        if ($idiomas!=null || $cursos!=null) {
+     	
+		echo '<section>
 			<div class="sectionTitle">
 				<h1>Formación Complementaria</h1>
 			</div>
-			
-			<div class="sectionContent">
-				<article>
+			<div class="sectionContent">';
+			if($idiomas != null){
+				echo'  <article>
 					<h2>Idiomas</h2>
-					<p><?php echo $idiomas; ?></p>
-				</article>	
-				<article>
+					<p>'.$idiomas.'</p>
+				</article>	';
+			}
+			if	($cursos!=null){
+				echo '<article>
 					<h2>Cursos</h2>
-					<p><?php echo $cursos; ?></p>
+					<p>'.$cursos.'</p>
 				</article>
 			</div>
 			<div class="clear"></div>
-		</section>
-		
+		</section>';
+
+		}	
+	}
+		?>	
 		<section>
 			<div class="sectionTitle">
 				<h1>Referencias</h1>

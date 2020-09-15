@@ -3,10 +3,8 @@ session_start();
 
 
 if (!isset($_SESSION['programa'])) {
-    //  header('Location: index.php');
-    $carrera="Ingeníeria de Sistemas";
+    header('Location: index.php');
 } else {
-    
     $_SESSION['redirect']="registerCV.php";
     $nombre=$_SESSION['nombre'];
     $id=$_SESSION['id'];

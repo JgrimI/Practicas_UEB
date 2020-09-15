@@ -31,22 +31,22 @@ while($stmt -> fetch()) {
     $btn='';
     switch($est){
         case 'ENVIADA':
-            $btn='<button type="button" class="btn btn-secondary" style="width: 85%;">Enviada</button>';
-        break;
-        case 'REVISADA':
-            $btn='<button type="button" class="btn btn-primary" style="width: 85%;">Revisada</button>';
+            $btn='<button type="button" class="btn btn-secondary" style="width: 80%;">Enviada</button>';
         break;
         case 'RECHAZADA':
-            $btn='<button type="button" class="btn btn-danger" style="width: 85%;">Rechazado</button>';
+            $btn='<button type="button" class="btn btn-danger" style="width: 80%;">Rechazado</button>';
         break;
-        case 'APROBADA':
-            $btn='<button type="button" class="btn btn-dark" style="width: 85%;">Aprobado</button>';
+        case 'OFERTA':
+            $btn='<a href="?menu=MyVacants" class="btn btn-warning" style="width: 80%;">OFERTA</a>';
+        break;
+        case 'ACEPTADA':
+            $btn='<button type="button" class="btn btn-twitter" style="width: 80%; background-color: #40c140;">Aceptada</button>';
         break;
         case 'EN PROCESO':
-            $btn='<button type="button" class="btn btn-warning" style="width: 85%;">En proceso</button>';
+            $btn='<button type="button" class="btn btn-dark" style="width: 80%;">En proceso</button>';
         break;
         default:
-        $btn='<div class="btn btn-success has-icon" onclick="openModal('.$cod_vacante.');">
+        $btn='<div class="btn btn-twitter has-icon"  onclick="openModal('.$cod_vacante.');">
                 <i class="mdi mdi-information"></i>Ver mas
             </div>   ';
         break;

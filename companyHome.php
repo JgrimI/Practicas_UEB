@@ -10,22 +10,19 @@ if (!isset($_SESSION['redirect'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
+    <title>Enterprise Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
     <!-- endinject -->
-    <!-- vendor css for this page -->
-    <!-- End vendor css for this page -->
-    <!-- inject:css -->
     <link rel="stylesheet" href="assets/css/shared/style.css">
-    <!-- endinject -->
     <!-- Layout style -->
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
     <script src="estilos_tp2/vendor/jquery/jquery.min.js"></script>
     <script src="estilos_tp2/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
@@ -52,9 +49,6 @@ if (!isset($_SESSION['redirect'])) {
   margin-left:8%;
 }
 </style>
-<script>
-</script>
-
   <body class="header-fixed">
     <!-- partial:../partials/_header.html -->
     <nav class="t-header">
@@ -70,49 +64,6 @@ if (!isset($_SESSION['redirect'])) {
             <i class="mdi mdi-menu"></i>
           </button>
           <ul class="nav ml-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-bell-outline mdi-1x"></i>
-              </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
-                <div class="dropdown-header">
-                  <h6 class="dropdown-title">Notifications</h6>
-                  <p class="dropdown-title-text">You have 4 unread notification</p>
-                </div>
-                <div class="dropdown-body">
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-primary text-primary">
-                      <i class="mdi mdi-alert"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Storage Full</small>
-                      <small class="content-text">Server storage almost full</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-success text-success">
-                      <i class="mdi mdi-cloud-upload"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Upload Completed</small>
-                      <small class="content-text">3 Files uploded successfully</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                      <i class="mdi mdi-security"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Authentication Required</small>
-                      <small class="content-text">Please verify your password to continue using cloud services</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="dropdown-footer">
-                  <a href="#">View All</a>
-                </div>
-              </div>
-            </li>
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="appsDropdown" data-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-apps mdi-1x"></i>

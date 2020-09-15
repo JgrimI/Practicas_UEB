@@ -1,7 +1,6 @@
 <script>
     window.onload=getData();
     function getData(){
-        console.log('entra1?');
         $.ajax({
             type: "POST",
             url: "ws/getVacantsOfCompany.php",
@@ -151,7 +150,7 @@
                                     <label for="descripcion">Descripción vacante</label>
                                 </div>
                                 <div class="col-md-9 showcase_content_area">
-                                <textarea class="form-control" id="descripcion" name="descripcion" cols="12" rows="3" required></textarea>
+                                <textarea class="form-control" id="descripcion" name="descripcion" cols="12" rows="5" required></textarea>
                                 </div>
                             </div>
                             <div class="form-group row showcase_row_area">
@@ -168,7 +167,7 @@
                                     <label for="horario">Horario</label>
                                 </div>
                                 <div class="col-md-9 showcase_content_area">
-                                <textarea class="form-control" id="horario" name="horario" cols="12" rows="5" required></textarea>
+                                <textarea class="form-control" id="horario" name="horario" cols="12" rows="3" required></textarea>
                                 </div>
                             </div>
                             <div class="form-group row showcase_row_area">

@@ -1,6 +1,10 @@
 <?php
 session_start();
-
+header ("Pragma-directive: no-cache");
+header ("Cache-directive: no-cache");
+header ("Cache-control: no-cache");
+header ("Pragma: no-cache");
+header ("Expires: 0");
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
@@ -10,6 +14,8 @@ if (!isset($_SESSION['redirect'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="expires" content="Sun, 01 Jan 2014 00:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache" />
     <title>Home</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
@@ -52,7 +58,7 @@ if (!isset($_SESSION['redirect'])) {
     function openModal(id){
         $.ajax({
             type: "POST",
-            url: "ws/getDetailsOfVacant.php",
+            url: "ws/getDetailsOfVacantforAdmin.php",
             data:{
                 'cod':id
             },
@@ -87,13 +93,13 @@ if (!isset($_SESSION['redirect'])) {
                   }else{
                     estado='badge badge-info';
                   }
-                html += '<tr>' +
-             '<td>' + data[i]["nom_empresa"] + '</td>'+
+                html += '<tr>' + 
+             '<td><div class="row text-center"><div class="col-12"><img src="assets/images/logos/'+data[i]["logo"]+'" alt="" class="thumb-sm rounded-circle mr-2" width="50px" height="50px"></div><div class="col-12"><p>' + data[i]["nom_empresa"] + '</p></div></div></td>'+
              '<td>' + data[i]["nombre_cargo"] + '</td>' +
              '<td>' + data[i]["horario_disponibilidad"] + '</td>' +
              '<td>' + data[i]["rango_salarial"] + '</td>' +
              '<td><div class="'+estado+'">' + data[i]["estado"] + '</div></td>' +
-             '<td><div class="btn btn-info has-icon" onclick="openModal('+i+');"> <i class="mdi mdi-information"></i>Ver mas</div></td></tr>';
+             '<td><div class="btn btn-info has-icon" onclick="openModal('+data[i]["cod_vacante"]+');"> <i class="mdi mdi-information"></i>Ver mas</div></td></tr>';
            }
 
           $('#vacant tbody').html(html);
@@ -307,6 +313,14 @@ if (!isset($_SESSION['redirect'])) {
       </div>
       <!-- page content ends -->
     </div>
+    <div class="modal fade" id="seeVacant" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" id="modalBody" name="modalBody">
+                    <!-- Aqui va todo el contenido de ver vacante-->
+                </div>
+            </div>
+        </div>
+
 
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->

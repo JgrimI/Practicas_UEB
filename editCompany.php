@@ -1,8 +1,10 @@
 <?php
-session_start();
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+session_start();
 
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
@@ -16,6 +18,8 @@ $nit=$_GET["nit"];
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="expires" content="Sun, 01 Jan 2014 00:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache" />
     <title>Home</title>
     <!-- plugins:css -->
     
@@ -25,6 +29,7 @@ $nit=$_GET["nit"];
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.addons.css">
+    
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->

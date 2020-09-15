@@ -6,45 +6,158 @@
 
 
 function graf() {
-  'use strict';
-  if ($("#alejo").length) {
-    
+  'use strict';  
+
+   if ($("#num-usuarios").length) {
+
     $.ajax({
         type: "POST",
         url: "ws/getGraph.php",
-        success: function (data) {    
+        success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data)
+        console.log(data);
             if (data["status"] == 1) {
                 data = data["usuarios"];
-                
+                var estu = data[0]["num_estudiantes"];
+                var empre = data[0]["num_empresas"];  
+                var vacant = data[0]["num_vacantes"];                      
+                    var PieData = {
+                           datasets: [{
+                             data: [estu, empre, vacant],
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: [
+                             'Estudiantes',
+                             'Empresas',
+                             'Vacantes',
+                           ]
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#num-usuarios").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
+                       }
+                     },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+
+  }
+
+ 
+
+  if ($("#actividad-line-graph").length) {
+    var fecha = new Array();
+    var num_registros = new Array();
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getActividadDiaria.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"]; 
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["fecha_detalle"]){
+                    fecha.push(data[i]["fecha_detalle"]);
+                    console.log(fecha); 
+                  }
+                  if(data[i]["num_registros"]){
+                    num_registros.push(data[i]["num_registros"]);
+                  }
+                }                                       
+                var options = {
+                     type: 'line',
+                     data: {
+                       labels: fecha,
+                       datasets: [{
+                           label: 'Numero de vacantes',
+                           data: num_registros,
+                           borderWidth: 2,
+                           fill: false,
+                           backgroundColor: chartColors[0],
+                           borderColor: chartColors[0],
+                           borderWidth: 0
+                         },
+                         
+                       ]
+                     },
+                     options: {
+                       scales: {
+                         yAxes: [{
+                           ticks: {
+                             reverse: false
+                           }
+                         }]
+                       },
+                       fill: false,
+                       legend: false
+                     }
+                   }
+               
+                   var ctx = document.getElementById('actividad-line-graph').getContext('2d');
+                   new Chart(ctx, options);
+              }
+              
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })      
+    
+  }
+
+  if ($("#programas-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getGraph.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["usuarios"];
+                    var BarData = {
+                    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+                    datasets: [{
+                      label: '# of Votes',
+                      data: [10, 19, 3, 5, 12, 3],
+                      backgroundColor: chartColors,
+                      borderColor: chartColors,
+                      borderWidth: 0
+                    }]
+                  };
+                  var barChartCanvas = $("#chartjs-bar-chart").get(0).getContext("2d");
+                  var barChart = new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: BarData,
+                    options: {
+                      legend: false
+                    }
+                  });
+
               }
         },
         error: function (data) {
             console.log(data);
         },
-        
-  })
-    
-    var BarData = {
-      labels: ["estudiantes", "empresas"],
-      datasets: [{
-        label: 'numero de usuarios',
-        data: [10, 19],
-        backgroundColor: chartColors,
-        borderColor: chartColors,
-        borderWidth: 0
-      }]
-    };
-    var barChartCanvas = $("#alejo").get(0).getContext("2d");
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: BarData,
-      options: {
-        legend: false
-      }
-    });
-  
+      })
+   
   }
 
   if ($("#chartjs-staked-area-chart").length) {
@@ -283,4 +396,5 @@ function graf() {
     });
   }
 };
+
 </script>

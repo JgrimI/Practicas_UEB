@@ -11,10 +11,10 @@ $fecha = date('Y-m-d');
 $aux= 0;
 $response = [];
 
-$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre, e.cod_HV, e.foto from ESTUDIANTE e, PROGRAMA p where e.correo_estudiante ='".$username."' and e.cod_programa=p.cod_programa";
+$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre, e.cod_HV from ESTUDIANTE e, PROGRAMA p where e.correo_estudiante ='".$username."' and e.cod_programa=p.cod_programa";
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$cod_hv,$foto);
+$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$cod_hv);
 
 while($stmt -> fetch()) {
     session_start();
@@ -26,7 +26,7 @@ while($stmt -> fetch()) {
     $_SESSION['programa']=$programa;
     $_SESSION['semestre']=$semestre;
     $_SESSION['cod_hv']=$cod_hv;
-    $_SESSION['foto']=($foto==null) ? 'default-user-image.png': $foto;
+    $_SESSION['foto']= 'default-user-image.png';
     $_SESSION['redirect']='studentHome.php';
     $primer_nombre=explode(' ',$nombre);
     $response = array(
@@ -34,6 +34,11 @@ while($stmt -> fetch()) {
         'redirect' =>'studentHome.php',
         'status' => true
     );
+
+    $sql="CALL p_update_login(".$id.",1)";
+    $mysqli2->query($sql);
+    $mysqli2->close();
+
 }
 $stmt->close();
 
@@ -61,7 +66,9 @@ if($aux==0){
     }
     $stmt->close();
 
-
+    $sql="CALL p_update_login(".$id.",2)";
+    $mysqli2->query($sql);
+    $mysqli2->close();
 }
 if($aux==0){
     $query = "SELECT a.id, a.nombre from ADMINISTRADOR a where a.username ='".$username."'";

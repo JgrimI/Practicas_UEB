@@ -1,5 +1,10 @@
 <?php
 session_start();
+header ("Pragma-directive: no-cache");
+header ("Cache-directive: no-cache");
+header ("Cache-control: no-cache");
+header ("Pragma: no-cache");
+header ("Expires: 0");
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
@@ -44,8 +49,40 @@ include('graficas.php');
 <script>
    window.onload=function(){
     graf();
-   
+    getData()
   };
+
+   function getData(){
+      $.ajax({
+        type: "POST",
+        url: "ws/getGraph.php",
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"] == 1) {
+                var data = data["usuarios"];
+                var estu = data[0]["num_estudiantes"];
+                var empre = data[0]["num_empresas"]; 
+                var vacant = data[0]["num_vacantes"];
+
+                var estuH= '<p>'+estu+'</p>'+
+                '<p></p>';
+                 var empreH= '<p>'+empre+'</p>'+
+                '<p></p>';
+                 var vacantH= '<p>'+vacant+'</p>'+
+                '<p></p>';
+
+                $('#num_estudiantes').html(estuH);
+                $('#num_empresas').html(empreH);
+                $('#num_vacantes').html(vacantH);
+
+                    }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+  }
 
 
 </script>
@@ -195,93 +232,67 @@ include('graficas.php');
             <div class="row">
 
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>30%</p>
-                      <p>+06.2%</p>
+                <div class="grid" >
+                  <div class="grid-body text-gray" >
+                    <div class="d-flex justify-content-between" id="num_estudiantes" name="num_estudiantes"  >
+                      <p ></p>
                     </div>
-                    <p class="text-black">Traffic</p>
+                    <p class="text-black">Estudiantes</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_1"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>43%</p>
-                      <p>+15.7%</p>
+                    <div class="d-flex justify-content-between" id="num_empresas" name="num_empresas">
+                      <p ></p>
                     </div>
-                    <p class="text-black">Conversion</p>
+                    <p class="text-black">Empresas</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_2"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6 equel-grid">
+             
+             <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>23%</p>
-                      <p>+02.7%</p>
+                    <div class="d-flex justify-content-between" id="num_vacantes" name="num_vacantes">
+                      <p ></p>
                     </div>
-                    <p class="text-black">Bounce Rate</p>
+                    <p class="text-black">Vacantes</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_3"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>75%</p>
-                      <p>- 53.34%</p>
-                    </div>
-                    <p class="text-black">Marketing</p>
-                    <div class="wrapper w-50 mt-4">
-                      <canvas height="45" id="stat-line_4"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body d-flex flex-column h-100">
-                    <div class="wrapper">
-                      <div class="d-flex justify-content-between">
-                        <div class="split-header">
-                          <img class="img-ss mt-1 mb-1 mr-2" src="../assets/images/social-icons/instagram.svg" alt="instagram">
-                          <p class="card-title">Followers Growth</p>
-                        </div>
-                        <div class="wrapper">
-                          <button class="btn action-btn btn-xs component-flat pr-0" type="button"><i class="mdi mdi-access-point text-muted mdi-2x"></i></button>
-                          <button class="btn action-btn btn-xs component-flat pr-0" type="button"><i class="mdi mdi-cloud-download-outline text-muted mdi-2x"></i></button>
-                        </div>
-                      </div>
-                      <div class="d-flex align-items-end pt-2 mb-4">
-                        <h4>16.2K</h4>
-                        <p class="ml-2 text-muted">New Followers</p>
-                      </div>
-                    </div>
-                    <div class="mt-auto">
-                      <canvas class="curved-mode" id="followers-bar-chart" height="220"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
+             
+              
 
               <div class="col-md-6">
               <div class="grid">
                 <div class="grid-body">
                   <h2 class="grid-title">Numero de Usuarios</h2>
                   <div class="item-wrapper">
-                    <canvas id="alejo" width="600" height="400"></canvas>
+                    <canvas id="num-usuarios" width="600" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Actividad de las vacantes</h2>
+                  <div class="item-wrapper">
+                    <canvas id="actividad-line-graph" width="600" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -299,17 +310,7 @@ include('graficas.php');
     </div>
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
-              <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-            
-            </div>
-          </div>
+         
         </footer>
         <!-- partial -->
       </div>

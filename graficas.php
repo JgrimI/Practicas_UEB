@@ -240,6 +240,129 @@ function graf() {
   }
 
 
+
+  if ($("#empresa-aspirantes-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getAspirantesEmpresa.php",
+        success: function (data) {  
+          console.log(data);
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                var vac = new Array();
+                var estado = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["num_vacantes"]){
+                    vac.push(data[i]["num_vacantes"]);
+                  }
+                  if(data[i]["estado"]){
+                    estado.push(data[i]["estado"]);
+                  }
+                  
+                }  
+                    var PieData = {
+                           datasets: [{
+                             data: vac,
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: estado
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#empresa-aspirantes-graph").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
+  if ($("#empresa-vacante-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getAspirantesVacante.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                var aspirantes = new Array();
+                var vacante = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["vacante"]){
+                    vacante.push(data[i]["vacante"]);                   
+                  }
+                   if(data[i]["aspirantes"]){
+                    aspirantes.push(data[i]["aspirantes"]);
+                    
+                  }                 
+                }
+                 
+                    var BarData = {
+                    labels: vacante,
+                    datasets: [{
+                      
+                      label: 'numero de aspirantes',
+                      data: aspirantes,
+                      backgroundColor: chartColors,
+                      borderColor: chartColors,
+                      borderWidth: 0
+                    }]
+                  };
+                  var barChartCanvas = $("#empresa-vacante-graph").get(0).getContext("2d");
+                  var barChart = new Chart(barChartCanvas, {
+                    
+                    type: 'bar',
+                    data: BarData,
+                    options: {
+                      scales: {
+                          yAxes: [{
+                              display: true,
+                              ticks: {
+                                  suggestedMin: 0,   
+                                  beginAtZero: true 
+                              }
+                          }]
+                      },
+                      legend: false
+                    }
+                  });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
+
+
+
+
+
   if ($("#chartjs-staked-area-chart").length) {
     var options = {
       type: 'line',

@@ -298,6 +298,17 @@ include('graficas.php');
               </div>
             </div>
 
+            <div class="col-md-12">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Estadistica de los rechazos</h2>
+                  <div class="item-wrapper">
+                    <canvas id="motivo-rechazo-graph" width="1200" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               
               
              

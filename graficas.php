@@ -126,12 +126,21 @@ function graf() {
 
     $.ajax({
         type: "POST",
-        url: "ws/getGraph.php",
+        url: "ws/getEstudiantes.php",
         success: function (data) {  
         data = JSON.parse(data);   
         console.log(data);
             if (data["status"] == 1) {
-                data = data["usuarios"];
+                data = data["estudiantes"];
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["fecha_detalle"]){
+                    fecha.push(data[i]["fecha_detalle"]);
+                    console.log(fecha); 
+                  }
+                  
+                }  
+
+                program = data["nom_programa"];
                     var BarData = {
                     labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
                     datasets: [{
@@ -159,6 +168,59 @@ function graf() {
       })
    
   }
+
+  if ($("#motivo-rechazo-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getMotivoRechazo.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                var motivo = new Array();
+                var num_rechazos = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["motivo"]){
+                    motivo.push(data[i]["motivo"]);
+                    console.log(fecha); 
+                  }
+                   if(data[i]["num_rechazos"]){
+                    num_rechazos.push(data[i]["num_rechazos"]);
+                    console.log(fecha); 
+                  }
+                  
+                }  
+
+                    var BarData = {
+                    labels: motivo,
+                    datasets: [{
+                      label: 'numero de rechazos',
+                      data: num_rechazos,
+                      backgroundColor: chartColors,
+                      borderColor: chartColors,
+                      borderWidth: 0
+                    }]
+                  };
+                  var barChartCanvas = $("#motivo-rechazo-graph").get(0).getContext("2d");
+                  var barChart = new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: BarData,
+                    options: {
+                      legend: false
+                    }
+                  });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
 
   if ($("#chartjs-staked-area-chart").length) {
     var options = {

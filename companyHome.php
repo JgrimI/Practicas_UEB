@@ -1,9 +1,17 @@
 <?php
+
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 session_start();
 
 if (!isset($_SESSION['redirect'])) {
     header('Location: index.php');
 }
+
+$nit=$_SESSION["nit"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,10 +37,7 @@ if (!isset($_SESSION['redirect'])) {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-    <!-- Dropify file input -->
-    <script src="assets/dist/js/dropify.min.js"></script>
-    <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
-  </head>
+    </head>
 
 
 <style>
@@ -73,9 +78,9 @@ if (!isset($_SESSION['redirect'])) {
                   <h6 class="dropdown-title">Opciones</h6>
                 </div>
                 <div class="dropdown-body border-top pt-0">
-                  <a class="dropdown-grid">
+                  <a href="?menu=editProfile" class="dropdown-grid">
                     <i class="grid-icon mdi mdi-security mdi-2x"></i>
-                    <span class="grid-tittle">Cambiar contraseña</span>
+                    <span class="grid-tittle">Editar Perfil</span>
                   </a>
                   <a class="dropdown-grid" href="logout.php">
                     <i class="grid-icon mdi mdi-exit-to-app mdi-2x"></i>
@@ -158,6 +163,11 @@ if (!isset($_SESSION['redirect'])) {
     <script src="assets/js/charts/chartjs.js"></script>
     <script src="assets/vendors/chartjs/Chart.min.js"></script>
     <script src="assets/js/dashboard.js"></script>
+
+      <!-- Dropify file input -->
+      <script src="assets/dist/js/dropify.min.js"></script>
+    <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
+
     <!--  -->
   </body>
 </html>

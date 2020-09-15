@@ -65,123 +65,72 @@ WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiant
         $numR2 = $referencias[5];
     }
     $stmt->close(); ?>
-<body id="top" >
-<div id="cv" class="instaFade">
-	<div class="mainDetails">
-		<?php
-        $exists = is_file("assets/images/profile/users/$photo");
-    if ($exists) {
-        echo '<div id="headshot" >
-					<img  src="assets/images/profile/users/'.$photo.'" style=" border: 3px solid #cf8a05;" />
-			      </div>';
-    } ?>
-		
-		<div id="name">
-			<h1 class="quickFade delayTwo">&nbsp; <?php echo $nom_est; ?></h1>
-			<h2 class="quickFade delayThree">&nbsp; <?php echo $program; ?></h2>
-			<div id="contactDetails">
-			<ul>
-				<li>&nbsp;&nbsp;&nbsp;&nbsp; Email: <a href="mailto:<?php echo $mail; ?>" target="_blank"><?php echo $mail; ?></a></li>
-				<li>&nbsp;&nbsp;&nbsp;&nbsp; Telefono: <?php echo $telephone; ?></li>
-				<li>&nbsp;&nbsp;&nbsp;&nbsp; Dirección: <?php echo $residence.' - '.$direccion; ?></li>
-			</ul>
-		</div>
-		</div>
-		
-		
-	</div>
-	
-	<div id="mainArea" class="quickFade delayFive">
-		<section>
-			<article>
-				<div class="sectionTitle">
-					<h1>Perfil Profesional</h1>
-				</div>
-				
-				<div class="sectionContent">
-					<p><?php echo $perfilPro; ?></p>
-				</div>
-			</article>
-			<div class="clear"></div>
-		</section>
-		
-		<?php
-        if ($cargo!=null) {
-            echo '<section>
-			<div class="sectionTitle">
-				<h1>Experiencia Laboral</h1>
-			</div>
-			
-			<div class="sectionContent">
-				<article>
-					<h2>'.$cargo.' en '.$company.'</h2>
-					<p class="subDetails">'.$startDate.' - '.$endDate.'</p>
-					<p>'.$functions.'</p>
-				</article>
-			</div>
-			<div class="clear"></div>
-		</section>';
-        } ?>
-		
-		<section>
-			<div class="sectionTitle">
-				<h1>Experiencia Academica</h1>
-			</div>
-			
-			<div class="sectionContent">
-				<article>
-					<h2><?php echo $tituloP; ?></h2>
-					<p class="subDetails"><?php echo $materia." - ".$periodo; ?></p>
-					<p><?php echo $desAca; ?></p>
-				</article>
-			</div>
-			<div class="clear"></div>
-		</section>
-		<section>
-<!-- 
-luegar residencia
-direccion
-perfil profesional
-tipo de documento
-numero documento
-educacion secundaria hasta que bachillerato
-informacion comlementaria
-experiencia laboras
-experiencia academica
-referencias
-  - alerta perfiul profesional- tenga en cuenta que debe tener 7 conceptos basicos, capacitacion, conocimiento, experiencia, competencia, habilidades, gustos o
-  areas disciplinarias que quiere ejercer.
 
-  - formacion academica: asume carrera seleccionada, campo semestre y fecha de inicio
-  bachiller tecnico
-  bachiller academico o bachiller tecnico, titulo bachiller, fecha grado
-  tecnico- titulo obtenido, institucion, año grado
+<body id="top">
+    <div id="cv" class="instaFade">
+        <div class="mainDetails">
 
-  - formacion complementaria
-  idiomas que maneja
-  curso, seminiario, talleres que tengan certificado 
+            <div id="name">
+                <h1 class="quickFade delayTwo">&nbsp;
+                    <?php echo $nom_est; ?>
+                </h1>
+                <h2 class="quickFade delayThree">&nbsp;
+                    <?php echo $program; ?>
+                </h2>
+                <div id="contactDetails">
+                    <ul>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp; Email:
+                            <a href="mailto:<?php echo $mail; ?>" target="_blank">
+                                <?php echo $mail; ?>
+                            </a>
+                        </li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp; Teléfono:
+                            <?php echo $telephone; ?>
+                        </li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp; Dirección:
+                            <?php echo $direccion.' - '.$residence; ?>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="mainArea" class="quickFade delayFive">
+            <section>
+                <article>
+                    <div class="sectionTitle">
+                        <h1>Perfil Profesional</h1>
+                    </div>
 
-  - lo que sabe pero no tiene certificado va en perfil academico
-- exp academica
-- exp laboral
- cargo, empresa, fecha inicio, fecha fin, mision principal o funciones
- - 2 referencias sea laboral o academica 
-  nombre, cargo profesion, numero contacto
--->
-			<div class="sectionTitle">
-				<h1>Formación Academica</h1>
-			</div>
-			
-			<div class="sectionContent">
-				<article>
-					<h2><?php echo $program; ?></h2>
-					<p>Semestre: <?php echo $semester; ?><br>Fecha de Inicio: <?php echo $fechaIni; ?></p>
-				
-				</article>
-			</div>
-			<div class="clear"></div>
-		</section>
-		<?php
+                    <div class="sectionContent">
+                        <p>
+                            <?php echo $perfilPro; ?>
+                        </p>
+                    </div>
+                </article>
+                <div class="clear"></div>
+            </section>
+
+            <section>
+                <div class="sectionTitle">
+                    <h1>Formación Academica</h1>
+                </div>
+
+                <div class="sectionContent">
+                    <article>
+                        <h2>
+                            <?php echo $program; ?>
+                        </h2>
+                        <p>Semestre:
+                            <?php echo $semester; ?><br>Fecha de Inicio:
+                            <?php echo $fechaIni; ?>
+                        </p>
+
+                    </article>
+                </div>
+                <div class="clear"></div>
+            </section>
+
+            <?php
         if ($idiomas!=null || $cursos!=null) {
      	
 		echo '<section>
@@ -206,28 +155,76 @@ referencias
 
 		}	
 	}
-		?>	
-		<section>
-			<div class="sectionTitle">
-				<h1>Referencias</h1>
-			</div>
-			<div class="sectionContent">
-				<article>
-					<h2><?php echo $nomR1; ?></h2>
-					<p> Cargo: <?php echo $carR1; ?> <br>Teléfono: <?php echo $numR1; ?></p>
-					
-				</article>
+		?>
+                <section>
+                    <div class="sectionTitle">
+                        <h1>Experiencia Academica</h1>
+                    </div>
 
-				<article>
-					<h2><?php echo $nomR2; ?></h2>
-					<p>Cargo: <?php echo $carR2; ?><br>Teléfono: <?php echo $numR2; ?></p>
-				</article>
-			</div>
-			<div class="clear"></div>
-		</section>
-		
-	</div>
-</div>
+                    <div class="sectionContent">
+                        <article>
+                            <h2>
+                                <?php echo $tituloP; ?>
+                            </h2>
+                            <p class="subDetails">
+                                <?php echo $materia." - ".$periodo; ?>
+                            </p>
+                            <p>
+                                <?php echo $desAca; ?>
+                            </p>
+                        </article>
+                    </div>
+                    <div class="clear"></div>
+                </section>
+                <?php
+					if ($cargo!=null) {
+						echo '<section>
+						<div class="sectionTitle">
+							<h1>Experiencia Laboral</h1>
+						</div>
+						
+						<div class="sectionContent">
+							<article>
+								<h2>'.$cargo.' en '.$company.'</h2>
+								<p class="subDetails">'.$startDate.' - '.$endDate.'</p>
+								<p>'.$functions.'</p>
+							</article>
+						</div>
+						<div class="clear"></div>
+					</section>';
+					} ?>
+
+                    <section>
+                        <div class="sectionTitle">
+                            <h1>Referencias</h1>
+                        </div>
+                        <div class="sectionContent">
+                            <article>
+                                <h2>
+                                    <?php echo $nomR1; ?>
+                                </h2>
+                                <p> Cargo:
+                                    <?php echo $carR1; ?> <br>Teléfono:
+                                    <?php echo $numR1; ?>
+                                </p>
+
+                            </article>
+
+                            <article>
+                                <h2>
+                                    <?php echo $nomR2; ?>
+                                </h2>
+                                <p>Cargo:
+                                    <?php echo $carR2; ?><br>Teléfono:
+                                    <?php echo $numR2; ?>
+                                </p>
+                            </article>
+                        </div>
+                        <div class="clear"></div>
+                    </section>
+
+        </div>
+    </div>
 </body>
 
 <?php

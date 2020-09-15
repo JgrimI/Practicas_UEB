@@ -80,19 +80,17 @@ window.onload=function(){
                 var aux= (data[i]['numero_solicitudes']==null) ? '-' : data[i]['numero_solicitudes'];
 
                 html += '<tr>' +
-                '<td><center>' + data[i]["nombre_completo"] + '</center></td>' +
+                '<td><center>  <form method="post" target="_blank" action="pdf.php" id="formCV"> '+
+                              '<div title="Hoja De Vida">'+
+                              '<input type="hidden" id="id" name="id" value="'+ data[i]["cod_estudiante"] +'"/>'+
+                              '<button type="submit" style="background: url(assets/images/5112.png); width:50px; height:50px; background-size: 50px 50px; border: none;">'+
+                              '</form></center></div><center>' + data[i]["nombre_completo"] + '</center></td>' +
                 '<td><center>' + data[i]["correo_estudiante"] + '</center></td>' +
                 '<td><center>' + aux + '</center></td>' +
                 '<td><center>' + data[i]["nom_programa"] + '</center></td>' +
                 '<td><center>' + olo + '</center></td>' +
                 '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
                 '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
-               
-
-                '<td><center>  <form method="post" target="_blank" action="pdf.php" id="formCV"> '+
-                              '<input type="hidden" id="id" name="id" value="'+ data[i]["cod_estudiante"] +'"/>'+
-                              '<button type="submit" style="background: url(assets/images/5112.png); width:50px; height:50px; background-size: 50px 50px; border: none;">'+
-                              '</form>  </center></td>'+
                         '<td><a href="editStudents.php?codigo=' + data[i]["cod_estudiante"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
                 '</tr>'
                 }
@@ -286,7 +284,6 @@ window.onload=function(){
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Semestre: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Semestre</th>
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Estado: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Estado</th>
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Ingresos: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Ingresos</th>
-                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Hoja De Vida: Activar para ordenar la columna de manera ascendente" style="width: 1px;">H.V</th>
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Opciones: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Opciones</th>
                           </tr>
                         </thead>

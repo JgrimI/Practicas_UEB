@@ -48,8 +48,41 @@ include('graficas.php');
 </style>
 <script>
    window.onload=function(){
-    graf();
+    graf();    getData()
   };
+
+   function getData(){
+      $.ajax({
+        type: "POST",
+        url: "ws/getGraph.php",
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"] == 1) {
+                var data = data["usuarios"];
+                var estu = data[0]["num_estudiantes"];
+                var empre = data[0]["num_empresas"]; 
+                var vacant = data[0]["num_vacantes"];
+
+                var estuH= '<p>'+estu+'</p>'+
+                '<p></p>';
+                 var empreH= '<p>'+empre+'</p>'+
+                '<p></p>';
+                 var vacantH= '<p>'+vacant+'</p>'+
+                '<p></p>';
+
+                $('#num_estudiantes').html(estuH);
+                $('#num_empresas').html(empreH);
+                $('#num_vacantes').html(vacantH);
+
+                    }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+  }
+
 
 </script>
 

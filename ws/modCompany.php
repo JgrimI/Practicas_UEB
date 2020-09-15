@@ -36,6 +36,7 @@ $logo = '';
 $email = $_POST["email"];
 $descripcion = $_POST["descrip"];
 $pass = $_POST["pass"];
+$logo='';
 
 if( $_FILES["logo"]["name"]){
     $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
@@ -43,7 +44,8 @@ if( $_FILES["logo"]["name"]){
     file_put_contents($img, file_get_contents($_FILES["logo"]["tmp_name"]));
 }
 $response = [];
-$sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' ,  logo='".$logo."', descripcion_empresa='".$descripcion."', password_empresa='".$pass."' WHERE NIT = '".$nit."' ;";
+$addLogo=($logo=='') ? '' :', logo="'.$logo.'"';
+$sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' , descripcion_empresa='".$descripcion."', password_empresa='".$pass."' ".$addLogo." WHERE NIT = '".$nit."' ;";
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(

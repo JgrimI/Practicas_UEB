@@ -140,7 +140,7 @@
                             '<label for="logo">Logo de la empresa:</label>'+
                           '</div>'+
                           '<div class="col-md-5 showcase_content_area">'+                  
-                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="assets/images/logos/'+data[i]["logo"]+'" required>'+
+                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="assets/images/logos/'+data[i]["logo"]+'">'+
                           '</div>'+
                          '</div>'+
                        '</div>';

@@ -407,6 +407,10 @@ function openModal(id, estado){
     <script src="assets/vendors/js/vendor.addons.js"></script>
     <!-- endinject -->
     <!-- Vendor Js For This Page Ends-->
+    <script src="assets/js/charts/chartjs.js"></script>
+    <script src="assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <!-- build:js -->
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
     <script src="assets/js/template.js"></script>

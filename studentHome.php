@@ -141,12 +141,10 @@ if (!isset($_SESSION['redirect'])) {
       <!-- partial:../partials/_sidebar.html -->
       <div class="sidebar">
         <div class="user-profile">
-          <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/users/<?php echo $_SESSION['foto'];?>" alt="profile image">
-          </div>
           <div class="info-wrapper">
-            <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
+            <h5 class="user-name"><?php echo $_SESSION['nombre'];?></h5><br>
             <h6 class="display-income"><?php echo $_SESSION['programa']; ?></h6>
+            <h6 class="display-income"><?php echo $_SESSION['semestre']; ?> Semestre</h6>
           </div>
         </div>
         <ul class="navigation-menu">

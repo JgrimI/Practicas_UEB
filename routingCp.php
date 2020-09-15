@@ -10,6 +10,9 @@
             case 'aspirants':
                 include_once('ModuleCompany/listAspirants.php');
             break;
+            case 'editProfile':
+                include_once('ModuleCompany/editCompany.php');
+            break;
             default:
                 include_once('ModuleCompany/listStats.php');
             break;

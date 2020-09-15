@@ -8,10 +8,10 @@ date_default_timezone_set("America/Bogota");
 
 $id = $_POST["codigo"];
 
-$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre,e.estado, e.cod_HV, e.foto from ESTUDIANTE e, PROGRAMA p where e.cod_estudiante = $id  and e.cod_programa = p.cod_programa";
+$query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre,e.estado, e.cod_HV from ESTUDIANTE e, PROGRAMA p where e.cod_estudiante = $id  and e.cod_programa = p.cod_programa";
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$estado,$cod_hv,$foto);
+$stmt -> bind_result($id,$nombre,$correo,$numero_solicitudes,$programa,$semestre,$estado,$cod_hv);
 
 $aux=0;
 $response = [];
@@ -27,9 +27,13 @@ while ($stmt -> fetch()) {
     $_SESSION['semestre']=$semestre;
     $_SESSION['estado']=$estado;
     $_SESSION['cod_hv']=$cod_hv;
-    $_SESSION['foto']=($foto==null) ? 'default-user-image.png': $foto;
+    $_SESSION['foto']= 'default-user-image.png';
 
     $primer_nombre=explode(' ', $nombre);
+
+    $sql="CALL p_update_login(".$id.",1)";
+    $mysqli2->query($sql);
+    $mysqli2->close();
    
     $response = array(
     'comment' => 'Bienvenido '.$primer_nombre[0].'!!',

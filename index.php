@@ -183,11 +183,21 @@ if(isset($_GET['code'])){
                   window.location = data['redirect'];
                 });
               } else {
-                $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
+                if(data['redirect']==''){
+                  $('#alert_login').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">\n' + data["comment"] +
                 '                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                 '                                <span aria-hidden="true">&times;</span>\n' +
                 '                            </button>\n' +
                 '                        </div>');
+                }else{
+                  Swal.fire(
+								  data['comment'],
+								  '',
+								  'error').then(function(){
+                    window.location=data['redirect'];
+                  });
+                }
+                
               }
           },
           error: function (data) {

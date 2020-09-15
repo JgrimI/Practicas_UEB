@@ -1,14 +1,14 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 include_once('../persistencia/db.php');
 
-require '../mailer/PHPMailer.php';
-require '../mailer/SMTP.php';
-require '../mailer/Exception.php';
+$response = [];
+$query='SELECT nombre from EMPRESA where nit ="'.base64_decode($_POST['nit']).'"';
+$r=$mysqli->query($query);
+$razon='';
 
-
+if ($row=$r-> fetch_assoc()) {
+    $razon=$row["nombre"];
+}
 function removeAccents($input){
     $output = "";
     $output = str_replace("á", "a", $input);
@@ -29,23 +29,11 @@ function removeAccents($input){
     return $output;
 }
 
-$response = [];
-$nit = $_POST["nit"];
-$razon = $_POST["razonSocial"];
-$logo = '';
-$email = $_POST["email"];
-$descripcion = $_POST["descrip"];
-$pass = $_POST["pass"];
-$logo='';
-
-if( $_FILES["logo"]["name"]){
-    $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
-    $img = "../assets/images/logos/".removeAccents(str_replace(' ', '', $razon)).".png";
-    file_put_contents($img, file_get_contents($_FILES["logo"]["tmp_name"]));
+if($_FILES["cc"]["name"]){
+    $img = "../assets/images/cc/" . removeAccents(str_replace(' ', '', $razon)) . ".pdf";
+    file_put_contents($img, file_get_contents($_FILES["cc"]["tmp_name"]));
 }
-$response = [];
-$addLogo=($logo=='') ? '' :', logo="'.$logo.'"';
-$sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' , descripcion_empresa='".$descripcion."', password_empresa='".$pass."' ".$addLogo." WHERE NIT = '".$nit."' ;";
+$sql = 'UPDATE EMPRESA SET estado="REGISTRADO" WHERE nit="'.base64_decode($_POST['nit']).'"';
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(
@@ -60,13 +48,13 @@ if (!$mysqli->query($sql)) {
     }
 }else{
     $response = array(
-        'comment' => "Se Actualizo satisfactoriamente",
+        'comment' => "Se envio correctamente, te notificaremos a tu correo cuando tu solicitud sea aprobada",
         'status' => 1
-    );
-  
-     
+        );
 }
 
+
+    
 $mysqli->close();
 
 echo json_encode($response);

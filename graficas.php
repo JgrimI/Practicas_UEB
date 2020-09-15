@@ -15,7 +15,6 @@ function graf() {
         url: "ws/getGraph.php",
         success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data);
             if (data["status"] == 1) {
                 data = data["usuarios"];
                 var estu = data[0]["num_estudiantes"];
@@ -69,13 +68,13 @@ function graf() {
         url: "ws/getActividadDiaria.php",
         success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data);
+        
             if (data["status"] == 1) {
                 data = data["registros"]; 
                 for (var i = 0; i < data.length; i++) {
                   if(data[i]["fecha_detalle"]){
                     fecha.push(data[i]["fecha_detalle"]);
-                    console.log(fecha); 
+                     
                   }
                   if(data[i]["num_registros"]){
                     num_registros.push(data[i]["num_registros"]);
@@ -126,39 +125,47 @@ function graf() {
 
     $.ajax({
         type: "POST",
-        url: "ws/getEstudiantes.php",
+        url: "ws/getProgramGraph.php",
         success: function (data) {  
         data = JSON.parse(data);   
         console.log(data);
             if (data["status"] == 1) {
                 data = data["estudiantes"];
+                var prog = new Array();
+                var num = new Array();
                 for (var i = 0; i < data.length; i++) {
-                  if(data[i]["fecha_detalle"]){
-                    fecha.push(data[i]["fecha_detalle"]);
-                    console.log(fecha); 
+                  if(data[i]["nom_programa"]){
+                    prog.push(data[i]["nom_programa"]);
+                  }
+                  if(data[i]["num_estu"]){
+                    num.push(data[i]["num_estu"]);
                   }
                   
                 }  
+                    var PieData = {
+                           datasets: [{
+                             data: num,
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
 
-                program = data["nom_programa"];
-                    var BarData = {
-                    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
-                    datasets: [{
-                      label: '# of Votes',
-                      data: [10, 19, 3, 5, 12, 3],
-                      backgroundColor: chartColors,
-                      borderColor: chartColors,
-                      borderWidth: 0
-                    }]
-                  };
-                  var barChartCanvas = $("#chartjs-bar-chart").get(0).getContext("2d");
-                  var barChart = new Chart(barChartCanvas, {
-                    type: 'bar',
-                    data: BarData,
-                    options: {
-                      legend: false
-                    }
-                  });
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: prog
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#programas-graph").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
 
               }
         },
@@ -196,6 +203,7 @@ function graf() {
                     var BarData = {
                     labels: motivo,
                     datasets: [{
+                      
                       label: 'numero de rechazos',
                       data: num_rechazos,
                       backgroundColor: chartColors,
@@ -205,9 +213,19 @@ function graf() {
                   };
                   var barChartCanvas = $("#motivo-rechazo-graph").get(0).getContext("2d");
                   var barChart = new Chart(barChartCanvas, {
+                    
                     type: 'bar',
                     data: BarData,
                     options: {
+                      scales: {
+                          yAxes: [{
+                              display: true,
+                              ticks: {
+                                  suggestedMin: 0,   
+                                  beginAtZero: true 
+                              }
+                          }]
+                      },
                       legend: false
                     }
                   });

@@ -1,25 +1,19 @@
 <?php
 include_once('../persistencia/db.php');
-$query = "SELECT nom_programa, count(nom_programa) from ESTUDIANTE GROUP BY nom_programa";
+$query = "SELECT nom_programa, COUNT(*) as num_estu FROM ESTUDIANTE, PROGRAMA WHERE ESTUDIANTE.cod_programa = PROGRAMA.cod_programa GROUP BY nom_programa";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($id,$nombre,$correo,$num_solicitudes,$programa,$semestre,$estado,$num_ingresos,$HV);
+$stmt -> bind_result($nom_programa,$num_estu);
 
 $rta="";
 $estudiantes=array();
 while($stmt -> fetch()) {
     $aux=1;
     $estudiante=array(
-        "cod_estudiante" => $id,
-        "nombre_completo"=>$nombre,
-        "correo_estudiante"=>$correo,
-        "numero_solicitudes"=>$num_solicitudes,
-        "nom_programa"=>$programa,
-        "semestre"=>$semestre,
-        "estado"=>$estado,
-        "num_ingresos"=>$num_ingresos,
-        "cod_HV"=>$HV
+        "nom_programa" => $nom_programa,
+        "num_estu"=>$num_estu,
+        
     );
     array_push($estudiantes,$estudiante);
 }

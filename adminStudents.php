@@ -5,6 +5,10 @@ header ("Cache-control: no-cache");
 header ("Pragma: no-cache");
 header ("Expires: 0");
 
+if (!isset($_SESSION['redirect'])) {
+  header('Location: index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

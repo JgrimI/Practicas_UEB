@@ -15,7 +15,6 @@ function graf() {
         url: "ws/getGraph.php",
         success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data);
             if (data["status"] == 1) {
                 data = data["usuarios"];
                 var estu = data[0]["num_estudiantes"];
@@ -69,13 +68,13 @@ function graf() {
         url: "ws/getActividadDiaria.php",
         success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data);
+        
             if (data["status"] == 1) {
                 data = data["registros"]; 
                 for (var i = 0; i < data.length; i++) {
                   if(data[i]["fecha_detalle"]){
                     fecha.push(data[i]["fecha_detalle"]);
-                    console.log(fecha); 
+                     
                   }
                   if(data[i]["num_registros"]){
                     num_registros.push(data[i]["num_registros"]);
@@ -132,17 +131,15 @@ function graf() {
         console.log(data);
             if (data["status"] == 1) {
                 data = data["estudiantes"];
+                var prog = new Array();
                 for (var i = 0; i < data.length; i++) {
-                  if(data[i]["fecha_detalle"]){
-                    fecha.push(data[i]["fecha_detalle"]);
-                    console.log(fecha); 
+                  if(data[i]["nom_programa"]){
+                    prog.push(data[i]["nom_programa"]);
                   }
                   
                 }  
-
-                program = data["nom_programa"];
                     var BarData = {
-                    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+                    labels: prog,
                     datasets: [{
                       label: '# of Votes',
                       data: [10, 19, 3, 5, 12, 3],
@@ -151,7 +148,7 @@ function graf() {
                       borderWidth: 0
                     }]
                   };
-                  var barChartCanvas = $("#chartjs-bar-chart").get(0).getContext("2d");
+                  var barChartCanvas = $("#programas-graph").get(0).getContext("2d");
                   var barChart = new Chart(barChartCanvas, {
                     type: 'bar',
                     data: BarData,

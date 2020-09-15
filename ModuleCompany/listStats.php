@@ -36,29 +36,14 @@
   }
     </script>
     </div>
-    <div class="page-content-wrapper">
-        <div class="page-content-wrapper-inner">
+   
           <div class="content-viewport">
             
            
 
                   <div class="row">
 
-                    <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                      
-                        <div class="grid-body text-gray" >
-                          <div class="d-flex justify-content-between" id="num_vacantes" name="num_vacantes" >
-                            <p></p>
-                          </div>
-                          <p class="text-black">Mis Vacantes</p>
-                          <div class="wrapper w-50 mt-4">
-                            <canvas height="45" id="stat-line_1"></canvas>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-6 equel-grid">
+                    <div class="col-md-3 col-sm-6 col-6 ">
                       <div class="grid" >
                         <div class="grid-body text-gray" >
                           <div class="d-flex justify-content-between" id="num_vacantes" name="num_vacantes" >
@@ -71,7 +56,9 @@
                         </div>
                       </div>
                     </div>
-      
+                  </div>
+                  
+                 <div class="row">  
                   <div class="col-md-6">
                     <div class="grid">
                       <div class="grid-body">
@@ -93,10 +80,9 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   </div>
-                    </div>
-                  </div>
+                    
 
 
                

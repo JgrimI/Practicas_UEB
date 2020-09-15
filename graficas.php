@@ -97,13 +97,15 @@ function graf() {
                        ]
                      },
                      options: {
-                       scales: {
-                         yAxes: [{
-                           ticks: {
-                             reverse: false
-                           }
-                         }]
-                       },
+                      scales: {
+                          yAxes: [{
+                              display: true,
+                              ticks: {
+                                  suggestedMin: 0,   
+                                  beginAtZero: true 
+                              }
+                          }]
+                      },
                        fill: false,
                        legend: false
                      }
@@ -275,6 +277,7 @@ function graf() {
                            labels: estado
                          };
                          var PieOptions = {
+                           
                            responsive: true,
                            animation: {
                              animateScale: true,

@@ -193,6 +193,7 @@ function graf() {
                     var BarData = {
                     labels: motivo,
                     datasets: [{
+                      
                       label: 'numero de rechazos',
                       data: num_rechazos,
                       backgroundColor: chartColors,
@@ -202,9 +203,19 @@ function graf() {
                   };
                   var barChartCanvas = $("#motivo-rechazo-graph").get(0).getContext("2d");
                   var barChart = new Chart(barChartCanvas, {
+                    
                     type: 'bar',
                     data: BarData,
                     options: {
+                      scales: {
+                          yAxes: [{
+                              display: true,
+                              ticks: {
+                                  suggestedMin: 0,   
+                                  beginAtZero: true 
+                              }
+                          }]
+                      },
                       legend: false
                     }
                   });

@@ -213,7 +213,7 @@ $codigo=$_GET["codigo"];
                           '<select name="estado" class="form-control" id="estado" required>'+estado+'</select>'+                          
                           '</div>'+
                         '</div>'+
-                        '<div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>'+
+                        '<center><div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div></center>'+
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="pass">Contraseña</label>'+

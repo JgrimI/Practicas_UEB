@@ -9,6 +9,8 @@ require '../mailer/SMTP.php';
 require '../mailer/Exception.php';
 
 
+
+
 function removeAccents($input){
     $output = "";
     $output = str_replace("á", "a", $input);

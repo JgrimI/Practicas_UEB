@@ -372,7 +372,7 @@ $codigo=$_GET["codigo"];
           <div class="viewport-header">
             <div class="row">
               <div class="col-12 py-5">
-                <h4>Empresa</h4>
+                <h4>Estudiante</h4>
                 <div class="form-group">
                                                            
 
@@ -383,7 +383,7 @@ $codigo=$_GET["codigo"];
             <div class="row">              
               <div class="col-lg-10 equel-grid">
                 <div class="grid">
-                  <p class="grid-header">Editar empresa</p>
+                  <p class="grid-header">Editar estudiante</p>
                    <div class="grid-body">
                     <div class="item-wrapper">
                       <form id="mod" action="javascript:void(0);" onsubmit="modCompany();">

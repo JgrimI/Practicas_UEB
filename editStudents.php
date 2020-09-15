@@ -77,11 +77,11 @@ $codigo=$_GET["codigo"];
     }
     return false;
   }
-   function modCompany(){
+   function modStudent(){
     if(verifyPass()){
       $.ajax({
         type: "POST",
-        url: "ws/modCompany.php",
+        url: "ws/modStudent.php",
         data: new FormData($('#mod')[0]),
         cache: false,
         contentType: false,
@@ -96,7 +96,7 @@ $codigo=$_GET["codigo"];
                   'Se ha modificado la empresa de forma exitosa!!!',
                   'success'
                 ).then(function(){
-                  window.location='adminCompany.php';
+                  window.location='adminStudents.php';
                 })
             }else{
               if(data['error'] == 1062){
@@ -201,7 +201,7 @@ $codigo=$_GET["codigo"];
                             '<label for="semestre">Semestre</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="semestre" name="semestre" required value ="'+data[i]["semestre"]+'"  minlength="6" maxlength="12" style="width:180%;">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="semestre" name="semestre" required value ="'+data[i]["semestre"]+'" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -212,6 +212,7 @@ $codigo=$_GET["codigo"];
                           '<select name="estado" class="form-control" id="estado" required>'+estado+'</select>'+                          
                           '</div>'+
                         '</div>'+
+                        '<div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>'+
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="pass">Contraseña</label>'+
@@ -225,7 +226,7 @@ $codigo=$_GET["codigo"];
                             '<label for="verify">Verificar contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_estudiante"]+'" onchange="verifyPass();" maxlength="12" style="width:180%;">'+
+                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_estudiante"]+'" onchange="verifyPass();" minlength="6" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>';
            nom_programa = data[i]["nom_programa"];
@@ -386,7 +387,7 @@ $codigo=$_GET["codigo"];
                   <p class="grid-header">Editar estudiante</p>
                    <div class="grid-body">
                     <div class="item-wrapper">
-                      <form id="mod" action="javascript:void(0);" onsubmit="modCompany();">
+                      <form id="mod" action="javascript:void(0);" onsubmit="modStudent();">
                           <div id="insertar">
 
                           </div>     

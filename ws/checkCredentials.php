@@ -58,29 +58,38 @@ if($aux==0){
     $stmt -> execute();
     $stmt -> bind_result($id,$nit,$nombre,$correo,$logo,$estado);
     while($stmt -> fetch()) {
-        session_start();
         $aux=1;
-        $_SESSION['id']=$id;
-        $_SESSION['nombre']=$nombre;
-        $_SESSION['correo']=$correo;
-        $_SESSION['nit']=$nit;
-        $_SESSION['logo']=$logo;
-        $_SESSION['estado']=$estado;
-        $_SESSION['redirect']='companyHome.php';
-        $primer_nombre=explode(' ',$nombre);
-        $response = array(
-            'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
-            'redirect' =>'companyHome.php',
-            'status' => true
-        );
+        if($estado!='APROBADO'){
+            $msg=($estado=='REGISTRADO') ? ' nuestra universidad se preocupa por sus estudiantes, cuando se haya validado tu solicitud te avisaremos por correo, para que puedes ingresar a la plataforma!!' : 'tu verificación ha sido rechazada ingresa al siguiente link para enviar nuevamente tu camara de comercio';
+            $redirect=($estado=='REGISTRADO') ? 'index.php' :'verifyCompany.php?id='.base64_encode($nit);
+
+            $primer_nombre=explode(' ',$nombre);
+            $response = array(
+                'comment' => 'Hola '.$primer_nombre[0].' '.$msg,
+                'redirect' =>$redirect,
+                'status' => false
+            );
+        }else{
+            session_start();
+            $_SESSION['id']=$id;
+            $_SESSION['nombre']=$nombre;
+            $_SESSION['correo']=$correo;
+            $_SESSION['nit']=$nit;
+            $_SESSION['logo']=$logo;
+            $_SESSION['estado']=$estado;
+            $_SESSION['redirect']='companyHome.php';
+            $primer_nombre=explode(' ',$nombre);
+            $response = array(
+                'comment' => 'Bienvenido '.$primer_nombre[0].'!!',
+                'redirect' =>'companyHome.php',
+                'status' => true
+            );
+            $sql="CALL p_update_login(".$id.",2)";
+            $mysqli2->query($sql);
+            $mysqli2->close();
+        }
     }
     $stmt->close();
-
-    $sql="CALL p_update_login(".$id.",2)";
-    $mysqli2->query($sql);
-    $mysqli2->close();
-
-
 }
 if($aux==0){
     $query = "SELECT a.id, a.nombre from ADMINISTRADOR a where a.username ='".$username."' and a.password='".$pass."'";

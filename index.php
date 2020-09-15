@@ -193,7 +193,9 @@ if(isset($_GET['code'])){
                   Swal.fire(
 								  data['comment'],
 								  '',
-								  'error');
+								  'error').then(function(){
+                    window.location=data['redirect'];
+                  });
                 }
                 
               }

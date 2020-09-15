@@ -67,10 +67,12 @@ window.onload=function(){
                 var html = '';
                 var i;
                 for (i = 0; i < data.length; i++) {
-                  if(data[i]["estado"]=="NO APROBADO"){
-                    var estado = 'badge badge-danger';
+                  if(data[i]["estado"]=="ACTIVADO"){
+                    var estado = 'badge badge-primary';
                   }else if(data[i]["estado"]=="INSCRITO"){
                     estado='badge badge-success';
+                  }else if(data[i]["estado"]=="ASPIRANTE"){
+                    estado='badge badge-dark';
                   }else{
                     estado='badge badge-info';
                   }

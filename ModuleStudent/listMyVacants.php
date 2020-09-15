@@ -20,18 +20,21 @@
                         aux = aux + 1;
                         margin = (aux == 1) ? '' : 'margin-left:4%;';
                         aux = (aux == 3) ? 0 : aux;
+                        estado=(data[x]["estado_detalle"]=='OFERTA') ? '<br><center><a href="javascript:void(0);" onclick="changeStatus('+ data[x]["cod_estudiante"] +','+data[x]["cod_vacante"]+',\'RECHAZADA\');" class="btn btn-warning" style="border-right: inherit; border-top-right-radius: inherit; border-bottom-right-radius: inherit;">Rechazar</a>'+
+                                    '<button class="btn btn-primary" style="border-left: inherit; border-top-left-radius: inherit; border-bottom-left-radius: inherit;" onclick="changeStatus('+ data[x]["cod_estudiante"] +','+data[x]["cod_vacante"]+',\'ACEPTADA\');">ACEPTAR!</button></center>' : '';
                         html += '<div class="card" style="width: 30%; ' + margin + ' margin-top:2%; background-image: linear-gradient(120deg,#00e795 0,#0095e2 100%);">\n' +
                             '<div class="card-body" style="color:#fff">\n' +
-                            '<h4 class="text-center">' + data[x]['nombre_cargo'] + '</h4><br>\n' +
-                            '<h6 class="card-subtitle mb-2 text-center" >Cantidad Vacantes: ' + data[x]["cantidad_vacantes"] + '</h6>\n' +
+                            '<h4 class="text-center">' + data[x]['nombre_cargo'] + '</h4>\n' +
+                            '<h5 class="text-center">' + data[x]['empresa'] + '</h5><br>\n' +
+                            '<center><img src="assets/images/logos/'+ data[x]["logo"] +'" alt="" class="thumb-sm rounded-circle mr-2" width="80px" height="80px"></center>'+
                             '<center><label class="badge badge-dark">' + data[x]["estado_detalle"] + '</label></center>\n' +
                             '<p class="card-text">\n' +
                             '<strong>Rango salarial:</strong> ' + data[x]["rango_salarial"] + '<br>\n' +
                             '<strong>Horario:</strong> ' + data[x]["horario_disponibilidad"] + '<br>\n' +
-                            '<strong>Fecha:</strong> ' + data[x]["fecha_vacante"] + '<br>\n' +
                             '<strong>Descripción:</strong> ' + data[x]["descripcion_vacante"] + '<br>\n' +
                             '<strong>Educación base:</strong> ' + data[x]["educacion_base"] + '<br>\n' +
                             '</p>\n' +
+                            estado +
                             '</div>\n' +
                             '</div>';
                     }
@@ -54,8 +57,54 @@
         })
     }
 
-    function openModal() {
-        $('#addVacant').modal('show');
+    function changeStatus(id,dta,estado){
+        msg1=(estado=='ACEPTADA') ? 'De aceptar esta oferta, se cancelaran las otras, se le notificara a la empresa y no podras revertir esta acción' : 'De rechazar esta oferta, no podras revertir esta acción';
+        msg2=(estado=='ACEPTADA') ? 'Se le ha notificado a la empresa que has aceptado la vacante!!!' : 'Se ha rechazado la vacante con exito!';
+        
+        Swal.fire({
+                title: '¿Estas seguro?',
+                text: msg1,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor:'#fc3e25',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si, estoy seguro!',
+            }).then(function (result) {
+                if(result.value){
+                    $.ajax({
+                        type: "POST",
+                        url: "ws/updateStatusVacantInStudent.php",
+                        data:{
+                            'cod_estudiante':id,
+                            'cod_vacante':dta,
+                            'estado':estado
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            data=JSON.parse(data);
+                            if(data['status']==1){
+                                getData();
+                                Swal.fire(
+                                        'Bien hecho!',
+                                        msg2,
+                                        'success'
+                                    );
+                            }
+                            else{
+                                Swal.fire(
+                                        'Error!!',
+                                        data['error'],
+                                        'error'
+                                    );
+                                getData();
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        },
+                    })
+                }
+            });
     }
 
     function addVacant() {

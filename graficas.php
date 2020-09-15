@@ -6,10 +6,10 @@
 
 
 function graf() {
-  'use strict';
-  if ($("#num-usuarios").length) {
-    var estu=0;
-    var empre=0;
+  'use strict';  
+
+   if ($("#num-usuarios").length) {
+
     $.ajax({
         type: "POST",
         url: "ws/getGraph.php",
@@ -18,39 +18,51 @@ function graf() {
         console.log(data);
             if (data["status"] == 1) {
                 data = data["usuarios"];
-                estu = data[0]["num_estudiantes"];
-                empre = data[0]["num_empresas"];
-                console.log(data[0]["num_empresas"]);
-                var BarData = {
-                   labels: ["estudiantes", "empresas"],
-                   datasets: [{
-                     label: 'Numero de usuarios',
-                     data: [estu, empre],
-                     backgroundColor: chartColors,
-                     borderColor: chartColors,
-                     borderWidth: 0
-                   }]
-                 };
-                 var barChartCanvas = $("#num-usuarios").get(0).getContext("2d");
-                 var barChart = new Chart(barChartCanvas, {
-                   type: 'bar',
-                   data: BarData,
-                   options: {
-                     legend: false
-                   }
-                 });
-              }
-              
-        },
+                var estu = data[0]["num_estudiantes"];
+                var empre = data[0]["num_empresas"];  
+                var vacant = data[0]["num_vacantes"];                      
+                    var PieData = {
+                           datasets: [{
+                             data: [estu, empre, vacant],
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: [
+                             'Estudiantes',
+                             'Empresas',
+                             'Vacantes',
+                           ]
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#num-usuarios").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
+                       }
+                     },
         error: function (data) {
             console.log(data);
         },
-      })      
+      })
+
   }
 
+ 
+
   if ($("#actividad-line-graph").length) {
-    var fecha;
-    var num_registros;
+    var fecha = new Array();
+    var num_registros = new Array();
 
     $.ajax({
         type: "POST",
@@ -59,17 +71,23 @@ function graf() {
         data = JSON.parse(data);   
         console.log(data);
             if (data["status"] == 1) {
-                data = data["registros"];
-                           
-                
-                
+                data = data["registros"]; 
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["fecha_detalle"]){
+                    fecha.push(data[i]["fecha_detalle"]);
+                    console.log(fecha); 
+                  }
+                  if(data[i]["num_registros"]){
+                    num_registros.push(data[i]["num_registros"]);
+                  }
+                }                                       
                 var options = {
                      type: 'line',
                      data: {
-                       labels: ["11/09/20","12/09/20","13/09/20","14/09/20","15/09/20","16/09/20"],
+                       labels: fecha,
                        datasets: [{
                            label: 'Numero de vacantes',
-                           data: [10,3,6,40,20,10],
+                           data: num_registros,
                            borderWidth: 2,
                            fill: false,
                            backgroundColor: chartColors[0],
@@ -102,6 +120,44 @@ function graf() {
         },
       })      
     
+  }
+
+  if ($("#programas-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getGraph.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["usuarios"];
+                    var BarData = {
+                    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+                    datasets: [{
+                      label: '# of Votes',
+                      data: [10, 19, 3, 5, 12, 3],
+                      backgroundColor: chartColors,
+                      borderColor: chartColors,
+                      borderWidth: 0
+                    }]
+                  };
+                  var barChartCanvas = $("#chartjs-bar-chart").get(0).getContext("2d");
+                  var barChart = new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: BarData,
+                    options: {
+                      legend: false
+                    }
+                  });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
   }
 
   if ($("#chartjs-staked-area-chart").length) {
@@ -340,4 +396,5 @@ function graf() {
     });
   }
 };
+
 </script>

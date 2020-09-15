@@ -52,7 +52,6 @@ include('graficas.php');
    
   };
 
-
 </script>
 
   <body class="header-fixed">
@@ -128,7 +127,8 @@ include('graficas.php');
                   <h6 class="dropdown-title">Opciones</h6>
                 </div>
                 <div class="dropdown-body border-top pt-0">
-                  <a class="dropdown-grid">
+                  <a class="dropdown-grid" data-target="#seePassword" data-toggle="modal" class="MainNavText" id="MainNavHelp" 
+                   href="#seePassword">
                     <i class="grid-icon mdi mdi-security mdi-2x"></i>
                     <span class="grid-tittle">Cambiar contraseña</span>
                   </a>
@@ -307,6 +307,30 @@ include('graficas.php');
       </div>
       <!-- page content ends -->
     </div>
+        <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
+            <div class="modal-dialog ui-corner-all" role="document">
+                <div class="modal-content" id="modalBody" name="modalBody">
+                   <div class="modal-body">
+                    <div class="form-group">
+                        <center>Ingrese su contraseña</center><br>
+                        <input type="password" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                    </div>
+                    <div class="form-group">
+                        <center>Ingrese su nueva contraseña</center><br>
+                        <input type="password" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                    </div>
+                    <div class="form-group">
+                        <center>Confirme su contraseña</center><br>
+                        <input type="password" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-warning">Confirmar</button>
+                </div>
+                </div>
+            </div>
+        </div>
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->

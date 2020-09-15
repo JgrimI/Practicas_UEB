@@ -45,35 +45,6 @@ window.onload=function(){
 
   };
 
-  $('#ventanaModal').on('shown', function () {
-    
-  $('#modal').trigger('focus')
-  })
-
- function getPrograma(nom_programa){
-   $.ajax({
-     type: "POST",
-     url: "ws/getPrograms.php",
-     success: function (data) {
-      data = JSON.parse(data);
-            if (data["status"] == 1) {
-                data = data["programs"];
-                let options = '<option value="">Seleccione el programa al cual pertenece</option>';
-                for(let i in data){
-                    if (nom_programa == data[i]["nom_programa"]){
-                         options += '<option value="'+data[i]["cod_programa"]+'" selected>'+data[i]["nom_programa"]+'</option>'
-                    }
-                    else
-                        options += '<option value="'+data[i]["cod_programa"]+'">'+data[i]["nom_programa"]+'</option>'
-                }
-                $('#program').select2({ width: '100%' });
-                $('#program').html(options);
-                $('#ventanaModal').modal('show');
-            }
-          }
-   })
- };
-
  function getEstudiantes(){
       $.ajax({
         type: "GET",
@@ -110,7 +81,7 @@ window.onload=function(){
                               '<input type="hidden" id="id" name="id" value="'+ data[i]["cod_estudiante"] +'"/>'+
                               '<button type="submit" style="background: url(assets/images/5112.png); width:50px; height:50px; background-size: 50px 50px; border: none;">'+
                               '</form>  </center></td>'+
-                '<td>'+'<button  type="button" rel="tooltip" class="btn btn-outline-info btn-rounded" data-toggle="modal" onclick="getVentanaModal('+ data[i]["cod_estudiante"] +')">edit</button></td>'
+                        '<td><a href="editStudents.php?codigo=' + data[i]["cod_estudiante"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
                 '</tr>'
                 }
               $('#estudiante').html(html);
@@ -149,43 +120,6 @@ window.onload=function(){
         },
     })
    }
-
- function getVentanaModal(cod_estudiante){
-
-   $.ajax({
-        type: "GET",
-        url: "ws/getEstudiantes.php",
-        success: function (data) {
-          console.log(data);
-        data = JSON.parse(data);
-            if (data["status"] == 1) {
-                data = data["estudiantes"];
-                var html = '';
-                var i;
-                var nom_programa;
-                var estado;
-              for (i = 0; i < data.length; i++) {
-                if(cod_estudiante == data[i]["cod_estudiante"]){
-                 html += 
-                 '<div class="form-group"> <label for="name">Nombre Estudiante</label><input type="text" name="nombre" placeholder= "Ingresar Nombre" required class="form-control" value="'+data[i]["nombre_completo"]+'" /></div>'+
-                 '<div class="form-group"><label for="name">Correo Estudiante</label><input type="text" name="Correo" placeholder="Ingresar Email" required class="form-control" value='+data[i]["correo_estudiante"]+' /></div>'+
-                 '<div class="form-group"><label for="name">Programa</label><div class="input-group input-group-sm mb-3"><select name="program" class="form-control" id="program" required></select></div></div>'+
-                 '<div class="form-group"><label for="name">Semestre</label><input type="text" name="semestre" placeholder="Ingresar Semestre" required class="form-control"  value='+data[i]["semestre"]+' /></div>'+
-                 '<div class="form-group"><label for="name">Estado</label><div class="input-group input-group-sm mb-3"><select name="estado" class="form-control" id="estado" required><option value="">Seleccione el Estado al cual pertenece</option><option value="INSCRITO">Inscrito</option><option value="PREINSCRITO">Preinscrito</option><option value="NO APROBADO">No aprobado</option></select></div></div>'
-                 nom_programa = data[i]["nom_programa"];
-                 estado = data[i]["estado"];
-                i = data.lenght;
-                }         
-         }
-        }
-        $('#modal').html(html);
-        $("#estado  option[value='"+estado+"']").attr("selected", true);
-        $('#estado').select2({ width: '100%' });
-        getPrograma(nom_programa);
-      },
-  });
- };
-
 
 </script>
 
@@ -371,28 +305,6 @@ window.onload=function(){
       </div>
       <!-- page content ends -->
     </div>
- <div class="modal hide fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
-  <div class="modal-dialog ui-corner-all" role="document">
-   <div class="modal-content">
-    <div class="modal-header">
-          <h5 id="tituloVentana">Editar Estudiante</h5>
-          <button class="close" data-dismiss="modal" aria-label="cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-    </div>
-    <div class="modal-body" id="modal">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" type="button" data-dismiss="modal">
-        Cerrar
-      </button>
-      <button class="btn btn-primary" type="button">
-        Aceptar
-      </button>
-    </div>
-   </div>
-  </div>
- </div>
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->

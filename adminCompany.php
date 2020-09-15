@@ -201,49 +201,6 @@ function openModal(id, estado){
           </button>
           <ul class="nav ml-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-bell-outline mdi-1x"></i>
-              </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
-                <div class="dropdown-header">
-                  <h6 class="dropdown-title">Notifications</h6>
-                  <p class="dropdown-title-text">You have 4 unread notification</p>
-                </div>
-                <div class="dropdown-body">
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-primary text-primary">
-                      <i class="mdi mdi-alert"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Storage Full</small>
-                      <small class="content-text">Server storage almost full</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-success text-success">
-                      <i class="mdi mdi-cloud-upload"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Upload Completed</small>
-                      <small class="content-text">3 Files uploded successfully</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                      <i class="mdi mdi-security"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Authentication Required</small>
-                      <small class="content-text">Please verify your password to continue using cloud services</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="dropdown-footer">
-                  <a href="#">View All</a>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="appsDropdown" data-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-apps mdi-1x"></i>
               </a>
@@ -350,16 +307,19 @@ function openModal(id, estado){
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
+          <div class="row" style="display:block;text-align:center;">
+            <div>
               <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                Powered By SoftHub Developments
               </ul>
             </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              
+            <div style="float:right;">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+              </ul>
             </div>
+            
           </div>
         </footer>
         <!-- partial -->

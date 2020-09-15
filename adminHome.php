@@ -49,7 +49,6 @@ include('graficas.php');
 <script>
    window.onload=function(){
     graf();
-    getData()
   };
 
 </script>
@@ -68,56 +67,7 @@ include('graficas.php');
           <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
             <i class="mdi mdi-menu"></i>
           </button>
-          <form action="#" class="t-header-search-box">
-            <div class="input-group">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" autocomplete="off">
-              <button class="btn btn-primary" type="submit"><i class="mdi mdi-arrow-right-thick"></i></button>
-            </div>
-          </form>
           <ul class="nav ml-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-bell-outline mdi-1x"></i>
-              </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
-                <div class="dropdown-header">
-                  <h6 class="dropdown-title">Notifications</h6>
-                  <p class="dropdown-title-text">You have 4 unread notification</p>
-                </div>
-                <div class="dropdown-body">
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-primary text-primary">
-                      <i class="mdi mdi-alert"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Storage Full</small>
-                      <small class="content-text">Server storage almost full</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-success text-success">
-                      <i class="mdi mdi-cloud-upload"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Upload Completed</small>
-                      <small class="content-text">3 Files uploded successfully</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                      <i class="mdi mdi-security"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Authentication Required</small>
-                      <small class="content-text">Please verify your password to continue using cloud services</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="dropdown-footer">
-                  <a href="#">View All</a>
-                </div>
-              </div>
-            </li>
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="appsDropdown" data-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-apps mdi-1x"></i>
@@ -194,7 +144,6 @@ include('graficas.php');
             <div class="row">
               <div class="col-12 py-5">
                 <h4>Dashboard</h4>
-                <p class="text-gray">Welcome aboard, Allen Clerk</p>
               </div>
             </div>
             <div class="row">
@@ -276,20 +225,25 @@ include('graficas.php');
                 </div>
               </div>
             </div>
-
-              
-              
-             
-              
-            </div>
           </div>
-        </div>
-      </div>
+          
       <!-- page content ends -->
-    </div>
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-         
+          <div class="row" style="display:block;text-align:center;">
+            <div>
+              <ul class="text-gray">
+                Powered By SoftHub Developments
+              </ul>
+            </div>
+            <div style="float:right;">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+              </ul>
+            </div>
+            
+          </div>
         </footer>
         <!-- partial -->
       </div>

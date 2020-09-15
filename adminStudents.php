@@ -73,7 +73,7 @@ window.onload=function(){
                   }else{
                     estado='badge badge-info';
                   }
-                var aux= (data[i]['semestre']==null) ? '-' : data[i]['semestre'];
+                var olo= (data[i]['semestre']==null) ? '-' : data[i]['semestre'];
                 var aux= (data[i]['numero_solicitudes']==null) ? '-' : data[i]['numero_solicitudes'];
 
                 html += '<tr>' +
@@ -81,7 +81,7 @@ window.onload=function(){
                 '<td><center>' + data[i]["correo_estudiante"] + '</center></td>' +
                 '<td><center>' + aux + '</center></td>' +
                 '<td><center>' + data[i]["nom_programa"] + '</center></td>' +
-                '<td><center>' + aux + '</center></td>' +
+                '<td><center>' + olo + '</center></td>' +
                 '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
                 '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
                
@@ -283,7 +283,7 @@ window.onload=function(){
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Semestre: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Semestre</th>
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Estado: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Estado</th>
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Ingresos: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Ingresos</th>
-                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Hoja De Vida: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Hoja De Vida</th>
+                            <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Hoja De Vida: Activar para ordenar la columna de manera ascendente" style="width: 1px;">H.V</th>
                             <th class="sorting" tabindex="0" aria-controls="estudiante" rowspan="1" colspan="1" aria-label="Opciones: Activar para ordenar la columna de manera ascendente" style="width: 1px;">Opciones</th>
                           </tr>
                         </thead>

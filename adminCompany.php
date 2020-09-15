@@ -151,7 +151,7 @@ function openModal(id, estado){
   $("#cambiarEstado").modal("show");  
   console.log(estado);
   $("#VEstado  option[value='"+estado+"']").attr("selected", true);
-  $('#nitVal').val(id);
+  $('#nitVal2').val(id);
          
 }
 
@@ -384,7 +384,7 @@ function openModal(id, estado){
                 <div class="col-md-5 showcase_text_area" id="nitVal" name="nitVal">
                     <label for="VEstado">Cambiar Estado</label>
                 </div>
-                <input type="hidden" id="nitVal2" name="nitVal2" required value ="" maxlength="50">
+                <input type="hidden" id="nitVal2" name="nitVal2" required  maxlength="50">
                 <div class="col-md-20 showcase_content_area">
                     <select name="VEstado" class="form-control" id="VEstado" required>
                       <option value="REGISTRADO">Registrado</option>

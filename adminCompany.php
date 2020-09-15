@@ -381,10 +381,10 @@ function openModal(id, estado){
           <div class="modal-body">
             <form id="valEmpresa" action="javascript:void(0);" onsubmit="valCompany();">
             <div class="form-group row showcase_row_area">
-                <div class="col-md-5 showcase_text_area">
+                <div class="col-md-5 showcase_text_area" id="nitVal" name="nitVal">
                     <label for="VEstado">Cambiar Estado</label>
                 </div>
-                <input type="hidden" id="nitVal" name="nitVal" required value ="" maxlength="50">
+                <input type="hidden" id="nitVal2" name="nitVal2" required value ="" maxlength="50">
                 <div class="col-md-20 showcase_content_area">
                     <select name="VEstado" class="form-control" id="VEstado" required>
                       <option value="REGISTRADO">Registrado</option>
@@ -407,6 +407,10 @@ function openModal(id, estado){
     <script src="assets/vendors/js/vendor.addons.js"></script>
     <!-- endinject -->
     <!-- Vendor Js For This Page Ends-->
+    <script src="assets/js/charts/chartjs.js"></script>
+    <script src="assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <!-- build:js -->
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
     <script src="assets/js/template.js"></script>

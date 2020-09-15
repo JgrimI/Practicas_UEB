@@ -49,7 +49,7 @@ include('graficas.php');
 <script>
    window.onload=function(){
     graf();
-   
+    getData()
   };
 
 </script>
@@ -200,69 +200,56 @@ include('graficas.php');
             <div class="row">
 
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>30%</p>
-                      <p>+06.2%</p>
+                <div class="grid" >
+                  <div class="grid-body text-gray" >
+                    <div class="d-flex justify-content-between" id="num_estudiantes" name="num_estudiantes"  >
+                      <p ></p>
                     </div>
-                    <p class="text-black">Traffic</p>
+                    <p class="text-black">Estudiantes</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_1"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>43%</p>
-                      <p>+15.7%</p>
+                    <div class="d-flex justify-content-between" id="num_empresas" name="num_empresas">
+                      <p ></p>
                     </div>
-                    <p class="text-black">Conversion</p>
+                    <p class="text-black">Empresas</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_2"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6 equel-grid">
+             
+             <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>23%</p>
-                      <p>+02.7%</p>
+                    <div class="d-flex justify-content-between" id="num_vacantes" name="num_vacantes">
+                      <p ></p>
                     </div>
-                    <p class="text-black">Bounce Rate</p>
+                    <p class="text-black">Vacantes</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_3"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>75%</p>
-                      <p>- 53.34%</p>
-                    </div>
-                    <p class="text-black">Marketing</p>
-                    <div class="wrapper w-50 mt-4">
-                      <canvas height="45" id="stat-line_4"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
+             
               
 
               <div class="col-md-6">
               <div class="grid">
                 <div class="grid-body">
-                  <h2 class="grid-title">Numero de Usuarios</h2>
+                  <h2 class="grid-title">Numero de Estudiantes por Programa Academico</h2>
                   <div class="item-wrapper">
-                    <canvas id="num-usuarios" width="600" height="400"></canvas>
+                    <canvas id="programas-graph" width="600" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -274,6 +261,17 @@ include('graficas.php');
                   <h2 class="grid-title">Actividad de las vacantes</h2>
                   <div class="item-wrapper">
                     <canvas id="actividad-line-graph" width="600" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Estadistica de los rechazos</h2>
+                  <div class="item-wrapper">
+                    <canvas id="motivo-rechazo-graph" width="1200" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -291,17 +289,7 @@ include('graficas.php');
     </div>
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
-              <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-            
-            </div>
-          </div>
+         
         </footer>
         <!-- partial -->
       </div>

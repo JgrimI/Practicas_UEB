@@ -6,70 +6,87 @@
 
 
 function graf() {
-  'use strict';
-  if ($("#num-usuarios").length) {
-    var estu=0;
-    var empre=0;
+  'use strict';  
+
+   if ($("#num-usuarios").length) {
+
     $.ajax({
         type: "POST",
         url: "ws/getGraph.php",
         success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data);
             if (data["status"] == 1) {
                 data = data["usuarios"];
-                estu = data[0]["num_estudiantes"];
-                empre = data[0]["num_empresas"];
-                console.log(data[0]["num_empresas"]);
-                var BarData = {
-                   labels: ["estudiantes", "empresas"],
-                   datasets: [{
-                     label: 'Numero de usuarios',
-                     data: [estu, empre],
-                     backgroundColor: chartColors,
-                     borderColor: chartColors,
-                     borderWidth: 0
-                   }]
-                 };
-                 var barChartCanvas = $("#num-usuarios").get(0).getContext("2d");
-                 var barChart = new Chart(barChartCanvas, {
-                   type: 'bar',
-                   data: BarData,
-                   options: {
-                     legend: false
-                   }
-                 });
-              }
-              
-        },
+                var estu = data[0]["num_estudiantes"];
+                var empre = data[0]["num_empresas"];  
+                var vacant = data[0]["num_vacantes"];                      
+                    var PieData = {
+                           datasets: [{
+                             data: [estu, empre, vacant],
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: [
+                             'Estudiantes',
+                             'Empresas',
+                             'Vacantes',
+                           ]
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#num-usuarios").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
+                       }
+                     },
         error: function (data) {
             console.log(data);
         },
-      })      
+      })
+
   }
 
+ 
+
   if ($("#actividad-line-graph").length) {
-    var fecha;
-    var num_registros;
+    var fecha = new Array();
+    var num_registros = new Array();
 
     $.ajax({
         type: "POST",
         url: "ws/getActividadDiaria.php",
         success: function (data) {  
         data = JSON.parse(data);   
-        console.log(data);
+        
             if (data["status"] == 1) {
-                data = data["registros"];
-                           
-                
-                
+                data = data["registros"]; 
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["fecha_detalle"]){
+                    fecha.push(data[i]["fecha_detalle"]);
+                     
+                  }
+                  if(data[i]["num_registros"]){
+                    num_registros.push(data[i]["num_registros"]);
+                  }
+                }                                       
                 var options = {
                      type: 'line',
                      data: {
-                       labels: ["11/09/20","12/09/20","13/09/20","14/09/20","15/09/20","16/09/20"],
+                       labels: fecha,
                        datasets: [{
                            label: 'Numero de vacantes',
-                           data: [10,3,6,40,20,10],
+                           data: num_registros,
                            borderWidth: 2,
                            fill: false,
                            backgroundColor: chartColors[0],
@@ -103,6 +120,248 @@ function graf() {
       })      
     
   }
+
+  if ($("#programas-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getProgramGraph.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["estudiantes"];
+                var prog = new Array();
+                var num = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["nom_programa"]){
+                    prog.push(data[i]["nom_programa"]);
+                  }
+                  if(data[i]["num_estu"]){
+                    num.push(data[i]["num_estu"]);
+                  }
+                  
+                }  
+                    var PieData = {
+                           datasets: [{
+                             data: num,
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: prog
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#programas-graph").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
+  if ($("#motivo-rechazo-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getMotivoRechazo.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                var motivo = new Array();
+                var num_rechazos = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["motivo"]){
+                    motivo.push(data[i]["motivo"]);
+                    console.log(fecha); 
+                  }
+                   if(data[i]["num_rechazos"]){
+                    num_rechazos.push(data[i]["num_rechazos"]);
+                    console.log(fecha); 
+                  }
+                  
+                }  
+
+                    var BarData = {
+                    labels: motivo,
+                    datasets: [{
+                      
+                      label: 'numero de rechazos',
+                      data: num_rechazos,
+                      backgroundColor: chartColors,
+                      borderColor: chartColors,
+                      borderWidth: 0
+                    }]
+                  };
+                  var barChartCanvas = $("#motivo-rechazo-graph").get(0).getContext("2d");
+                  var barChart = new Chart(barChartCanvas, {
+                    
+                    type: 'bar',
+                    data: BarData,
+                    options: {
+                      scales: {
+                          yAxes: [{
+                              display: true,
+                              ticks: {
+                                  suggestedMin: 0,   
+                                  beginAtZero: true 
+                              }
+                          }]
+                      },
+                      legend: false
+                    }
+                  });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
+
+
+  if ($("#empresa-aspirantes-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getAspirantesEmpresa.php",
+        success: function (data) {  
+          console.log(data);
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                var vac = new Array();
+                var estado = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["num_vacantes"]){
+                    vac.push(data[i]["num_vacantes"]);
+                  }
+                  if(data[i]["estado"]){
+                    estado.push(data[i]["estado"]);
+                  }
+                  
+                }  
+                    var PieData = {
+                           datasets: [{
+                             data: vac,
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: estado
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#empresa-aspirantes-graph").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
+  if ($("#empresa-vacante-graph").length) {
+
+    $.ajax({
+        type: "POST",
+        url: "ws/getAspirantesVacante.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+                var aspirantes = new Array();
+                var vacante = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["vacante"]){
+                    vacante.push(data[i]["vacante"]);                   
+                  }
+                   if(data[i]["aspirantes"]){
+                    aspirantes.push(data[i]["aspirantes"]);
+                    
+                  }                 
+                }
+                 
+                    var BarData = {
+                    labels: vacante,
+                    datasets: [{
+                      
+                      label: 'numero de aspirantes',
+                      data: aspirantes,
+                      backgroundColor: chartColors,
+                      borderColor: chartColors,
+                      borderWidth: 0
+                    }]
+                  };
+                  var barChartCanvas = $("#empresa-vacante-graph").get(0).getContext("2d");
+                  var barChart = new Chart(barChartCanvas, {
+                    
+                    type: 'bar',
+                    data: BarData,
+                    options: {
+                      scales: {
+                          yAxes: [{
+                              display: true,
+                              ticks: {
+                                  suggestedMin: 0,   
+                                  beginAtZero: true 
+                              }
+                          }]
+                      },
+                      legend: false
+                    }
+                  });
+
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+   
+  }
+
+
+
+
+
 
   if ($("#chartjs-staked-area-chart").length) {
     var options = {
@@ -340,4 +599,5 @@ function graf() {
     });
   }
 };
+
 </script>

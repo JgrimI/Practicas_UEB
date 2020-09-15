@@ -13,7 +13,6 @@ while($stmt -> fetch()) {
     $aspirant=array(
         "cod_estudiante"=>$cod_estudiante,
         "nombre_completo"=>$nombre_completo,
-        "foto"=>$foto,
         "correo_estudiante"=>$correo_estudiante,
         "nom_programa"=>$nom_programa,
         "estado"=>$estado

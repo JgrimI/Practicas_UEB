@@ -36,11 +36,14 @@ while($stmt -> fetch()) {
         case 'RECHAZADA':
             $btn='<button type="button" class="btn btn-danger" style="width: 80%;">Rechazado</button>';
         break;
-        case 'APROBADA':
-            $btn='<button type="button" class="btn btn-twitter" style="width: 80%; background-color: #40c140;">Aprobado</button>';
+        case 'OFERTA':
+            $btn='<a href="?menu=MyVacants" class="btn btn-warning" style="width: 80%;">OFERTA</a>';
+        break;
+        case 'ACEPTADA':
+            $btn='<button type="button" class="btn btn-twitter" style="width: 80%; background-color: #40c140;">Aceptada</button>';
         break;
         case 'EN PROCESO':
-            $btn='<button type="button" class="btn btn-warning" style="width: 80%;">En proceso</button>';
+            $btn='<button type="button" class="btn btn-dark" style="width: 80%;">En proceso</button>';
         break;
         default:
         $btn='<div class="btn btn-twitter has-icon"  onclick="openModal('.$cod_vacante.');">

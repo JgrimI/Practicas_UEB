@@ -154,6 +154,10 @@ if (!isset($_SESSION['redirect'])) {
     <script src="assets/vendors/js/core.js"></script>
     <script src="assets/vendors/js/vendor.addons.js"></script>
     <script src="assets/js/template.js"></script>
+    <!-- graficas -->
+    <script src="assets/js/charts/chartjs.js"></script>
+    <script src="assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
     <!--  -->
   </body>
 </html>

@@ -66,11 +66,11 @@ include('graficas.php');
                 var vacant = data[0]["num_vacantes"];
 
                 var estuH= '<p>'+estu+'</p>'+
-                '<p>'+100+'%'+'</p>';
+                '<p></p>';
                  var empreH= '<p>'+empre+'</p>'+
-                '<p>'+100+'%'+'</p>';
+                '<p></p>';
                  var vacantH= '<p>'+vacant+'</p>'+
-                '<p>'+100+'%'+'</p>';
+                '<p></p>';
 
                 $('#num_estudiantes').html(estuH);
                 $('#num_empresas').html(empreH);

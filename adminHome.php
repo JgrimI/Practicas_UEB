@@ -49,8 +49,40 @@ include('graficas.php');
 <script>
    window.onload=function(){
     graf();
-   
+    getData()
   };
+
+   function getData(){
+      $.ajax({
+        type: "POST",
+        url: "ws/getGraph.php",
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"] == 1) {
+                var data = data["usuarios"];
+                var estu = data[0]["num_estudiantes"];
+                var empre = data[0]["num_empresas"]; 
+                var vacant = data[0]["num_vacantes"];
+
+                var estuH= '<p>'+estu+'</p>'+
+                '<p></p>';
+                 var empreH= '<p>'+empre+'</p>'+
+                '<p></p>';
+                 var vacantH= '<p>'+vacant+'</p>'+
+                '<p></p>';
+
+                $('#num_estudiantes').html(estuH);
+                $('#num_empresas').html(empreH);
+                $('#num_vacantes').html(vacantH);
+
+                    }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+  }
 
 
 </script>
@@ -200,61 +232,48 @@ include('graficas.php');
             <div class="row">
 
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>30%</p>
-                      <p>+06.2%</p>
+                <div class="grid" >
+                  <div class="grid-body text-gray" >
+                    <div class="d-flex justify-content-between" id="num_estudiantes" name="num_estudiantes"  >
+                      <p ></p>
                     </div>
-                    <p class="text-black">Traffic</p>
+                    <p class="text-black">Estudiantes</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_1"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>43%</p>
-                      <p>+15.7%</p>
+                    <div class="d-flex justify-content-between" id="num_empresas" name="num_empresas">
+                      <p ></p>
                     </div>
-                    <p class="text-black">Conversion</p>
+                    <p class="text-black">Empresas</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_2"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6 equel-grid">
+             
+             <div class="col-md-3 col-sm-6 col-6 equel-grid">
                 <div class="grid">
                   <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>23%</p>
-                      <p>+02.7%</p>
+                    <div class="d-flex justify-content-between" id="num_vacantes" name="num_vacantes">
+                      <p ></p>
                     </div>
-                    <p class="text-black">Bounce Rate</p>
+                    <p class="text-black">Vacantes</p>
                     <div class="wrapper w-50 mt-4">
                       <canvas height="45" id="stat-line_3"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6 col-6 equel-grid">
-                <div class="grid">
-                  <div class="grid-body text-gray">
-                    <div class="d-flex justify-content-between">
-                      <p>75%</p>
-                      <p>- 53.34%</p>
-                    </div>
-                    <p class="text-black">Marketing</p>
-                    <div class="wrapper w-50 mt-4">
-                      <canvas height="45" id="stat-line_4"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
+             
               
 
               <div class="col-md-6">
@@ -291,17 +310,7 @@ include('graficas.php');
     </div>
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
-              <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-            
-            </div>
-          </div>
+         
         </footer>
         <!-- partial -->
       </div>

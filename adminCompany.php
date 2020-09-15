@@ -381,10 +381,10 @@ function openModal(id, estado){
           <div class="modal-body">
             <form id="valEmpresa" action="javascript:void(0);" onsubmit="valCompany();">
             <div class="form-group row showcase_row_area">
-                <div class="col-md-5 showcase_text_area">
+                <div class="col-md-5 showcase_text_area" id="nitVal" name="nitVal">
                     <label for="VEstado">Cambiar Estado</label>
                 </div>
-                <input type="hidden" id="nitVal" name="nitVal" required value ="" maxlength="50">
+                <input type="hidden" id="nitVal2" name="nitVal2" required value ="" maxlength="50">
                 <div class="col-md-20 showcase_content_area">
                     <select name="VEstado" class="form-control" id="VEstado" required>
                       <option value="REGISTRADO">Registrado</option>

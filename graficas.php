@@ -125,37 +125,47 @@ function graf() {
 
     $.ajax({
         type: "POST",
-        url: "ws/getEstudiantes.php",
+        url: "ws/getProgramGraph.php",
         success: function (data) {  
         data = JSON.parse(data);   
         console.log(data);
             if (data["status"] == 1) {
                 data = data["estudiantes"];
                 var prog = new Array();
+                var num = new Array();
                 for (var i = 0; i < data.length; i++) {
                   if(data[i]["nom_programa"]){
                     prog.push(data[i]["nom_programa"]);
                   }
+                  if(data[i]["num_estu"]){
+                    num.push(data[i]["num_estu"]);
+                  }
                   
                 }  
-                    var BarData = {
-                    labels: prog,
-                    datasets: [{
-                      label: '# of Votes',
-                      data: [10, 19, 3, 5, 12, 3],
-                      backgroundColor: chartColors,
-                      borderColor: chartColors,
-                      borderWidth: 0
-                    }]
-                  };
-                  var barChartCanvas = $("#programas-graph").get(0).getContext("2d");
-                  var barChart = new Chart(barChartCanvas, {
-                    type: 'bar',
-                    data: BarData,
-                    options: {
-                      legend: false
-                    }
-                  });
+                    var PieData = {
+                           datasets: [{
+                             data: num,
+                             backgroundColor: chartColors,
+                             borderColor: chartColors,
+                             borderWidth: chartColors
+                           }],
+
+                           // These labels appear in the legend and in the tooltips when hovering different arcs
+                           labels: prog
+                         };
+                         var PieOptions = {
+                           responsive: true,
+                           animation: {
+                             animateScale: true,
+                             animateRotate: true
+                           }
+                         };
+                         var pieChartCanvas = $("#programas-graph").get(0).getContext("2d");
+                         var pieChart = new Chart(pieChartCanvas, {
+                           type: 'pie',
+                           data: PieData,
+                           options: PieOptions
+                         });
 
               }
         },

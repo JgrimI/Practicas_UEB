@@ -31,6 +31,8 @@ function removeAccents($input){
 
 $response = [];
 $pass = $_POST["pass"];
+$passold = $_POST["passold"];
+
 $response = [];
 $sql = "UPDATE ADMINISTRADOR  SET  password='".$pass."';";
 if (!$mysqli->query($sql)) {

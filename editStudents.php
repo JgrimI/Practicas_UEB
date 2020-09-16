@@ -156,7 +156,7 @@ $codigo=$_GET["codigo"];
                 var i=0;
                 var econtro = false;
                 var nom_programa;
-                var estados = ['INSCRITO','ACTIVADO','ASPIRANTE','INSCRITO'];
+                var estados = ['INSCRITO','ACTIVADO','ASPIRANTE','REGISTRADO'];
                 var estado;
                 while(econtro==false){
                   if(data[i]["cod_estudiante"]==<?php echo $codigo ?>){
@@ -167,10 +167,10 @@ $codigo=$_GET["codigo"];
                   }                                      
                 }
                 for(var j = 0; j < estados.length;j++){
-                   if(estados[j] = data[i]["estado"]){
+                   if(estados[j] == data[i]["estado"]){
                      var aux = estados[j];
                      estados[j] = estados[0];
-                     aux = estados[j];
+                     estados[j] = aux;
                     estado = '<option value="'+estados[0]+'" selected>'+estados[0]+'</option><option value="'+estados[1]+'">'+estados[1]+'</option><option value="'+estados[2]+'">'+estados[2]+'</option>'+ '<option value="'+estados[3]+'">'+estados[3]+'</option>'                  
                    j = estados.length;
                    }

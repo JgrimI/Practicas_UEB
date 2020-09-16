@@ -49,9 +49,61 @@ include('graficas.php');
 <script>
    window.onload=function(){
     graf();
-    getData()
+    getData();
   };
-
+   function verifyPass(){
+    var pass=document.getElementById('pass').value;
+    var verify=document.getElementById('passnew').value;
+    if(pass==verify && pass!='' && verify!=''){
+      $('#alert_pw').css('display','none');
+      return true;
+    }
+    else if(pass!=verify && pass!='' && verify!=''){
+      $('#alert_pw').css('display','block');
+    }else{
+      $('#alert_pw').css('display','none');
+    }
+    return false;
+  }
+   function modAdmin(){
+    var passold=document.getElementById('passold').value;
+    var pass=document.getElementById('pass').value;
+    if(verifyPass()){
+      $.ajax({
+        type: "POST",
+        url: "ws/modAdmin.php",
+        data:{
+                'pass':pass,
+                'passold':passold
+            },
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"] == 1) {
+              $('.dropify-clear').click();
+              Swal.fire(
+                  'Bien hecho!',
+                  'Se ha modificado la contraseña!!!',
+                  'success'
+                ).then(function(){
+                  window.location='adminHome.php';
+                })
+            }else{
+              if(data['error'] == 1062){
+                Swal.fire(
+                  'Error!',
+                  data['error'],
+                  'error'
+                )
+              }
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    }
+  }
 </script>
 
   <body class="header-fixed">
@@ -295,30 +347,33 @@ include('graficas.php');
       </div>
       <!-- page content ends -->
     </div>
+    <form id="mod" action="javascript:void(0);" onsubmit="modAdmin();">
         <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
             <div class="modal-dialog ui-corner-all" role="document">
                 <div class="modal-content" id="modalBody" name="modalBody">
                    <div class="modal-body">
                     <div class="form-group">
                         <center>Ingrese su contraseña</center><br>
-                        <input type="password" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                        <input type="password" id="passold" name="passold" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
                     </div>
+                    <div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>
                     <div class="form-group">
                         <center>Ingrese su nueva contraseña</center><br>
-                        <input type="password" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                        <input type="password" id="passnew" name="passnew" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
                     </div>
                     <div class="form-group">
                         <center>Confirme su contraseña</center><br>
-                        <input type="password" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                        <input type="password" id="pass" name="pass" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-warning">Confirmar</button>
+                    <button type="submit" class="btn btn-success">Confirmar</button>
                 </div>
                 </div>
             </div>
         </div>
+      </form>
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->

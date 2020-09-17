@@ -37,7 +37,7 @@ function enviarCorreoContrato($mailTo, $nombre,$cargo)
                     </div>
                     <div style="margin-left: 10%; margin-right: 10%;"><br><br>
                         <p>Te informamos que un estudiante ha aceptado la oferta en la vacante '.$cargo.'</p>
-                        <p>Para poder usar todos nuestros servicios por favor haz click en el siguiente boton para terminar tu proceso de registro.</p><br><br><br>
+                        <p>Para poder usar todos nuestros servicios por favor ingresa a la pagina principal.</p><br><br><br>
                         <br><br>
                     </div>
                     <br><br><br><br>

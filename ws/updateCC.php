@@ -28,12 +28,16 @@ function removeAccents($input){
     $output = str_replace("ü", "u", $output);
     return $output;
 }
+$logo='';
 
 if($_FILES["cc"]["name"]){
+    $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
     $img = "../assets/images/cc/" . removeAccents(str_replace(' ', '', $razon)) . ".pdf";
     file_put_contents($img, file_get_contents($_FILES["cc"]["tmp_name"]));
 }
-$sql = 'UPDATE EMPRESA SET estado="REGISTRADO" WHERE nit="'.base64_decode($_POST['nit']).'"';
+$addLogo=($logo=='') ? '' :', logo="'.$logo.'"';
+
+$sql = 'UPDATE EMPRESA SET estado="REGISTRADO" '.$addLogo.' WHERE nit="'.base64_decode($_POST['nit']).'"';
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(

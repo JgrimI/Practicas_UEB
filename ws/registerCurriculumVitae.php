@@ -81,16 +81,6 @@ $numR2 = $_POST["numeroRef2"];
 
 $Referencias = $nomR1."<br>".$carR1."<br>".$numR1."<br>".$nomR2."<br>".$carR2."<br>".$numR1;
 
-
-
-//$image= ($FILES['photo']['name']==null) ? "default-user-image.png" :  $FILES['photo']['name'];
-if($_FILES["photo"]["name"]){
-    $foto = removeAccents(str_replace(' ', '', $nombre)) . ".png";
-    $img = "../assets/images/profile/users/" . removeAccents(str_replace(' ', '', $nombre)) . ".png";
-    file_put_contents($img, file_get_contents($_FILES["photo"]["tmp_name"]));
-}
-
-$_SESSION['foto']=($foto==null) ? 'default-user-image.png': $foto;
    
 $sql = "INSERT INTO HOJA_VIDA (lugar_de_residencia, perfil_profesional,numero_telefono, tipo_documento, numero_documento, educacion, informacion_complementaria, experiencia_laboral, experiencia_academica, referencias ) 
 VALUES ('".$residence."', '".$ppro."', '".$telephone."', '".$document."', '".$dId."','".$startDateAca."','".$courses."','".$expLaboral."','".$expAcademica."','".$Referencias."');";

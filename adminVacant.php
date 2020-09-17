@@ -353,7 +353,7 @@ if (!isset($_SESSION['redirect'])) {
               </div>
               <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
         <div class="modal-dialog ui-corner-all" role="document">
-            <div class="modal-content" id="modalBody" name="modalBody">
+            <div class="modal-content" id="modalBody1" name="modalBody1">
                 <div class="modal-body">
                 <div class="form-group">
                   <div class="alert alert-success mb-0" role="alert" id="alert_ex" style="display:none;"><strong>Exito!</strong> Se cambio la contraseña!</div>

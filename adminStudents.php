@@ -195,7 +195,7 @@ window.onload=function(){
                 '<td><center>' + olo + '</center></td>' +
                 '<td><center><div class="'+estado+'">' + data[i]["estado"] + '</div></center></td>' +
                 '<td><center>' + data[i]["num_ingresos"] + '</center></td>' +
-                        '<td><a href="editStudents.php?codigo=' + data[i]["cod_estudiante"] +'">'+'<button type="button" rel=tooltip" class="btn btn-outline-info btn-rounded">editar'
+                        '<td><a href="editStudents.php?codigo=' + data[i]["cod_estudiante"] +'">'+'<button type="button" rel=tooltip" class="btn btn-info btn-rounded">editar'
                 '</tr>'
                 }
               $('#estudiante').html(html);

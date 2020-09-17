@@ -361,6 +361,58 @@ function graf() {
    
   }
 
+   if ($("#aceptados-programas-graph").length) {
+    $.ajax({
+        type: "POST",
+        url: "ws/getAceptadosPrograma.php",
+        success: function (data) {  
+        data = JSON.parse(data);   
+        console.log(data);
+            if (data["status"] == 1) {
+                data = data["registros"];
+
+                var nom_programa = new Array();
+                var aceptados = new Array();
+                for (var i = 0; i < data.length; i++) {
+                  if(data[i]["nom_programa"]){
+                    nom_programa.push(data[i]["nom_programa"]);                   
+                  }
+                   if(data[i]["aceptados"]){
+                    aceptados.push(data[i]["aceptados"]);
+                    
+                  }                 
+                }
+                var DoughnutData = {
+                     datasets: [{
+                       data: aceptados,
+                       backgroundColor: chartColors,
+                       borderColor: chartColors,
+                       borderWidth: chartColors
+                     }],
+                     labels: nom_programa
+                   };
+                   var DoughnutOptions = {
+                     responsive: true,
+                     animation: {
+                       animateScale: true,
+                       animateRotate: true
+                     }
+                   };
+                   var doughnutChartCanvas = $("#aceptados-programas-graph").get(0).getContext("2d");
+                   var doughnutChart = new Chart(doughnutChartCanvas, {
+                     type: 'doughnut',
+                     data: DoughnutData,
+                     options: DoughnutOptions
+                   });               
+              }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+      })
+    
+  }
+
 
 
 

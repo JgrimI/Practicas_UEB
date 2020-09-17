@@ -299,6 +299,17 @@ include('graficas.php');
               </div>
             </div>
 
+            <div class="col-md-6">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Estudiantes aceptados por Programa</h2>
+                  <div class="item-wrapper">
+                    <canvas id="aceptados-programas-graph" width="600" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="col-md-12">
               <div class="grid">
                 <div class="grid-body">

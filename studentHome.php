@@ -184,6 +184,12 @@ if (!isset($_SESSION['redirect'])) {
               <i class="mdi mdi mdi-bookmark-plus link-icon"></i>
             </a>
           </li>
+          <li>
+          <a href="assets/manuales/Manual Estudiante.pdf" target="blank">
+              <span class="link-title">Manual Estudiante</span>
+              <i class="mdi mdi-file-pdf link-icon"></i>
+            </a>
+          </li>
           
         </ul>
         

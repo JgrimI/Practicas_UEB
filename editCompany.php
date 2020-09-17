@@ -411,6 +411,12 @@ $nit=$_GET["nit"];
               <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
+          <li>
+          <a href="assets/manuales/Manual Administrador.pdf" target="blank">
+              <span class="link-title">Manual Administrador</span>
+              <i class="mdi mdi-file-pdf link-icon"></i>
+            </a>
+          </li>
                          
         </ul>
       </div>

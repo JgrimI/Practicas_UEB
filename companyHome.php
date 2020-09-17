@@ -125,6 +125,12 @@ $nit=$_SESSION["nit"];
               <i class="mdi mdi mdi-human-greeting link-icon"></i>
             </a>
           </li>
+          <li>
+          <a href="assets/manuales/Manual Empresa.pdf" target="blank">
+              <span class="link-title">Manual Empresa</span>
+              <i class="mdi mdi-file-pdf link-icon"></i>
+            </a>
+          </li>
         </ul>
       </div>
       <!-- partial -->

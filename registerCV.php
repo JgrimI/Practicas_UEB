@@ -651,7 +651,6 @@ referencias
                                                         <input type="text" name="courses" id="courses" placeholder="Cursos, seminarios o talleres con certificado"/>
                                                    
                                                         <p>Nota: Si no cuenta con ningun tipo de formación complementaria puede pasar al siguiente paso.</p>
-                                                   
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
                                                     <input type="button" name="next" class="nextFormCom action-button" value="Siguiente" />

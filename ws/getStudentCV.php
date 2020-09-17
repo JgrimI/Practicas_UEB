@@ -3,14 +3,14 @@ include_once('../persistencia/db.php');
 if (isset($_POST["id"])) {
     $id=$_POST["id"];
     $query = "SELECT e.cod_estudiante, e.nombre_completo, e.correo_estudiante, e.numero_solicitudes, p.nom_programa, e.semestre, 
-e.cod_HV,hv.tipo_documento,hv.numero_documento, e.foto, hv.perfil_profesional, hv.lugar_de_residencia,hv.numero_telefono,hv.educacion,hv.informacion_complementaria,hv.experiencia_laboral,
+e.cod_HV,hv.tipo_documento,hv.numero_documento, hv.perfil_profesional, hv.lugar_de_residencia,hv.numero_telefono,hv.educacion,hv.informacion_complementaria,hv.experiencia_laboral,
 hv.experiencia_academica,hv.referencias 
 FROM ESTUDIANTE e, PROGRAMA p, HOJA_VIDA hv 
 WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiante=$id";
 
     $stmt = $mysqli->prepare($query);
     $stmt -> execute();
-    $stmt -> bind_result($id, $nombre, $correo, $numero_solicitudes, $programa, $semestre, $cod_hv,$tDocu,$numDocu, $foto, $perfilPro, $Lresidencia, $numeroTel, $educacion, $infoComple, $expLab, $expAca, $ref);
+    $stmt -> bind_result($id, $nombre, $correo, $numero_solicitudes, $programa, $semestre, $cod_hv,$tDocu,$numDocu, $perfilPro, $Lresidencia, $numeroTel, $educacion, $infoComple, $expLab, $expAca, $ref);
 
     $rta="";
     $cv=array();
@@ -23,8 +23,6 @@ WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiant
         $telephone = $numeroTel;
         $residence = $Lresidencia;
     
-        $photo=$foto;
-
         $dirr =explode('<br>', $residence);
         $residence=$dirr[0];
         $direccion=$dirr[1];
@@ -70,7 +68,6 @@ WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiant
         "semester"=>$semester,
         "telephone"=>$telephone,
         "residence"=>$residence,
-        "photo"=>$photo,
         "direccion"=>$direccion,
         "tDocu"=>$tDocu,
         "numDocu"=>$numDocu,

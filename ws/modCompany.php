@@ -35,7 +35,7 @@ $razon = $_POST["razonSocial"];
 $logo = '';
 $email = $_POST["email"];
 $descripcion = $_POST["descrip"];
-$pass = $_POST["pass"];
+$pass = $_POST["pass_1"];
 $logo='';
 
 if( $_FILES["logo"]["name"]){

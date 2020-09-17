@@ -70,20 +70,120 @@ $codigo=$_GET["codigo"];
   
   function verifyPass(){
     var pass=document.getElementById('pass').value;
-    var verify=document.getElementById('verify').value;
+    var verify=document.getElementById('passnew').value;
+    var passold=document.getElementById('passold').value;
+    console.log(pass+' '+verify);
     if(pass==verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','none');
       return true;
     }
     else if(pass!=verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','block');
+      $('#alert_ex').css('display','none');
+    }
+    else if(pass=='' || pass=='' || verify==''){
+      $('#alert_va').css('display','block');
+      $('#alert_ex').css('display','none');
     }else{
       $('#alert_pw').css('display','none');
+      $('#alert_va').css('display','none');
+      $('#alert_ex').css('display','none');
     }
     return false;
   }
+  function verifyPass2(){
+    var pass=document.getElementById('pass_1').value;
+    var verify=document.getElementById('verify_1').value;
+    console.log('entra? verify');
+    if(pass==verify && pass!='' && verify!=''){
+      console.log('deberia entra');
+      $('#alert_pw_1').css('display','none');
+      return true;
+    }
+    else if(pass!=verify && pass!='' && verify!=''){
+      $('#alert_pw_1').css('display','block');
+    }else{
+      $('#alert_pw_1').css('display','none');
+    }
+    return false;
+  }
+
+  function ocultar(){
+    $('#alert_pwo').css('display','none');
+  }
+   function modAdmin(pa){
+    var pass=document.getElementById('pass').value;
+    if(verifyPass() && pa){
+
+      $.ajax({
+        type: "POST",
+        url: "ws/modAdmin.php",
+        data:{
+                'pass':pass,
+            },
+        success: function (data) {
+            console.log(data);
+            data = JSON.parse(data);
+            if (data["status"] == 1) {
+              $('.dropify-clear').click();
+              Swal.fire(
+                  'Bien hecho!',
+                  'Se ha modificado la contraseña!!!',
+                  'success'
+                ).then(function(){
+                  $('#alert_pw').css('display','none');
+                  $('#alert_va').css('display','none');
+                  $('#alert_pwo').css('display','none');
+                  $("#seePassword").modal("hide");
+                })
+            }else{
+              if(data['error'] == 1062){
+                Swal.fire(
+                  'Error!',
+                  data['error'],
+                  'error'
+                )
+              }
+            }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    }
+    else{
+
+    }
+  }
+     function passCheck(){
+     var passold=document.getElementById('passold').value;
+     trigger=true
+     if(trigger){
+      $.ajax({
+        type: "POST",
+        url: "ws/currentpassCheck.php",
+        success: function (data) {
+            data = JSON.parse(data);
+            data = data["passes"];
+            if(passold == data[0]["password"]){
+              modAdmin(true);
+              trigger=false;
+            }
+            else{
+              $('#alert_ex').css('display','none');
+              $('#alert_pwo').css('display','block');
+              trigger=false;
+            }
+
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    }
+  }
    function modStudent(){
-    if(verifyPass()){
+    if(verifyPass2()){
       $.ajax({
         type: "POST",
         url: "ws/modStudent.php",
@@ -157,7 +257,7 @@ $codigo=$_GET["codigo"];
                 var i=0;
                 var econtro = false;
                 var nom_programa;
-                var estados = ['INSCRITO','ACTIVADO','ASPIRANTE','REGISTRADO'];
+                var estados = ['INSCRITO','ACTIVADO','ASPIRANTE','REGISTRADO','CONTRATADO'];
                 var estado;
                 while(econtro==false){
                   if(data[i]["cod_estudiante"]==<?php echo $codigo ?>){
@@ -171,11 +271,11 @@ $codigo=$_GET["codigo"];
                    if(estados[j] == data[i]["estado"]){
                      var aux = estados[j];
                      estados[j] = estados[0];
-                     estados[j] = aux;
-                    estado = '<option value="'+estados[0]+'" selected>'+estados[0]+'</option><option value="'+estados[1]+'">'+estados[1]+'</option><option value="'+estados[2]+'">'+estados[2]+'</option>'+ '<option value="'+estados[3]+'">'+estados[3]+'</option>'                  
+                     estados[0] = aux;
+                    estado = '<option value="'+estados[0]+'" selected>'+estados[0]+'</option><option value="'+estados[1]+'">'+estados[1]+'</option><option value="'+estados[2]+'">'+estados[2]+'</option>'+ '<option value="'+estados[3]+'">'+estados[3]+'</option>'+ '<option value="'+estados[4]+'">'+estados[4]+'</option>';
                    j = estados.length;
                    }
-                   }
+                }
                 var html ='<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="nombre">Nombre estudiante</label>'+
@@ -217,13 +317,13 @@ $codigo=$_GET["codigo"];
                           '<select name="estado" class="form-control" id="estado" required>'+estado+'</select>'+                          
                           '</div>'+
                         '</div>'+
-                        '<center><div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div></center>'+
+                        '<center><div class="alert alert-danger mb-0" role="alert" id="alert_pw_1" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div></center>'+
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="pass">Contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass" name="pass" required value ="'+data[i]["password_estudiante"]+'" onchange="verifyPass();"  minlength="6" maxlength="12" style="width:180%;">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass_1" name="pass_1" required value ="'+data[i]["password_estudiante"]+'" onchange="verifyPass2();"  minlength="6" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+
@@ -231,7 +331,7 @@ $codigo=$_GET["codigo"];
                             '<label for="verify">Verificar contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify" name="verify" required value ="'+data[i]["password_estudiante"]+'" onchange="verifyPass();" minlength="6" maxlength="12" style="width:180%;">'+
+                            ' <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="verify_1" name="verify" required value ="'+data[i]["password_estudiante"]+'" onchange="verifyPass2();" minlength="6" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>';
            nom_programa = data[i]["nom_programa"];
@@ -271,8 +371,8 @@ $codigo=$_GET["codigo"];
                   <h6 class="dropdown-title">Opciones</h6>
                 </div>
                 <div class="dropdown-body border-top pt-0">
-                  <a class="dropdown-grid">
-                    <i class="grid-icon mdi mdi-security mdi-2x"></i>
+                  <a class="dropdown-grid" data-target="#seePassword" data-toggle="modal">
+                    <i class="grid-icon mdi mdi-security mdi-2x" ></i>
                     <span class="grid-tittle">Cambiar contraseña</span>
                   </a>
                   <a class="dropdown-grid" href="logout.php">
@@ -373,6 +473,34 @@ $codigo=$_GET["codigo"];
               </div>
             </div>   
           </div>
+          <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
+        <div class="modal-dialog ui-corner-all" role="document">
+            <div class="modal-content" id="modalBody" name="modalBody">
+                <div class="modal-body">
+                <div class="form-group">
+                  <div class="alert alert-success mb-0" role="alert" id="alert_ex" style="display:none;"><strong>Exito!</strong> Se cambio la contraseña!</div>
+                  <div class="alert alert-danger mb-0" role="alert" id="alert_va" style="display:none;"><strong>Error!</strong> Uno o mas de los campos estan vacios!</div>
+                  <div class="alert alert-danger mb-0" role="alert" id="alert_pwo" style="display:none;"><strong>Error!</strong> Contraseña equivocada!</div>
+                    <center>Ingrese su contraseña</center><br>
+                    <input onchange="ocultar();" type="password" id="passold" name="passold" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                </div>
+                <div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>
+                <div class="form-group">
+                    <center>Ingrese su nueva contraseña</center><br>
+                    <input type="password" id="passnew" name="passnew" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                </div>
+                <div class="form-group">
+                    <center>Confirme su contraseña</center><br>
+                    <input type="password" id="pass" name="pass" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;" onchange="verifyPass();">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-success" onclick="passCheck();">Confirmar</button>
+            </div>
+            </div>
+        </div>
+    </div>
          
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->

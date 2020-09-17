@@ -184,7 +184,7 @@ include('graficas.php');
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets\images\profile\users\logoAdmin.jpg" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
@@ -288,16 +288,7 @@ include('graficas.php');
               </div>
             </div>
 
-            <div class="col-md-6">
-              <div class="grid">
-                <div class="grid-body">
-                  <h2 class="grid-title">Actividad de las vacantes</h2>
-                  <div class="item-wrapper">
-                    <canvas id="actividad-line-graph" width="600" height="400"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
 
             <div class="col-md-6">
               <div class="grid">
@@ -322,6 +313,16 @@ include('graficas.php');
             </div>
           </div>
           
+          <div class="col-md-12">
+              <div class="grid">
+                <div class="grid-body">
+                  <h2 class="grid-title">Actividad de las vacantes</h2>
+                  <div class="item-wrapper">
+                    <canvas id="actividad-line-graph" width="1200" height="400"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
       <!-- page content ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">

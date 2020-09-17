@@ -335,7 +335,7 @@ $codigo=$_GET["codigo"];
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets\images\profile\users\logoAdmin.jpg" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>

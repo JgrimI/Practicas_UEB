@@ -131,7 +131,10 @@ if($est=="ACEPTADA"){
 $response = [];
 if($est=='ACEPTADA'){
     $sql = "UPDATE DETALLE SET estado='RECHAZADA' WHERE cod_estudiante=".$e.";";  
-    $mysqli->query($sql); 
+    $mysqli->query($sql);
+    $update="UPDATE ESTUDIANTE SET estado='CONTRATADO' WHERE cod_estudiante=".$_SESSION['id'];
+    $mysqli2->query($update);
+    $_SESSION['estado']='CONTRATADO'; 
 }
 $sql2 = "UPDATE DETALLE SET estado='".$est."' WHERE cod_vacante=".$c." AND cod_estudiante=".$e;
 if (!$mysqli2->query($sql2)) {

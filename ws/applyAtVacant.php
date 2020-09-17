@@ -94,8 +94,7 @@ if (!$mysqli->query($sql)) {
     
     $nomE=$_SESSION['nombre'];
     enviarCorreoContrato($correo,$nomEstu,$cargo,$nomE);
-    $update="UPDATE ESTUDIANTE SET estado='CONTRATADO' WHERE cod_estudiante=".$_SESSION['id'];
-    $mysqli2->query($update);
+    
     $response = array(
     'comment' => "Se agregó satisfactoriamente",
     'status' => 1
@@ -103,7 +102,6 @@ if (!$mysqli->query($sql)) {
 }
 
 $mysqli->close();
-$mysqli2->close();
 
 
 echo json_encode($response);

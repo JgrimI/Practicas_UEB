@@ -150,12 +150,11 @@ WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiant
 				echo '<article>
 					<h2>Cursos</h2>
 					<p>'.$cursos.'</p>
-				</article>
-			</div>
-			<div class="clear"></div>
-		</section>';
+				</article>';
 
-		}	
+        }
+        echo '</div><div class="clear"></div>
+		</section>';
 	}
 		?>
                 <section>

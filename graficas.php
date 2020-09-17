@@ -220,6 +220,19 @@ function graf() {
                     data: BarData,
                     options: {
                       scales: {
+                         xAxes: [
+                                {
+                                  ticks: {
+                                    callback: function(label, index, labels) {
+                                      if ( label.length  > 30) {
+                                        return label.match(/.{1,22}/g) ;
+                                      }else{
+                                        return label ;
+                                      }              
+                                    }
+                                  }
+                                }
+                              ],
                           yAxes: [{
                               display: true,
                               ticks: {

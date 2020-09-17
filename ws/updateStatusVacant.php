@@ -111,7 +111,7 @@ $nomEstu="";
 $cargo="";
 $correo="";
 
-$sql = "SELECT nombre_completo,correo_estudiante, nombre_cargo FROM ESTUDIANTE, VACANTE WHERE cod_estudiante=" .$e."AND cod_vacante = ".$c;
+$sql = "SELECT nombre_completo,correo_estudiante, nombre_cargo FROM ESTUDIANTE, VACANTE WHERE cod_estudiante= ".$e." AND cod_vacante = ".$c;
 $r=$mysqli3->query($sql);
 if ($row=$r-> fetch_assoc()) {
     $nomEstu=$row["nombre_completo"];

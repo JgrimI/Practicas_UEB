@@ -31,11 +31,11 @@ function removeAccents($input){
 $logo='';
 
 if($_FILES["cc"]["name"]){
-    $logo = removeAccents(str_replace(' ', '', $razon)) . ".png";
+    $logo = removeAccents(str_replace(' ', '', $razon)) . ".pdf";
     $img = "../assets/images/cc/" . removeAccents(str_replace(' ', '', $razon)) . ".pdf";
     file_put_contents($img, file_get_contents($_FILES["cc"]["tmp_name"]));
 }
-$addLogo=($logo=='') ? '' :', logo="'.$logo.'"';
+$addLogo=($logo=='') ? '' :', cc_empresa="'.$logo.'"';
 
 $sql = 'UPDATE EMPRESA SET estado="REGISTRADO" '.$addLogo.' WHERE nit="'.base64_decode($_POST['nit']).'"';
 if (!$mysqli->query($sql)) {

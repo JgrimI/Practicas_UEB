@@ -16,6 +16,5 @@ $mpdf = new \Mpdf\Mpdf([
 ]);
 $mpdf->WriteHTML($style,1);
 $mpdf->WriteHTML($html,2);
-ob_clean(); 
 $mpdf->Output();
 ?>

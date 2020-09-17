@@ -226,10 +226,10 @@ if (!isset($_SESSION['redirect'])) {
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
-          <div class="viewport-header">
+          <div class="viewport-header" style="margin-left: -2%;">
             <div class="row">
               <div class="col-12 py-5">
-                <h4>Vacantes</h4>
+                <h4 style="margin-left: 2%; width: 100%;">Vacantes</h4>
               </div>
             </div>       
           </div>

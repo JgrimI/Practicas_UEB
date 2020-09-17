@@ -44,65 +44,77 @@
         })
     }
     function openModal(id){
-        $.ajax({
-            type: "POST",
-            url: "ws/getDetailsOfVacant.php",
-            data:{
-                'cod':id
-            },
-            success: function (data) {
-                data = JSON.parse(data);
-                if (data["status"] == 1) {
-                    $("#modalBody").html(data['html']);
-                }
-                $("#seeVacant").modal('show');
-            },
-            error: function (data) {
-                console.log(data);
-            },
-        });
+        
+            $.ajax({
+                type: "POST",
+                url: "ws/getDetailsOfVacant.php",
+                data:{
+                    'cod':id
+                },
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data["status"] == 1) {
+                        $("#modalBody").html(data['html']);
+                    }
+                    $("#seeVacant").modal('show');
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+            });
+        
+        
     }
     function applyAtVacant(id){
-        Swal.fire({
-                title: '¿Estas seguro?',
-                text: "No vas a poder revertir esta acción y se enviara tu hoja de vida a la empresa",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor:'#fc3e25',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Si, estoy seguro!',
-            }).then(function (result) {
-                if(result.value){
-                    $.ajax({
-                        type: "POST",
-                        url: "ws/applyAtVacant.php",
-                        data:{
-                            'cod':id
-                        },
-                        success: function (data) {
-                            data = JSON.parse(data);
-                            if (data["status"] == 1) {
-                                Swal.fire(
-                                    'Bien hecho!',
-                                    'Se ha enviado tu hoja de vida con exito!',
-                                    'success'
-                                );
-                            }else{
-                                Swal.fire(
-                                    'Bien hecho!',
-                                    data['error'],
-                                    'error'
-                                );
-                            }
-                            getData();
-                            $("#seeVacant").modal('hide');
-                        },
-                        error: function (data) {
-                            console.log(data);
-                        },
-                    });
-                }
-            });
+        var estado = "<?php echo $_SESSION['estado'] ?>";
+        if(estado != 'CONTRATADO'){
+            Swal.fire({
+                    title: '¿Estas seguro?',
+                    text: "No vas a poder revertir esta acción y se enviara tu hoja de vida a la empresa",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor:'#fc3e25',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Si, estoy seguro!',
+                }).then(function (result) {
+                    if(result.value){
+                        $.ajax({
+                            type: "POST",
+                            url: "ws/applyAtVacant.php",
+                            data:{
+                                'cod':id
+                            },
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                if (data["status"] == 1) {
+                                    Swal.fire(
+                                        'Bien hecho!',
+                                        'Se ha enviado tu hoja de vida con exito!',
+                                        'success'
+                                    );
+                                }else{
+                                    Swal.fire(
+                                        'Bien hecho!',
+                                        data['error'],
+                                        'error'
+                                    );
+                                }
+                                getData();
+                                $("#seeVacant").modal('hide');
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            },
+                        });
+                    }
+                });
+        }else{
+            Swal.fire(
+                    'Ya has sido contratado en un empresa!!',
+                    '',
+                    'error'
+                );   
+        }
        
         
     }

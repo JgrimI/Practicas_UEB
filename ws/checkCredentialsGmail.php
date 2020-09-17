@@ -29,6 +29,7 @@ while($stmt -> fetch()) {
         $_SESSION['cod_hv']=$cod_hv;
         $_SESSION['foto']='default-user-image.png';
         $_SESSION['redirect']='studentHome.php';
+        $_SESSION['estado']=$estado;
         $primer_nombre=explode(' ',$nombre);
         $response = array(
             'comment' => 'Bienvenido '.$primer_nombre[0].'!!',

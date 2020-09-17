@@ -64,7 +64,9 @@ WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiant
         $carR2 = $referencias[4];
         $numR2 = $referencias[5];
     }
-    $stmt->close(); ?>
+    $stmt->close();
+    if(isset($nom_est)){ 
+?>
 
 <body id="top">
     <div id="cv" class="instaFade">
@@ -228,6 +230,9 @@ WHERE e.cod_HV = hv.cod_HV AND e.cod_programa=p.cod_programa AND e.cod_estudiant
 </body>
 
 <?php
+    }else{
+        echo "<center><h1 style='font-size: 30pm;  margin-left:18%; margin-top: 18%; margin-right:18%;'>El estudiante no ha completado la hoja de vida</h1></center>";   
+    }
 }
 
 else{

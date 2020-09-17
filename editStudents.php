@@ -463,7 +463,7 @@ $codigo=$_GET["codigo"];
                             <br>
                               <div class="form-group row showcase_row_area" style="float:right;" >
                               <div>                  
-                                  <a href="adminStudents" class="btn btn-warning" style="margin-right:15px;">Cancelar</a>
+                                  <a href="adminStudents.php" class="btn btn-warning" style="margin-right:15px;">Cancelar</a>
                                 </div>
                                 <div>
                                   <button type="submit" class="btn btn-success">Aceptar</button>

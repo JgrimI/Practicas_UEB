@@ -18,13 +18,16 @@ function enviarCorreo($mail, $name,$id)
     $PHPmail->Username   = 'practicas.uelbosque@gmail.com';
     $PHPmail->Password   = 'PracticasUEB123';
     $PHPmail->SetFrom('practicas.uelbosque@gmail.com', "Practicas UEB");
-    $PHPmail->Subject    = 'Confirma tu correo electrónico';
+   
+    $PHPmail->AddEmbeddedImage('../assets/images/logos/logoMail.png', 'logoMail');
+    $PHPmail->AddEmbeddedImage('../assets/images/logos/footer.png', 'logofooter');
+     $PHPmail->Subject    = 'Confirma tu correo electrónico';
     $PHPmail->MsgHTML('
             <div style="background-color: rgba(222,222,222,0.6); margin-left: 15%; margin-right: 15%;">
     <div style=" margin-left: 5%; margin-right: 5%; padding-top: 5%; padding-bottom: 5%;">
         <div style="background-color: rgba(255,255,255);">
             <div style="text-align: center;">
-                <img src="https://practicasuelbosuqe.azurewebsites.net/assets/images/logos/logoMail.png" alt="Universidad El Bosque" style=" max-width: 100%; max-height: 100%;
+            <img src=\'cid:logoMail\' alt="Universidad El Bosque" style=" max-width: 100%; max-height: 100%;
                 pointer-events: none;
                 cursor: default;">
             </div>
@@ -36,8 +39,8 @@ function enviarCorreo($mail, $name,$id)
             </div>
             <br><br><br><br>
             <center>
-                <img src="https://practicasuelbosuqe.azurewebsites.net/assets/images/logos/footer.png" alt="footer" style=" max-width: 100%; max-height: 100%;  "></center>
-        </div>
+            <img src=\'cid:logofooter\' alt="footer" style=" max-width: 100%; max-height: 100%;  "></center>
+            </div>
     </div>
 </div>
             ');

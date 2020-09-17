@@ -28,6 +28,7 @@ while($stmt -> fetch()) {
         $_SESSION['programa']=$programa;
         $_SESSION['semestre']=$semestre;
         $_SESSION['cod_hv']=$cod_hv;
+        $_SESSION['estado']=$estado;
         $_SESSION['foto']='default-user-image.png';
         $_SESSION['redirect']='studentHome.php';
         $primer_nombre=explode(' ',$nombre);

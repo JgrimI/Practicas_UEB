@@ -39,6 +39,7 @@ $semestre = $_POST["semestre"];
 $estado = $_POST["estado"];
 $pass = $_POST["pass"];
 $response = [];
+
 $sql = "UPDATE ESTUDIANTE  SET   password_estudiante='".$pass."' , cod_programa='".$programa."', semestre='".$semestre."', estado='".$estado."' WHERE nombre_completo = '".$nombre."' ;";
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){

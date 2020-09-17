@@ -119,7 +119,6 @@ if ($row=$r-> fetch_assoc()) {
     $cargo=$row["nombre_cargo"];
 }
 
-$mysqli3->close();
 if($est=="OFERTA"){
     enviarCorreoContrato($correo,$nomEstu,$cargo);
 }
@@ -148,8 +147,8 @@ if (!$mysqli->query($sql)) {
                 $otros=($aDoor[$i]==5) ? $_POST['otrosTxt'] : '';
                 $add="INSERT INTO DETALLE_RECHAZO VALUES (".$c.",".$e.",".$aDoor[$i].",'".$otros."');";
                 $mysqli2->query($add);
-                $sql = " SELECT motivo FROM MOTIVOS_RECHAZO WHERE cod_motivo = ".$aDoor[$i];
-                $r=$mysqli3->query($sql);
+                $sql2 = " SELECT motivo FROM MOTIVOS_RECHAZO WHERE cod_motivo = ".$aDoor[$i];
+                $r=$mysqli3->query($sql2);
                 if ($row=$r-> fetch_assoc()) {
                     $motivo=$row["motivo"];
                 }

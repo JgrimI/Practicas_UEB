@@ -73,8 +73,10 @@ window.onload=function(){
                     var estado = 'badge badge-primary';
                   }else if(data[i]["estado"]=="INSCRITO"){
                     estado='badge badge-success';
-                  }else if(data[i]["estado"]=="ASPIRANTE"){
+                  }else if(data[i]["estado"]=="REGISTRADO"){
                     estado='badge badge-dark';
+                  }else if(data[i]["estado"]=="CONTRATADO"){
+                    estado='badge badge-warning';
                   }else{
                     estado='badge badge-info';
                   }
@@ -180,7 +182,7 @@ window.onload=function(){
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets\images\profile\users\logoAdmin.jpg" alt="profile image">
           </div>
 
         </div>
@@ -218,10 +220,10 @@ window.onload=function(){
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
-          <div class="viewport-header">
+          <div class="viewport-header" style="margin-left: -2%;">
             <div class="row">
               <div class="col-12 py-5">
-                <h4>Estudiantes</h4>
+                <h4 style="margin-left: 2%; width: 100%;">Estudiantes</h4>
               </div>
             </div>       
           </div>

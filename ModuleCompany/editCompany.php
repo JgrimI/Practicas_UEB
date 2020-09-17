@@ -117,7 +117,7 @@
                             '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200" style="width:190%;">'+data[i]["descripcion_empresa"]+'</textarea>'+
                           '</div>'+
                         '</div>'+
-                                                                  
+                        '<div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;width: 70%;text-align: center;margin-left: 25%;"><strong>Error!</strong> Las contraseñas no coinciden</div><br>'+                                                                
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="pass">Contraseña</label>'+

@@ -231,7 +231,7 @@ function openModal(id, estado){
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="assets/images/profile/female/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="assets\images\profile\users\logoAdmin.jpg" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name"><?php echo $_SESSION['nombre'];?></p>
@@ -270,10 +270,10 @@ function openModal(id, estado){
       <!-- partial -->
       <div class="page-content-wrapper">
         <div class="page-content-wrapper-inner">
-          <div class="viewport-header">
+          <div class="viewport-header" style="margin-left: -2%;">
             <div class="row">
               <div class="col-12 py-5">
-                <h4>Empresas</h4>
+                <h4 style="margin-left: 2%; width: 100%;">Empresas</h4>
               </div>
             </div>       
           </div>

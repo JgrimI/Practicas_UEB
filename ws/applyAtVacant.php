@@ -92,8 +92,9 @@ if (!$mysqli->query($sql)) {
     }
 }else{
     
-$nomE=$_SESSION['nombre'];
+    $nomE=$_SESSION['nombre'];
     enviarCorreoContrato($correo,$nomEstu,$cargo,$nomE);
+    
     $response = array(
     'comment' => "Se agregó satisfactoriamente",
     'status' => 1
@@ -101,6 +102,7 @@ $nomE=$_SESSION['nombre'];
 }
 
 $mysqli->close();
+
 
 echo json_encode($response);
 

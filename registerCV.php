@@ -52,11 +52,6 @@ if (!isset($_SESSION['programa'])) {
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-        <!-- Dropify file input -->
-        <script src="assets/dist/js/dropify.min.js"></script>
-        <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
-
-
     </head>
     <style>
         body {
@@ -75,49 +70,37 @@ if (!isset($_SESSION['programa'])) {
         }
     </style>
     <script>
-        window.onload = function() {
-            dropify = $('.dropify').dropify({
-                messages: {
-                    'default': 'Arrastra el archivo o haz click aqui',
-                    'replace': 'Arrastra o clikea para remplazar',
-                    'remove': 'Quitar',
-                    'error': 'Ooops, algo a salido mal.'
-                }
-            });
-        };
         $(document).ready(function() {
 
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
 
             $(".nextInfPer").click(function() {
-                if (true) {
+                if (verifyInforPer()) {
                    siguiente($(this));  
                 }
             });
 
             $(".nextPerfilPro").click(function() {
-                if (true) {
+                if (verifyPerfilPro()) {
                     siguiente($(this));  
                 }
             });
             $(".nextFormAca").click(function() {
-                if (true) {
+                if (verifyFormAca()) {
                     siguiente($(this));  
                 }
             });
             $(".nextFormCom").click(function() {
-                if (true) {
-                    siguiente($(this));  
-                }
+                siguiente($(this));  
             });
             $(".nextExpAca").click(function() {
-                if (true) {
+                if (verifyExpAca()) {
                     siguiente($(this));  
                 }
             });
             $(".nextExpLab").click(function() {
-                if (true) {
+                if (verifyExpLab()) {
                     siguiente($(this)); 
                     $('#confirm').css('display', 'block');
                 
@@ -292,7 +275,7 @@ if (!isset($_SESSION['programa'])) {
 
         function verifyFormAca() {
             var semester = document.getElementById('semester').value;
-            var startDate = document.getElementById('startDate').value;
+            var startDate = document.getElementById('startDateAca').value;
 
             if (semester != '' && startDate != '') {
                 $('#alert_semester').css('display', 'none');
@@ -316,36 +299,166 @@ if (!isset($_SESSION['programa'])) {
             }
             return false;
         }
+                   
+        function verifyExpAca() {
 
-        function verifyFormCom() {
-            var languages = document.getElementById('languages').value;
-            var courses = document.getElementById('courses').value;
-
-            if (address != '' && residence != '') {
-                $('#alert_languages').css('display', 'none');
-                    $('#alert_courses').css('display', 'none');
+            var tituloP = document.getElementById('tituloP').value;
+            var materia = document.getElementById('materia').value;
+            var periodo = document.getElementById('periodo').value;
+            var expAca = document.getElementById('expAca').value;
+           
+            if (tituloP != '' && materia != '' && periodo != '' && expAca != '' ) {
+                $('#alert_tituloP').css('display', 'none');
+                $('#alert_materia').css('display', 'none');
+                $('#alert_periodo').css('display', 'none');
+                $('#alert_expAca').css('display', 'none');
                 return true;
             } else {
-                if (languages == '') {
-                    $('#alert_languages').html('<strong>Error!</strong> Debe ingresar su semestre actual');
-                    $('#alert_languages').css('display', 'block');
+                if (tituloP == '') {
+                    $('#alert_tituloP').html('<strong>Error!</strong> Debe ingresar el titulo del proyecto');
+                    $('#alert_tituloP').css('display', 'block');
                 } else {
-                    $('#alert_languages').css('display', 'none');
+                    $('#alert_tituloP').css('display', 'none');
                 }
-                if (courses == '') {
-                    $('#alert_courses').html('<strong>Error!</strong> Debe ingresar su semestre actual');
-                    $('#alert_courses').css('display', 'block');
+                if (materia == '') {
+                    $('#alert_materia').html('<strong>Error!</strong> Debe ingresar la materia');
+                    $('#alert_materia').css('display', 'block');
                 } else {
-                    $('#alert_courses').css('display', 'none');
+                    $('#alert_materia').css('display', 'none');
+                }
+                if (periodo == '') {
+                    $('#alert_periodo').html('<strong>Error!</strong> Debe ingresar el periodo en el que desarrollo el proyecto');
+                    $('#alert_periodo').css('display', 'block');
+                } else {
+                    $('#alert_periodo').css('display', 'none');
+                }
+                if (expAca == '') {
+                    $('#alert_expAca').html('<strong>Error!</strong> Debe ingresar la descripción de su experiencia');
+                    $('#alert_expAca').css('display', 'block');
+                } else {
+                    $('#alert_expAca').css('display', 'none');
                 }
                
             }
             return false;
         }
-          
+
+        function verifyExpLab() {
+       
+            var cargo = document.getElementById('cargo').value;
+            var company = document.getElementById('company').value;
+            var startDate = document.getElementById('startDate').value;
+            var endDate = document.getElementById('endDate').value;
+            var functions = document.getElementById('functions').value;
+           
+            if (cargo != '' && company != '' && startDate != '' && endDate != '' && functions != '' ) {
+                $('#alert_cargo').css('display', 'none');
+                $('#alert_company').css('display', 'none');
+                $('#alert_startDate').css('display', 'none');
+                $('#alert_endDate').css('display', 'none');
+                $('#alert_functions').css('display', 'none');
+                return true;
+            } else {
+                if (cargo == '') {
+                    $('#alert_cargo').html('<strong>Error!</strong> Debe ingresar el cargo');
+                    $('#alert_cargo').css('display', 'block');
+                } else {
+                    $('#alert_cargo').css('display', 'none');
+                }
+                if (company == '') {
+                    $('#alert_company').html('<strong>Error!</strong> Debe ingresar el nombre de compañia');
+                    $('#alert_company').css('display', 'block');
+                } else {
+                    $('#alert_company').css('display', 'none');
+                }
+                if (startDate == '') {
+                    $('#alert_startDate').html('<strong>Error!</strong> Debe ingresar la fecha de inicio ');
+                    $('#alert_startDate').css('display', 'block');
+                } else {
+                    $('#alert_startDate').css('display', 'none');
+                }
+                if (endDate == '') {
+                    $('#alert_endDate').html('<strong>Error!</strong> Debe ingresar la fecha de finalización o un estimado');
+                    $('#alert_endDate').css('display', 'block');
+                } else {
+                    $('#alert_endDate').css('display', 'none');
+                }
+                if (functions == '') {
+                    $('#alert_functions').html('<strong>Error!</strong> Debe ingresar la descripción de su experiencia academica');
+                    $('#alert_functions').css('display', 'block');
+                } else {
+                    $('#alert_functions').css('display', 'none');
+                }
+               
+            }
+            return false;
+        }
+
+        function verifyRefe() {
+                                                    
+            var nomRef1 = document.getElementById('nombreRef1').value;
+            var carRef1 = document.getElementById('cargoRef1').value;
+            var numRef1 = document.getElementById('numeroRef1').value;
+
+            var nomRef2 = document.getElementById('nombreRef2').value;
+            var carRef2 = document.getElementById('cargoRef2').value;
+            var numRef2 = document.getElementById('numeroRef2').value;
+
+            if (nomRef1 != '' && carRef1 != '' && numRef1 != '' && nomRef2 != '' && carRef2 != '' && numRef2 != '' ) {
+                
+                $('#alert_nombreRef1').css('display', 'none');
+                $('#alert_cargoRef1').css('display', 'none');
+                $('#alert_numeroRef1').css('display', 'none');
+
+                $('#alert_nombreRef2').css('display', 'none');
+                $('#alert_cargoRef2').css('display', 'none');
+                $('#alert_numeroRef2').css('display', 'none');
+                return true;
+
+            } else {
+                if (nomRef1 == '') {
+                    $('#alert_nombreRef1').html('<strong>Error!</strong> Debe ingresar el nombre en la referencia 1');
+                    $('#alert_nombreRef1').css('display', 'block');
+                } else {
+                    $('#alert_nombreRef1').css('display', 'none');
+                }
+                if (carRef1 == '') {
+                    $('#alert_cargoRef1').html('<strong>Error!</strong> Debe ingresar el cargo en la referencia 1');
+                    $('#alert_cargoRef1').css('display', 'block');
+                } else {
+                    $('#alert_cargoRef1').css('display', 'none');
+                }
+                if (numRef1 == '') {
+                    $('#alert_numeroRef1').html('<strong>Error!</strong> Debe ingresar el número de contacto en la referencia 1');
+                    $('#alert_numeroRef1').css('display', 'block');
+                } else {
+                    $('#alert_numeroRef1').css('display', 'none');
+                }
+                if (nomRef2 == '') {
+                    $('#alert_nombreRef2').html('<strong>Error!</strong> Debe ingresar el nombre en la referencia 2');
+                    $('#alert_nombreRef2').css('display', 'block');
+                } else {
+                    $('#alert_nombreRef2').css('display', 'none');
+                }
+                if (carRef2 == '') {
+                    $('#alert_cargoRef2').html('<strong>Error!</strong> Debe ingresar el cargo en la referencia 2');
+                    $('#alert_cargoRef2').css('display', 'block');
+                } else {
+                    $('#alert_cargoRef2').css('display', 'none');
+                }
+                if (numRef2 == '') {
+                    $('#alert_numeroRef2').html('<strong>Error!</strong> Debe ingresar número de contacto en la referencia 2');
+                    $('#alert_numeroRef2').css('display', 'block');
+                } else {
+                    $('#alert_numeroRef2').css('display', 'none');
+                }
+            }
+            return false;
+        }
+
         function regCV(){
             console.log("entro1");
-            if (true) {
+            if (verifyInforPer() && verifyPerfilPro() && verifyFormAca() && verifyExpAca() && verifyRefe()) {
             $.ajax({
                 type: "POST",
                 url: "ws/registerCurriculumVitae.php",
@@ -469,7 +582,7 @@ referencias
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_document" style="display:none;"></div>
                                                         <label for="document">Tipo de documento*</label>
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <select name="document" class="form-control" id="document" required  >
+                                                            <select name="document" class="form-control" id="document"  >
                                                                 <option value="">Seleccione el tipo de documento</option>
                                                                 <option value="cc">(CC) Cédula de Ciudadania</option>
                                                                 <option value="ce">(CE) Cédula de Extranjeria</option>
@@ -477,11 +590,11 @@ referencias
                                                         </div>
 
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_document_id" style="display:none;"></div>
-                                                        <input type="text" id="document_id" name="document_id" placeholder="Número de documento" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
+                                                        <input type="text" id="document_id" name="document_id" placeholder="Número de documento"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10"   min="1" max="100000000" class="form-control"
                                                             onkeypress="solonumeros(event);">
 
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_telephone" style="display:none;"></div>
-                                                        <input type="text" id="telephone" name="telephone" placeholder="Número Telefónico" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" required min="1" max="100000000" class="form-control"
+                                                        <input type="text" id="telephone" name="telephone" placeholder="Número Telefónico" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10"   min="1" max="100000000" class="form-control"
                                                             onkeypress="solonumeros(event);">
                                                             
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_residence" style="display:none;"></div>
@@ -491,14 +604,6 @@ referencias
                                                         <input type="text" name="address" id="address" placeholder="Dirección*" />                                                    
                                                        
                                                         <input type="text" style="background-color: #f4f4f4;" name="umail" value="<?php echo $correo;?>" disabled />
-
-                                                         <div class="form-group">
-                                                            <div class="alert alert-danger mb-0" role="alert" id="alert_photo" style="display:none;"></div>
-                                                            <label for="photo">Foto personal(Opcional)</label>
-                                                            <input type="file" class="form-control-file dropify" name="photo" id="photo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg">
-                                                        </div> 
-                                                        
-
                                                     </div>
                                                     <input type="button" name="next" class="nextInfPer action-button" value="Siguiente" />
                                                 </fieldset>
@@ -525,7 +630,7 @@ referencias
                                                         <input type="text" style="background-color: #f4f4f4;" name="carrera" id="carrera" value="<?php echo $carrera;?>" disabled/>
                                                        
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_semester" style="display:none;"></div>
-                                                        <input type="text" id="semester" name="semester" placeholder="Semestre" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" required min="1" max="20" class="form-control" onkeypress="solonumeros(event);">
+                                                        <input type="text" id="semester" name="semester" placeholder="Semestre" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2"   min="1" max="20" class="form-control" onkeypress="solonumeros(event);">
                                                        
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_startDate" style="display:none;"></div>
                                                         <label for="startDate">Fecha de inicio*</label>
@@ -540,11 +645,13 @@ referencias
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Formación Complementaria</h2> 
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
-                                                        <input type="text" name="languages" id="languages" placeholder="Idiomas*" />
+                                                        <input type="text" name="languages" id="languages" placeholder="Idiomas" />
                                                         
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_courses" style="display:none;"></div>
                                                         <input type="text" name="courses" id="courses" placeholder="Cursos, seminarios o talleres con certificado"/>
-                                                        
+                                                   
+                                                        <p>Nota: Si no cuenta con ningun tipo de formación complementaria puede pasar al siguiente paso.</p>
+                                                   
                                                     </div>
                                                     <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
                                                     <input type="button" name="next" class="nextFormCom action-button" value="Siguiente" />
@@ -555,14 +662,14 @@ referencias
                                                     <div class="form-card">
                                                         <h2 class="fs-title">Experiencia Academica</h2>
                                                        
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_titulo" style="display:none;"></div>
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_tituloP" style="display:none;"></div>
                                                         <input type="text" name="tituloP" id="tituloP" placeholder="Titulo del proyecto*" />
                                                        
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_materia" style="display:none;"></div>
                                                         <input type="text" name="materia" id="materia" placeholder="Marco de materia*" />
                                                    
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_perido" style="display:none;"></div>
-                                                        <input type="text" name="periodo" id="periodo" placeholder="Periodo Academico*" />
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_periodo" style="display:none;"></div>
+                                                        <input type="text" name="periodo" id="periodo" placeholder="Periodo Academico* ej: 2020-02" />
                                                        
                                                         <div class="alert alert-danger mb-0" role="alert" id="alert_expAca" style="display:none;"></div>
                                                         <textarea id="expAca" name="expAca" rows="10" cols="12" placeholder="Escriba aqui su experiencia academica"></textarea>
@@ -612,25 +719,27 @@ referencias
                                                 <fieldset>
                                                     <div class="form-card" style="text-align: center;">
                                                         <h2 class="fs-title">Referencias</h2> 
-                                                        <label for="startDate">Referencia 1</label>
+                                                        
+                                                       <label for="startDate">Referencia 1</label>
                                                       
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                       <div class="alert alert-danger mb-0" role="alert" id="alert_nombreRef1" style="display:none;"></div>
                                                         <input type="text" name="nombreRef1" id="nombreRef1" placeholder="Nombre*" />
                                                       
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargoRef1" style="display:none;"></div>
                                                         <input type="text" name="cargoRef1" id="cargoRef1" placeholder="Cargo*" />
                                                       
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_numeroRef1" style="display:none;"></div>
                                                         <input type="text" name="numeroRef1" id="numeroRef1" placeholder="Numero*" />
+                                                       
                                                         <label for="startDate">Referencia 2</label>
                                                       
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
-                                                        <input type="text" name="nombreRef2" id="nombreRef2" placeholder="Nombre*" />
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_nombreRef2" style="display:none;"></div>
+                                                      <input type="text" name="nombreRef2" id="nombreRef2" placeholder="Nombre*" />
                                                         
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_cargo" style="display:none;"></div>
+                                                      <div class="alert alert-danger mb-0" role="alert" id="alert_cargoRef2" style="display:none;"></div>
                                                         <input type="text" name="cargoRef2" id="cargoRef2" placeholder="Cargo*" />
                                                         
-                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_languages" style="display:none;"></div>
+                                                        <div class="alert alert-danger mb-0" role="alert" id="alert_numeroRef2" style="display:none;"></div>
                                                         <input type="text" name="numeroRef2" id="numeroRef2" placeholder="Numero*" />
                                                
                                                     </div>

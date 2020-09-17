@@ -15,7 +15,7 @@
   };
   
   function verifyPass(){
-    var pass=document.getElementById('pass').value;
+    var pass=document.getElementById('pass_1').value;
     var verify=document.getElementById('verify').value;
     if(pass==verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','none');
@@ -123,7 +123,7 @@
                             '<label for="pass">Contraseña</label>'+
                           '</div>'+
                           '<div class="col-md-20 showcase_content_area">'+
-                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass" name="pass" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();"  minlength="6" maxlength="12" style="width:180%;">'+
+                            '<input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pass_1" name="pass_1" required value ="'+data[i]["password_empresa"]+'" onchange="verifyPass();"  minlength="6" maxlength="12" style="width:180%;">'+
                           '</div>'+
                         '</div>'+
                         '<div class="form-group row showcase_row_area">'+

@@ -2,6 +2,7 @@
 require_once('assets/pdf/vendor/autoload.php');
 ob_start();
 include("ws/getCurriculumVitae.php");
+$html=ob_get_clean();
 $style = file_get_contents("assets/css/stylePDF.css");
 $mpdf = new \Mpdf\Mpdf([
 'mode' => 'utf-8',
@@ -14,6 +15,6 @@ $mpdf = new \Mpdf\Mpdf([
 'margin_footer' => 0,
 ]);
 $mpdf->WriteHTML($style,1);
-ob_clean(); 
+$mpdf->WriteHTML($html,2);
 $mpdf->Output();
 ?>

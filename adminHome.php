@@ -24,6 +24,7 @@ include('graficas.php');
     <!-- End vendor css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="assets/css/shared/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!-- endinject -->
     <!-- Layout style -->
     <link rel="stylesheet" href="assets/css/demo_1/style.css">
@@ -54,27 +55,38 @@ include('graficas.php');
    function verifyPass(){
     var pass=document.getElementById('pass').value;
     var verify=document.getElementById('passnew').value;
+    var passold=document.getElementById('passold').value;
     if(pass==verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','none');
       return true;
     }
     else if(pass!=verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','block');
+      $('#alert_ex').css('display','none');
+    }
+    else if(pass=='' || pass=='' || verify==''){
+      $('#alert_va').css('display','block');
+      $('#alert_ex').css('display','none');
     }else{
       $('#alert_pw').css('display','none');
+      $('#alert_va').css('display','none');
+      $('#alert_ex').css('display','none');
     }
     return false;
   }
-   function modAdmin(){
-    var passold=document.getElementById('passold').value;
+
+  function ocultar(){
+            $('#alert_pwo').css('display','none');
+  }
+   function modAdmin(pa){
     var pass=document.getElementById('pass').value;
-    if(verifyPass()){
+    if(verifyPass() && pa){
+
       $.ajax({
         type: "POST",
         url: "ws/modAdmin.php",
         data:{
                 'pass':pass,
-                'passold':passold
             },
         success: function (data) {
             console.log(data);
@@ -86,7 +98,10 @@ include('graficas.php');
                   'Se ha modificado la contraseña!!!',
                   'success'
                 ).then(function(){
-                  window.location='adminHome.php';
+                  $('#alert_pw').css('display','none');
+                  $('#alert_va').css('display','none');
+                  $('#alert_pwo').css('display','none');
+                  $("#seePassword").modal("hide");
                 })
             }else{
               if(data['error'] == 1062){
@@ -97,6 +112,36 @@ include('graficas.php');
                 )
               }
             }
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+    }
+    else{
+
+    }
+  }
+     function passCheck(){
+     var passold=document.getElementById('passold').value;
+     trigger=true
+     if(trigger){
+      $.ajax({
+        type: "POST",
+        url: "ws/currentpassCheck.php",
+        success: function (data) {
+            data = JSON.parse(data);
+            data = data["passes"];
+            if(passold == data[0]["password"]){
+              modAdmin(true);
+              trigger=false;
+            }
+            else{
+              $('#alert_ex').css('display','none');
+              $('#alert_pwo').css('display','block');
+              trigger=false;
+            }
+
         },
         error: function (data) {
             console.log(data);
@@ -333,14 +378,16 @@ include('graficas.php');
       </div>
       <!-- page content ends -->
     </div>
-    <form id="mod" action="javascript:void(0);" onsubmit="modAdmin();">
         <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
             <div class="modal-dialog ui-corner-all" role="document">
                 <div class="modal-content" id="modalBody" name="modalBody">
                    <div class="modal-body">
                     <div class="form-group">
+                      <div class="alert alert-success mb-0" role="alert" id="alert_ex" style="display:none;"><strong>Exito!</strong> Se cambio la contraseña!</div>
+                      <div class="alert alert-danger mb-0" role="alert" id="alert_va" style="display:none;"><strong>Error!</strong> Uno o mas de los campos estan vacios!</div>
+                      <div class="alert alert-danger mb-0" role="alert" id="alert_pwo" style="display:none;"><strong>Error!</strong> Contraseña equivocada!</div>
                         <center>Ingrese su contraseña</center><br>
-                        <input type="password" id="passold" name="passold" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
+                        <input onchange="ocultar();" type="password" id="passold" name="passold" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
                     </div>
                     <div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>
                     <div class="form-group">
@@ -354,12 +401,11 @@ include('graficas.php');
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Confirmar</button>
+                    <button type="submit" class="btn btn-success" onclick="passCheck();">Confirmar</button>
                 </div>
                 </div>
             </div>
         </div>
-      </form>
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->

@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -46,6 +47,8 @@ if( $_FILES["logo"]["name"]){
 $response = [];
 $addLogo=($logo=='') ? '' :', logo="'.$logo.'"';
 $sql = "UPDATE EMPRESA  SET  nombre='".$razon."', correo_empresa='".$email."' , descripcion_empresa='".$descripcion."', password_empresa='".$pass."' ".$addLogo." WHERE NIT = '".$nit."' ;";
+$_SESSION['nombre']=$razon;
+$_SESSION['correo']=$email;
 if (!$mysqli->query($sql)) {
     if($mysqli->errno == 1062){
         $response = array(

@@ -40,7 +40,7 @@ function enviarCorreoContrato($mailTo, $nombre,$cargo,$nomE)
                     </div>
                     <div style="margin-left: 10%; margin-right: 10%;"><br><br>
                         <p>El estudiante '.$nomE.' ha aplicado a la vacante '.$cargo.'</p>
-                        <p>Para mas detalles por favir revisar su perfil en la pagina principal.</p><br><br><br>
+                        <p>Para mas detalles por favor revisar su perfil en la pagina principal.</p><br><br><br>
                         <br><br>
                     </div>
                     <br><br><br><br>

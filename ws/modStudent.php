@@ -37,7 +37,7 @@ $correo = $_POST["email"];
 $programa = $_POST["program"];
 $semestre = $_POST["semestre"];
 $estado = $_POST["estado"];
-$pass = $_POST["pass"];
+$pass = $_POST["pass_1"];
 $response = [];
 
 $sql = "UPDATE ESTUDIANTE  SET   password_estudiante='".$pass."' , cod_programa='".$programa."', semestre='".$semestre."', estado='".$estado."' WHERE nombre_completo = '".$nombre."' ;";

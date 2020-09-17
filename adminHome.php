@@ -52,10 +52,11 @@ include('graficas.php');
     graf();
     getData();
   };
-   function verifyPass(){
+  function verifyPass(){
     var pass=document.getElementById('pass').value;
     var verify=document.getElementById('passnew').value;
     var passold=document.getElementById('passold').value;
+    console.log(pass+' '+verify);
     if(pass==verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','none');
       return true;
@@ -76,7 +77,7 @@ include('graficas.php');
   }
 
   function ocultar(){
-            $('#alert_pwo').css('display','none');
+    $('#alert_pwo').css('display','none');
   }
    function modAdmin(pa){
     var pass=document.getElementById('pass').value;
@@ -390,34 +391,34 @@ include('graficas.php');
       </div>
       <!-- page content ends -->
     </div>
-        <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
-            <div class="modal-dialog ui-corner-all" role="document">
-                <div class="modal-content" id="modalBody" name="modalBody">
-                   <div class="modal-body">
-                    <div class="form-group">
-                      <div class="alert alert-success mb-0" role="alert" id="alert_ex" style="display:none;"><strong>Exito!</strong> Se cambio la contraseña!</div>
-                      <div class="alert alert-danger mb-0" role="alert" id="alert_va" style="display:none;"><strong>Error!</strong> Uno o mas de los campos estan vacios!</div>
-                      <div class="alert alert-danger mb-0" role="alert" id="alert_pwo" style="display:none;"><strong>Error!</strong> Contraseña equivocada!</div>
-                        <center>Ingrese su contraseña</center><br>
-                        <input onchange="ocultar();" type="password" id="passold" name="passold" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
-                    </div>
-                    <div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>
-                    <div class="form-group">
-                        <center>Ingrese su nueva contraseña</center><br>
-                        <input type="password" id="passnew" name="passnew" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
-                    </div>
-                    <div class="form-group">
-                        <center>Confirme su contraseña</center><br>
-                        <input type="password" id="pass" name="pass" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
-                    </div>
+    <div class="modal fade" id="seePassword" tabindex="-1" role="dialog" aria-labelledby="addFavorite_modalLabel" aria-hidden="true">
+        <div class="modal-dialog ui-corner-all" role="document">
+            <div class="modal-content" id="modalBody" name="modalBody">
+                <div class="modal-body">
+                <div class="form-group">
+                  <div class="alert alert-success mb-0" role="alert" id="alert_ex" style="display:none;"><strong>Exito!</strong> Se cambio la contraseña!</div>
+                  <div class="alert alert-danger mb-0" role="alert" id="alert_va" style="display:none;"><strong>Error!</strong> Uno o mas de los campos estan vacios!</div>
+                  <div class="alert alert-danger mb-0" role="alert" id="alert_pwo" style="display:none;"><strong>Error!</strong> Contraseña equivocada!</div>
+                    <center>Ingrese su contraseña</center><br>
+                    <input onchange="ocultar();" type="password" id="passold" name="passold" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success" onclick="passCheck();">Confirmar</button>
+                <div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;"><strong>Error!</strong> Las contraseñas no coinciden</div>
+                <div class="form-group">
+                    <center>Ingrese su nueva contraseña</center><br>
+                    <input type="password" id="passnew" name="passnew" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;">
                 </div>
+                <div class="form-group">
+                    <center>Confirme su contraseña</center><br>
+                    <input type="password" id="pass" name="pass" class="form-control" style="max-width:70%;width:70%; margin-left:15%; text-align:center;" onchange="verifyPass();">
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-success" onclick="passCheck();">Confirmar</button>
+            </div>
+            </div>
         </div>
+    </div>
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->

@@ -97,7 +97,7 @@ $codigo=$_GET["codigo"];
               $('.dropify-clear').click();
               Swal.fire(
                   'Bien hecho!',
-                  'Se ha modificado la empresa de forma exitosa!!!',
+                  'Se ha modificado el estudiante de forma exitosa!!!',
                   'success'
                 ).then(function(){
                   window.location='adminStudents.php';
@@ -419,16 +419,19 @@ $codigo=$_GET["codigo"];
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
+          <div class="row" style="display:block;text-align:center;">
+            <div>
               <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                Powered By SoftHub Developments
               </ul>
             </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              
+            <div style="float:right;">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+              </ul>
             </div>
+            
           </div>
         </footer>
         <!-- partial -->

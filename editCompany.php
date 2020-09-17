@@ -41,11 +41,11 @@ $nit=$_GET["nit"];
     <!-- Layout style -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="assets/vendors/js/core.js"></script>
 
     <!-- Dropify file input -->
     <script src="assets/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" href="assets/dist/css/dropify.min.css">
-
 
   </head>
 
@@ -84,6 +84,7 @@ $nit=$_GET["nit"];
   function verifyPass(){
     var pass=document.getElementById('pass').value;
     var verify=document.getElementById('verify').value;
+    console.log('entra? verify');
     if(pass==verify && pass!='' && verify!=''){
       $('#alert_pw').css('display','none');
       return true;
@@ -184,7 +185,7 @@ $nit=$_GET["nit"];
                             '<textarea class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="descrip" name="descrip" required maxlength="1200" style="width:190%;">'+data[i]["descripcion_empresa"]+'</textarea>'+
                           '</div>'+
                         '</div>'+
-                                                                  
+                        '<div class="alert alert-danger mb-0" role="alert" id="alert_pw" style="display:none;width: 70%;text-align: center;margin-left: 25%;"><strong>Error!</strong> Las contraseñas no coinciden</div><br>'+                                         
                         '<div class="form-group row showcase_row_area">'+
                           '<div class="col-md-5 showcase_text_area">'+
                             '<label for="pass">Contraseña</label>'+
@@ -207,7 +208,7 @@ $nit=$_GET["nit"];
                             '<label for="logo">Logo de la empresa:</label>'+
                           '</div>'+
                           '<div class="col-md-5 showcase_content_area">'+                  
-                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="assets/images/logos/'+data[i]["logo"]+'" required>'+
+                            '<input type="file" class="form-control-file dropify" name="logo" id="logo" accept=".png,.jpeg,.jpg" data-allowed-file-extensions="png jpeg jpg" data-default-file="assets/images/logos/'+data[i]["logo"]+'">'+
                           '</div>'+
                          '</div>'+
                        '</div>';
@@ -249,49 +250,6 @@ $nit=$_GET["nit"];
             <i class="mdi mdi-menu"></i>
           </button>
           <ul class="nav ml-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-bell-outline mdi-1x"></i>
-              </a>
-              <div class="dropdown-menu navbar-dropdown dropdown-menu-right" aria-labelledby="notificationDropdown">
-                <div class="dropdown-header">
-                  <h6 class="dropdown-title">Notifications</h6>
-                  <p class="dropdown-title-text">You have 4 unread notification</p>
-                </div>
-                <div class="dropdown-body">
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-primary text-primary">
-                      <i class="mdi mdi-alert"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Storage Full</small>
-                      <small class="content-text">Server storage almost full</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-success text-success">
-                      <i class="mdi mdi-cloud-upload"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Upload Completed</small>
-                      <small class="content-text">3 Files uploded successfully</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-list">
-                    <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                      <i class="mdi mdi-security"></i>
-                    </div>
-                    <div class="content-wrapper">
-                      <small class="name">Authentication Required</small>
-                      <small class="content-text">Please verify your password to continue using cloud services</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="dropdown-footer">
-                  <a href="#">View All</a>
-                </div>
-              </div>
-            </li>
             <li class="nav-item dropdown">
               <a class="nav-link" href="#" id="appsDropdown" data-toggle="dropdown" aria-expanded="false">
                 <i class="mdi mdi-apps mdi-1x"></i>
@@ -407,22 +365,30 @@ $nit=$_GET["nit"];
         <!-- content viewport ends -->
         <!-- partial:../partials/_footer.html -->
         <footer class="footer">
-          <div class="row">
-            <div class="col-sm-6 text-center text-sm-right order-sm-1">
+          <div class="row" style="display:block;text-align:center;">
+            <div>
               <ul class="text-gray">
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                Powered By SoftHub Developments
               </ul>
             </div>
-            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
-              
+            <div style="float:right;">
+              <ul>
+                <li><a href="#">Terminos de uso</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+              </ul>
             </div>
+            
           </div>
         </footer>
         <!-- partial -->
       </div>
       <!-- page content ends -->
     </div>
+    <!--  <script src="assets/vendors/js/vendor.addons.js"></script>-->
+     <script src="assets/js/charts/chartjs.js"></script>
+    <script src="assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <!-- build:js -->
     <!--  -->
   </body>
 </html>

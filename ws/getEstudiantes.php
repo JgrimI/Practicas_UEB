@@ -1,14 +1,24 @@
 <?php
 include_once('../persistencia/db.php');
-$query = "SELECT cod_estudiante, nombre_completo,password_estudiante, correo_estudiante, numero_solicitudes, nom_programa, semestre, estado, num_ingresos, cod_HV from ESTUDIANTE,PROGRAMA WHERE ESTUDIANTE.cod_programa = PROGRAMA.cod_programa";
+$query = "SELECT cod_estudiante, nombre_completo,password_estudiante, correo_estudiante, nom_programa, semestre, estado, num_ingresos, cod_HV from ESTUDIANTE,PROGRAMA WHERE ESTUDIANTE.cod_programa = PROGRAMA.cod_programa";
 
 $stmt = $mysqli->prepare($query);
 $stmt -> execute();
-$stmt -> bind_result($id,$nombre,$password,$correo,$num_solicitudes,$programa,$semestre,$estado,$num_ingresos,$HV);
+$stmt -> bind_result($id,$nombre,$password,$correo,$programa,$semestre,$estado,$num_ingresos,$HV);
 
 $rta="";
 $estudiantes=array();
 while($stmt -> fetch()) {
+    $sql = "SELECT COUNT(*) FROM DETALLE WHERE cod_estudiante=".$id;
+
+    $stmt2 = $mysqli2->prepare($sql);
+    $stmt2 -> execute();
+    $stmt2 -> bind_result($ingresos);
+
+    $num_solicitudes=0;
+    while($stmt2 -> fetch()) {
+        $num_solicitudes=$ingresos;
+    }
     $aux=1;
     $estudiante=array(
         "cod_estudiante" => $id,
@@ -37,5 +47,7 @@ if(count($estudiantes)>0){
     );
 }
 $stmt->close();
+$stmt2->close();
+
 echo json_encode($response);
 ?>

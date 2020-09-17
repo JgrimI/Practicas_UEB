@@ -358,7 +358,7 @@ include('graficas.php');
                 <div class="grid-body">
                   <h2 class="grid-title">Estadistica de los rechazos</h2>
                   <div class="item-wrapper">
-                    <canvas id="motivo-rechazo-graph" width="1200" height="400"></canvas>
+                    <canvas id="motivo-rechazo-graph" width="1200" height="600"></canvas>
                   </div>
                 </div>
               </div>

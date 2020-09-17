@@ -40,7 +40,7 @@ function enviarCorreo($mail, $name,$id)
            <div style="margin-left: 10%; margin-right: 10%;"><br><br>
                <p>Te informamos que tu empresa '.$name.' fue rechazada para unirse al portal de practicas de la Universidad El Bosque.</p>
                <p>Para poder usar todos nuestros servicios por favor haz click en el siguiente boton para volver a enviar los archivos necesarios para la verificación.</p><br><br><br>
-               <center><a href="localhost/Practicas_UEB/verifyCompany.php?id='.base64_encode($id).'" style="background-color:#f3984d;border:10px solid #f3984d;text-decoration:none;color:#fff" target="_blank">Activar Cuenta</a></center>
+               <center><a href="https://practicasueb.azurewebsites.net/verifyCompany.php?id='.base64_encode($id).'" style="background-color:#f3984d;border:10px solid #f3984d;text-decoration:none;color:#fff" target="_blank">Activar Cuenta</a></center>
                <br><br>
            </div>
            <br><br><br><br>
